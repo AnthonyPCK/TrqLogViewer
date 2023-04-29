@@ -7,11 +7,12 @@ import pandas as pd
 CSV = pd.read_csv('trackLog-2021-oct.-28_13-55-24.csv',na_values="-")  
 CSV_num = CSV.select_dtypes(include=[float])
 
-A=CSV_num.columns
-df1 = pd.DataFrame(data=A, columns=['Channel'])
+A1=CSV_num.columns
+df1 = pd.DataFrame(data=A1, columns=['Channel'])
 df1['Plot'] = False
 
-df2 = pd.DataFrame(data=A, columns=['Channel'])
+A2=CSV_num.columns
+df2 = pd.DataFrame(data=A2, columns=['Channel'])
 df2['Plot'] = False
 
 edited_column1 = st.experimental_data_editor(df1)
