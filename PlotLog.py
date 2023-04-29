@@ -17,7 +17,7 @@ CSV_num = CSV.select_dtypes(include=[float, int])
 
 A1=CSV_num.columns
 df1 = pd.DataFrame(data=A1, columns=['Channel1'])
-df1['Plot1'] = False
+df1['Plot1'] = True
 
 A2=CSV_num.columns
 df2 = pd.DataFrame(data=A2, columns=['Channel2'])
