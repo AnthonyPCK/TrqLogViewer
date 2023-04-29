@@ -1,16 +1,20 @@
 import streamlit as st
 import numpy as np
 from matplotlib import pyplot as plt
+import pandas as pd
 
+df = pd.DataFrame(
+    [
+       {"command": "st.selectbox", "rating": 4, "is_widget": True},
+       {"command": "st.balloons", "rating": 5, "is_widget": False},
+       {"command": "st.time_input", "rating": 3, "is_widget": True},
+   ]
+)
+edited_df = st.experimental_data_editor(df)
 
-dataframe = np.random.randn(10, 20)
-st.dataframe(dataframe)
+favorite_command = edited_df.loc[edited_df["rating"].idxmax()]["command"]
+st.markdown(f"Your favorite command is **{favorite_command}** 🎈")
 
-arr = np.random.normal(1, 1, size=100)
-fig, ax = plt.subplots()
-ax.hist(arr, bins=20)
-
-st.pyplot(fig)
 
 
 Z = np.arange(1000,12000,1000)
