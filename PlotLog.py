@@ -12,7 +12,7 @@ df = pd.DataFrame(
 )
 edited_df = st.experimental_data_editor(df)
 
-favorite_command = edited_df.loc[edited_df["rating"].idxmax()]["command"]
+favorite_command = edited_df.loc[edited_df["Value"].idxmax()]["Coef"]
 st.markdown(f"Your favorite command is **{favorite_command}** 🎈")
 
 
