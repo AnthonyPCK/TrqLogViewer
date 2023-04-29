@@ -27,6 +27,6 @@ NbCol = len(A)
 
 
 
-fig = px.line(CSV, x=CSV.index, y=CSV.columns, color="Chanel")
+fig = px.line(CSV, x=CSV.index, y=CSV.columns)
 
 st.plotly_chart(fig, use_container_width=True)
