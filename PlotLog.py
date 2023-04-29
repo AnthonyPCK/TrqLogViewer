@@ -91,4 +91,5 @@ Ayh=CSV_num.columns
 optionyh = st.selectbox(
     'Ordonnée',
     Ayh)
-px.density_heatmap(CSV_num, x=optionxh, y=optionyh, nbinsx=100, nbinsy=100)
+figxHist = px.density_heatmap(CSV_num, x=optionxh, y=optionyh, nbinsx=100, nbinsy=100)
+st.plotly_chart(figxHist, use_container_width=True)
