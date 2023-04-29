@@ -28,3 +28,17 @@ st.plotly_chart(fig1, use_container_width=True)
 
 fig2 = px.line(CSV_num_f2, x=CSV_num_f2.index, y=CSV_num_f2.columns)
 st.plotly_chart(fig2, use_container_width=True)
+
+
+
+Ax=CSV_num.columns
+dfx = pd.DataFrame(data=Ax, columns=['Channelx'])
+dfx['Plotx'] = False
+
+
+edited_columnx = st.experimental_data_editor(dfx)
+df_fx = edited_columnx[edited_columnx['Plotx']]
+CSV_num_fx = CSV_num.filter(items=df_fx['Channelx'])
+
+figx = px.line(CSV_num_fx, x=CSV_num_fx.index, y=CSV_num_fx.columns)
+st.plotly_chart(figx, use_container_width=True)
