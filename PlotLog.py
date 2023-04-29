@@ -34,7 +34,7 @@ st.plotly_chart(fig2, use_container_width=True)
 
 Ax=CSV_num.columns
 option = st.selectbox(
-    'X channel',
+    'Choisir le signal que vous souhaitez en abscisse',
     Ax)
 #dfx = pd.DataFrame(data=Ax, columns=['Channelx'])
 #dfx['Plotx'] = False
@@ -44,9 +44,6 @@ option = st.selectbox(
 #df_fy = edited_columnx[edited_columnx['Plotx']==False]
 #CSV_num_fy = CSV_num.filter(items=df_fy['Channelx'])
 
-
-
-st.write('You selected:', option)
 
 figx = px.scatter(CSV_num, x=option, y=CSV_num.columns)
 st.plotly_chart(figx, use_container_width=True)
