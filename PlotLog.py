@@ -47,5 +47,5 @@ st.write("toto")
 st.write(CSV_num_fx.columns.values[0])
 
 
-figx = px.line(CSV_num, x=CSV_num_fx.columns.values[0], y=CSV_num_fy.columns.values)
+figx = px.scatter(CSV_num, x=CSV_num_fx.columns.values[0], y=CSV_num_fy.columns.values)
 st.plotly_chart(figx, use_container_width=True)
