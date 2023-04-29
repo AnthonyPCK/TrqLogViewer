@@ -45,7 +45,7 @@ df_f1 = edited_column1[edited_column1['Plot1']]
 CSV_num_f1 = CSV_num.filter(items=df_f1['Channel1'])
 
 '''
-## Choisir les voies à afficher dans la figure 1 :
+## Choisir les voies à afficher dans la figure 2 :
 '''
 
 edited_column2 = st.experimental_data_editor(df2)
@@ -80,4 +80,15 @@ figx = px.scatter(CSV_num, x=option, y=CSV_num.columns)
 st.plotly_chart(figx, use_container_width=True)
 
 
-
+'''
+## Tracer des signaux en fonction d'un autre sur un bi-histogramme :
+'''
+Axh=CSV_num.columns
+optionxh = st.selectbox(
+    'Choisir le signal que vous souhaitez en abscisse',
+    Axh)
+Ayh=CSV_num.columns
+optionyh = st.selectbox(
+    'Choisir le signal que vous souhaitez en ordonnée',
+    Ayh)
+px.density_heatmap(df, CSV_num, x=optionxh, y=optionyh, nbinsx=100, nbinsy=100)
