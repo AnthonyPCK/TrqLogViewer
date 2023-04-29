@@ -5,8 +5,8 @@ import pandas as pd
 
 
 
-df = pd.DataFrame([1.45, 1.1, -0.1, -1, -0.5, -50, 1.5],
-     index=['Pcy1', 'Pdy1', 'Pdy2', 'Pey1', 'Pey2', 'Pky1', 'Pky2'],
+df = pd.DataFrame([5000, 1.45, 1.1, -0.1, -1, -0.5, -50, 1.5],
+     index=['Fnomin', 'Pcy1', 'Pdy1', 'Pdy2', 'Pey1', 'Pey2', 'Pky1', 'Pky2'],
      columns=['Val'])
 
 edited_df = st.experimental_data_editor(df)
@@ -15,7 +15,7 @@ edited_df = st.experimental_data_editor(df)
 Z = np.arange(1000,12000,1000)
 SA = np.arange(-15,15,1)
 
-Fnomin = 5000
+Fnomin = edited_df.loc['Fnomin', 'Val']
 
 #def f(Pky1, Pky2, Pdy1, Pdy2, Pcy1, Pey1, Pey2):
 Pcy1 = edited_df.loc['Pcy1', 'Val']
