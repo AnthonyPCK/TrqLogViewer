@@ -7,20 +7,29 @@ import plotly.express as px
 import pandas as pd
 
 '''
-# This is the document title
+# Viewer de fichier CSV
 
-This is some _markdown_.
+## Choisir un type de delimiter :
 '''
 
 TypeDelim = st.text_input('Type de delimiter du fichier CSV (\s+ , ou ; )', ',')
 
-uploaded_file = st.file_uploader("Choisir un fichier CSV")
+
+'''
+## Choisir un fichier CSV :
+'''
+uploaded_file = st.file_uploader(" ")
 if uploaded_file is not None:
     CSV = pd.read_csv(uploaded_file,na_values="-",delimiter=TypeDelim)
 else:
-    st.write("Exemple d'un fichier CSV")
+    '''
+    ## Exemple d'un fichier CSV :
+    '''
     CSV = pd.read_csv('trackLog-2021-oct.-28_13-55-24.csv',na_values="-",delimiter=TypeDelim)  
 
+'''
+## Choisir les voies à afficher dans la figure 1 :
+'''
 CSV_num = CSV.select_dtypes(include=[float, int])
 
 A1=CSV_num.columns
@@ -35,6 +44,10 @@ edited_column1 = st.experimental_data_editor(df1)
 df_f1 = edited_column1[edited_column1['Plot1']]
 CSV_num_f1 = CSV_num.filter(items=df_f1['Channel1'])
 
+'''
+## Choisir les voies à afficher dans la figure 1 :
+'''
+
 edited_column2 = st.experimental_data_editor(df2)
 df_f2 = edited_column2[edited_column2['Plot2']]
 CSV_num_f2 = CSV_num.filter(items=df_f2['Channel2'])
@@ -47,7 +60,9 @@ fig2 = px.line(CSV_num_f2, x=CSV_num_f2.index, y=CSV_num_f2.columns)
 st.plotly_chart(fig2, use_container_width=True)
 
 
-
+'''
+## Tracer des signaux en fonction d'un autre :
+'''
 Ax=CSV_num.columns
 option = st.selectbox(
     'Choisir le signal que vous souhaitez en abscisse',
