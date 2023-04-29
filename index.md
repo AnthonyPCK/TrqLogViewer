@@ -24,3 +24,9 @@ Liste à cocher:
 > Markdown utilise les caractères à la manière des emails pour faire des citations en bloc.
 >
 > Chacun des paragraphes doivent être précédés par ce caractère.
+
+| Titre 1       |     Titre 2     |        Titre 3 |
+| :------------ | :-------------: | -------------: |
+| Colonne       |     Colonne     |        Colonne |
+| Alignée à     |   Alignée au    |      Alignée à |
+| Gauche        |     Centre      |         Droite |
