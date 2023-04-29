@@ -14,23 +14,6 @@ edited_column = st.experimental_data_editor(df)
 
 
 
-A = CSV.columns
-NbCol = len(A)
-
-#for i in A:
-#    NomCol = i
-#    ValCol = CSV.get(NomCol)
-#    
-#    f = mpl.pyplot.figure(figsize=(8,6))
-#    ax = f.add_subplot(111)#    
-#    ax.plot(ValCol, '-')
-#    ax.grid()
-#    ax.set_title(NomCol)
-#    #ax.set_xlabel("Z [N]")
-#    st.pyplot(f)
-
-
-
 
 fig = px.line(CSV_num, x=CSV_num.index, y=CSV_num.columns)
 
