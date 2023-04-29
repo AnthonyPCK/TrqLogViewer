@@ -10,6 +10,11 @@ df = pd.DataFrame(
        {"Coef": "Pdy2", "Value": 3},
    ]
 )
+
+df = pd.DataFrame([40,1, 5, 3],
+     index=['cobra', 'viper', 'sidewinder'],
+     columns=['Val'])
+
 edited_df = st.experimental_data_editor(df)
 
 favorite_command = edited_df.loc[edited_df["Value"].idxmax()]["Coef"]
