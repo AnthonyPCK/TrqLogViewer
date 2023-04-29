@@ -24,6 +24,6 @@ NbCol = len(A)
 #    #ax.set_xlabel("Z [N]")
 #    st.pyplot(f)
 
-fig = px.line(CSV.get(A(10)), x="Index", y="Data", color="Chanel")
+fig = px.line(CSV.get(A[10]), x="Index", y="Data", color="Chanel")
 
 st.plotly_chart(fig, use_container_width=True)
