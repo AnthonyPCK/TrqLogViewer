@@ -12,9 +12,7 @@ df = pd.DataFrame(data=A, columns=['Channel'])
 df['Plot'] = True
 edited_column = st.experimental_data_editor(df)
 
-df = pd.DataFrame(data=A, columns=['Channel'])
-df['Plot'] = False
-df_f = df[df['Plot']]
+df_f = edited_column[edited_column['Plot']]
 CSV_num_f1 = CSV_num.filter(items=df_f['Channel'])
 
 fig = px.line(CSV_num_f1, x=CSV_num_f1.index, y=CSV_num_f1.columns)
