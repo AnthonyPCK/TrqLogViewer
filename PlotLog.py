@@ -1,3 +1,9 @@
+'''
+# This is the document title
+
+This is some _markdown_.
+'''
+
 import streamlit as st
 import numpy as np
 import matplotlib as mpl
