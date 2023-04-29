@@ -8,14 +8,17 @@ CSV = pd.read_csv('trackLog-2021-oct.-28_13-55-24.csv',na_values="-")
 CSV_num = CSV.select_dtypes(include=[float])
 
 A=CSV_num.columns
-df = pd.DataFrame(data=A, columns=['Channel'])
-df['Plot'] = False
+df1 = pd.DataFrame(data=A, columns=['Channel'])
+df1['Plot'] = False
 
-edited_column1 = st.experimental_data_editor(df)
+df2 = pd.DataFrame(data=A, columns=['Channel'])
+df2['Plot'] = False
+
+edited_column1 = st.experimental_data_editor(df1)
 df_f1 = edited_column1[edited_column1['Plot']]
 CSV_num_f1 = CSV_num.filter(items=df_f1['Channel'])
 
-edited_column2 = st.experimental_data_editor(df)
+edited_column2 = st.experimental_data_editor(df2)
 df_f2 = edited_column2[edited_column2['Plot']]
 CSV_num_f2 = CSV_num.filter(items=df_f2['Channel'])
 
