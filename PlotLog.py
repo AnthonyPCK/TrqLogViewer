@@ -5,7 +5,8 @@ import plotly.express as px
 import pandas as pd
 
 
-#mpl.rc('figure', max_open_warning = 0)
+CSV.columns
+edited_column = st.experimental_data_editor(CSV.columns)
 
 CSV = pd.read_csv('trackLog-2021-oct.-28_13-55-24.csv',na_values="-")  
 CSV_num = CSV.select_dtypes(include=[float])
