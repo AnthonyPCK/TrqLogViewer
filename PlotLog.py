@@ -23,6 +23,8 @@ edited_column2 = st.experimental_data_editor(df2)
 df_f2 = edited_column2[edited_column2['Plot2']]
 CSV_num_f2 = CSV_num.filter(items=df_f2['Channel2'])
 
+print(CSV_num_f1.columns)
+
 fig1 = px.line(CSV_num_f1, x=CSV_num_f1.index, y=CSV_num_f1.columns)
 st.plotly_chart(fig1, use_container_width=True)
 
