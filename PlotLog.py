@@ -48,5 +48,5 @@ option = st.selectbox(
 
 st.write('You selected:', option)
 
-figx = px.scatter(CSV_num, x=option, y=CSV_num_fy.columns.values)
+figx = px.scatter(CSV_num, x=option, y=CSV_num.columns)
 st.plotly_chart(figx, use_container_width=True)
