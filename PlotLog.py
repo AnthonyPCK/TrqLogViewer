@@ -4,14 +4,15 @@ import matplotlib as mpl
 import plotly.express as px
 import pandas as pd
 
+CSV = pd.read_csv('trackLog-2021-oct.-28_13-55-24.csv',na_values="-")  
+CSV_num = CSV.select_dtypes(include=[float])
 
-A=CSV.columns
+A=CSV_num.columns
 df = pd.DataFrame(data=A, columns=['Channel'])
 df['Plot'] = True
 edited_column = st.experimental_data_editor(df)
 
-CSV = pd.read_csv('trackLog-2021-oct.-28_13-55-24.csv',na_values="-")  
-CSV_num = CSV.select_dtypes(include=[float])
+
 
 A = CSV.columns
 NbCol = len(A)
