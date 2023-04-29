@@ -9,12 +9,18 @@ CSV_num = CSV.select_dtypes(include=[float])
 
 A=CSV_num.columns
 df = pd.DataFrame(data=A, columns=['Channel'])
-df['Plot'] = True
-edited_column = st.experimental_data_editor(df)
+df['Plot'] = False
 
-df_f = edited_column[edited_column['Plot']]
-CSV_num_f1 = CSV_num.filter(items=df_f['Channel'])
+edited_column1 = st.experimental_data_editor(df)
+df_f1 = edited_column1[edited_column1['Plot']]
+CSV_num_f1 = CSV_num.filter(items=df_f1['Channel'])
 
-fig = px.line(CSV_num_f1, x=CSV_num_f1.index, y=CSV_num_f1.columns)
+edited_column2 = st.experimental_data_editor(df)
+df_f2 = edited_column2[edited_column2['Plot']]
+CSV_num_f2 = CSV_num.filter(items=df_f2['Channel'])
 
-st.plotly_chart(fig, use_container_width=True)
+fig1 = px.line(CSV_num_f1, x=CSV_num_f1.index, y=CSV_num_f1.columns)
+st.plotly_chart(fig1, use_container_width=True)
+
+fig2 = px.line(CSV_num_f2, x=CSV_num_f2.index, y=CSV_num_f2.columns)
+st.plotly_chart(fig2, use_container_width=True)
