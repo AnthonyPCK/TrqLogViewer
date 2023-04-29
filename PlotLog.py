@@ -23,7 +23,6 @@ edited_column2 = st.experimental_data_editor(df2)
 df_f2 = edited_column2[edited_column2['Plot2']]
 CSV_num_f2 = CSV_num.filter(items=df_f2['Channel2'])
 
-print(CSV_num_f1.columns)
 
 fig1 = px.line(CSV_num_f1, x=CSV_num_f1.index, y=CSV_num_f1.columns)
 st.plotly_chart(fig1, use_container_width=True)
@@ -44,7 +43,7 @@ CSV_num_fx = CSV_num.filter(items=df_fx['Channelx'])
 df_fy = edited_columnx[edited_columnx['Plotx']==False]
 CSV_num_fy = CSV_num.filter(items=df_fy['Channelx'])
 
-print(CSV_num_fx.columns)
+st.write(CSV_num_fx.columns)
 
-figx = px.scatter(CSV_num, x=CSV_num_fx.columns, y=CSV_num_fy.columns)
-st.plotly_chart(figx, use_container_width=True)
+#figx = px.scatter(CSV_num, x=CSV_num_fx.columns, y=CSV_num_fy.columns)
+#st.plotly_chart(figx, use_container_width=True)
