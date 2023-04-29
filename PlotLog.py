@@ -5,6 +5,11 @@ import pandas as pd
 
 
 
+dfLoad = pd.DataFrame([2000, 8000, 15000],
+     columns=['Val'])
+
+edited_dfLoad = st.experimental_data_editor(dfLoad, num_rows="dynamic")
+
 df = pd.DataFrame([5000, 1.45, 1.1, -0.1, -1, -0.5, -50, 1.5],
      index=['Fnomin', 'Pcy1', 'Pdy1', 'Pdy2', 'Pey1', 'Pey2', 'Pky1', 'Pky2'],
      columns=['Val'])
@@ -43,7 +48,7 @@ ax3.grid()
 ax3.set_title("Mu(Z)")
 ax3.set_xlabel("Z [N]")
 
-for Fz in [2000, 5000, 8000, 11000]:
+for Fz in edited_dfLoad.values:
     D = (Pdy1 + Pdy2*(Fz-Fnomin)/Fnomin)*Fz
     B = Pky1*Fnomin*np.sin(2*np.arctan(Fz/(Pky2*Fnomin)))/D/Pcy1
     E = Pey1 + Pey2*(Fz-Fnomin)/Fnomin
