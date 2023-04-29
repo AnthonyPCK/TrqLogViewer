@@ -1,7 +1,7 @@
 import streamlit as st
 import numpy as np
 import matplotlib as mpl
-import plotly.figure_factory as ff
+import plotly.express as px
 import pandas as pd
 
 
@@ -24,6 +24,6 @@ NbCol = len(A)
 #    #ax.set_xlabel("Z [N]")
 #    st.pyplot(f)
 
-fig = ff.line(CSV, x="Index", y="Data", color='Chanel')
+fig = px.line(CSV, x="Index", y="Data", color='Chanel')
 
 st.plotly_chart(fig, use_container_width=True)
