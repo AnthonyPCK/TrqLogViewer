@@ -6,7 +6,7 @@ import pandas as pd
 
 
 df = pd.DataFrame([1.45, 1.1, -0.1, -1, 0.5, -50, 1.5],
-     index=['Pcy1', 'Pdy1', 'Pdy2', 'Pey1', 'Pey2', 'Pky1', 'pky2'],
+     index=['Pcy1', 'Pdy1', 'Pdy2', 'Pey1', 'Pey2', 'Pky1', 'Pky2'],
      columns=['Val'])
 
 edited_df = st.experimental_data_editor(df)
