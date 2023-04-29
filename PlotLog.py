@@ -4,6 +4,8 @@ import matplotlib as mpl
 import plotly.express as px
 import pandas as pd
 
+
+
 CSV = pd.read_csv('trackLog-2021-oct.-28_13-55-24.csv',na_values="-")  
 CSV_num = CSV.select_dtypes(include=[float])
 
@@ -47,3 +49,10 @@ option = st.selectbox(
 
 figx = px.scatter(CSV_num, x=option, y=CSV_num.columns)
 st.plotly_chart(figx, use_container_width=True)
+
+
+uploaded_file = st.file_uploader("Choose a file")
+if uploaded_file is not None:
+    # To read file as bytes:
+    bytes_data = uploaded_file.getvalue()
+    st.write(bytes_data)
