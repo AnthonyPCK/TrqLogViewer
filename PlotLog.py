@@ -146,5 +146,5 @@ def history(self, period="1mo", interval="1d",
 goog = yf.Ticker(NomAct1)
 data = goog.history()
 st.write(data.head())
-figAction = px.line(data, x="Date", y="Close")
+figAction = px.line(data, x='Date', y='Close')
 st.plotly_chart(figAction, use_container_width=True)
