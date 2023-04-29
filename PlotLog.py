@@ -8,8 +8,10 @@ uploaded_file = st.file_uploader("Choisir un fichier CSV")
 if uploaded_file is not None:
     CSV = pd.read_csv(uploaded_file)
 else:
+    st.write("Exemple d'un fichier CSV")
     CSV = pd.read_csv('trackLog-2021-oct.-28_13-55-24.csv',na_values="-")  
-    CSV_num = CSV.select_dtypes(include=[float])
+
+CSV_num = CSV.select_dtypes(include=[float])
 
 A1=CSV_num.columns
 df1 = pd.DataFrame(data=A1, columns=['Channel1'])
