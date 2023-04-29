@@ -100,7 +100,7 @@ st.plotly_chart(figxHist, use_container_width=True)
 import yfinance as yf
 NomAct1 = st.text_input('ID de l''action :', 'ML.PA')
 
-def history(self, period="1mo", interval="1d",
+def history(self, period="max", interval="1d",
             start=None, end=None, prepost=False, actions=True,
             auto_adjust=True, back_adjust=False,
             proxy=None, rounding=False, tz=None, timeout=None, **kwargs):
