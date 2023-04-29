@@ -4,7 +4,7 @@ import matplotlib as mpl
 import plotly.express as px
 import pandas as pd
 
-TypeDelim = st.text_input('Type de delimiter du fichier CSV ( \s+ ou , ou ; ), ',')
+TypeDelim = st.text_input('Type de delimiter du fichier CSV ( , ou ; ), '\s+')
 
 uploaded_file = st.file_uploader("Choisir un fichier CSV")
 if uploaded_file is not None:
