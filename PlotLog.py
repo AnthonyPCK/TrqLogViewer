@@ -8,6 +8,7 @@ import pandas as pd
 #mpl.rc('figure', max_open_warning = 0)
 
 CSV = pd.read_csv('trackLog-2021-oct.-28_13-55-24.csv',na_values="-")  
+CSV_num = CSV.select_dtypes(include=[np.float])
 
 A = CSV.columns
 NbCol = len(A)
@@ -27,6 +28,6 @@ NbCol = len(A)
 
 
 
-fig = px.line(CSV, x=CSV.index, y=CSV.columns)
+fig = px.line(CSV_num, x=CSV_num.index, y=CSV_num.columns)
 
 st.plotly_chart(fig, use_container_width=True)
