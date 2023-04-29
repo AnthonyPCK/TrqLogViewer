@@ -33,15 +33,19 @@ st.plotly_chart(fig2, use_container_width=True)
 
 
 Ax=CSV_num.columns
-dfx = pd.DataFrame(data=Ax, columns=['Channelx'])
-dfx['Plotx'] = False
+#dfx = pd.DataFrame(data=Ax, columns=['Channelx'])
+#dfx['Plotx'] = False
+#edited_columnx = st.experimental_data_editor(dfx)
+#df_fx = edited_columnx[edited_columnx['Plotx']]
+#CSV_num_fx = CSV_num.filter(items=df_fx['Channelx'])
+#df_fy = edited_columnx[edited_columnx['Plotx']==False]
+#CSV_num_fy = CSV_num.filter(items=df_fy['Channelx'])
 
+option = st.selectbox(
+    'X channel',
+    Ax)
 
-edited_columnx = st.experimental_data_editor(dfx)
-df_fx = edited_columnx[edited_columnx['Plotx']]
-CSV_num_fx = CSV_num.filter(items=df_fx['Channelx'])
-df_fy = edited_columnx[edited_columnx['Plotx']==False]
-CSV_num_fy = CSV_num.filter(items=df_fy['Channelx'])
+st.write('You selected:', option)
 
 st.write("toto")
 st.write(CSV_num_fx.columns.values[0])
