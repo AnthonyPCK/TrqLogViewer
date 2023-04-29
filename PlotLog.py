@@ -4,12 +4,14 @@ import matplotlib as mpl
 import plotly.express as px
 import pandas as pd
 
+TypeDelim = st.text_input('Type de delimiter du fichier CSV', ',')
+
 uploaded_file = st.file_uploader("Choisir un fichier CSV")
 if uploaded_file is not None:
-    CSV = pd.read_csv(uploaded_file,na_values="-",delimiter=' ')
+    CSV = pd.read_csv(uploaded_file,na_values="-",delimiter=TypeDelim)
 else:
     st.write("Exemple d'un fichier CSV")
-    CSV = pd.read_csv('trackLog-2021-oct.-28_13-55-24.csv',na_values="-",delimiter=',')  
+    CSV = pd.read_csv('trackLog-2021-oct.-28_13-55-24.csv',na_values="-",delimiter=TypeDelim)  
 
 CSV_num = CSV.select_dtypes(include=[float])
 
