@@ -6,7 +6,7 @@ import pandas as pd
 
 
 df = pd.DataFrame([40.1, 5, 3],
-     index=['cobra', 'viper', 'sidewinder'],
+     index=['Pcy1', 'Pdy1', 'Pdy2'],
      columns=['Val'])
 
 edited_df = st.experimental_data_editor(df)
@@ -22,11 +22,11 @@ SA = np.arange(-15,15,1)
 Fnomin = 5000
 
 #def f(Pky1, Pky2, Pdy1, Pdy2, Pcy1, Pey1, Pey2):
+Pcy1 = edited_df.loc['Pcy1', 'Val']
 Pky1 = -40
 Pky2 = 1.2
 Pdy1 = 1.2
 Pdy2 = -0.1
-Pcy1 = 1.4
 Pey1 = -1
 Pey2 = 0
 
