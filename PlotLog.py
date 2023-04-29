@@ -56,3 +56,6 @@ ax2.grid()
 ax2.set_title("Fy(SA)")
 ax2.set_xlabel("SA [°]")
 #ax2.set_ylabel("Fy [N]")
+
+
+st.pyplot(f)
