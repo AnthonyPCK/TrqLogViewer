@@ -85,7 +85,7 @@ st.plotly_chart(figx, use_container_width=True)
 '''
 Axh=CSV_num.columns
 optionxh = st.selectbox(
-    'Choisir le signal que vous souhaitez en abscisse',
+    'Abscisse',
     Axh)
 Ayh=CSV_num.columns
 optionyh = st.selectbox(
