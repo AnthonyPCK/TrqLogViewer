@@ -45,6 +45,8 @@ CSV_num_fy = CSV_num.filter(items=df_fy['Channelx'])
 
 st.write("toto")
 st.write(CSV_num_fx.columns.values)
+st.write(CSV_num_fx.columns.values[0])
+st.write(CSV_num_fx.columns.values(0))
 
 figx = px.line(CSV_num, x=CSV_num_fx.columns.values, y=CSV_num_fy.columns.values)
 st.plotly_chart(figx, use_container_width=True)
