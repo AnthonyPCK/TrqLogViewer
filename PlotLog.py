@@ -89,6 +89,6 @@ optionxh = st.selectbox(
     Axh)
 Ayh=CSV_num.columns
 optionyh = st.selectbox(
-    'Choisir le signal que vous souhaitez en ordonnée',
+    'Ordonnée',
     Ayh)
-px.density_heatmap(df, CSV_num, x=optionxh, y=optionyh, nbinsx=100, nbinsy=100)
+px.density_heatmap(CSV_num, x=optionxh, y=optionyh, nbinsx=100, nbinsy=100)
