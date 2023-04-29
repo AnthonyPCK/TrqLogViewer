@@ -1,14 +1,16 @@
-'''
-# This is the document title
 
-This is some _markdown_.
-'''
 
 import streamlit as st
 import numpy as np
 import matplotlib as mpl
 import plotly.express as px
 import pandas as pd
+
+'''
+# This is the document title
+
+This is some _markdown_.
+'''
 
 TypeDelim = st.text_input('Type de delimiter du fichier CSV (\s+ , ou ; )', ',')
 
