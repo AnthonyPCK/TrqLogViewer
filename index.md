@@ -30,3 +30,8 @@ Liste à cocher:
 | Colonne       |     Colonne     |        Colonne |
 | Alignée à     |   Alignée au    |      Alignée à |
 | Gauche        |     Centre      |         Droite |
+
+
+```python
+print("toto")
+```
