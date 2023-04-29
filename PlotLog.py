@@ -40,5 +40,5 @@ edited_columnx = st.experimental_data_editor(dfx)
 df_fx = edited_columnx[edited_columnx['Plotx']]
 CSV_num_fx = CSV_num.filter(items=df_fx['Channelx'])
 
-figx = px.scatter(CSV_num, x=CSV_num.df_fx['Channelx'], y=CSV_num.columns)
+figx = px.scatter(CSV_num, x=CSV_num_fx.columns, y=CSV_num.columns)
 st.plotly_chart(figx, use_container_width=True)
