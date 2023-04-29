@@ -6,7 +6,7 @@ import pandas as pd
 
 uploaded_file = st.file_uploader("Choisir un fichier CSV")
 if uploaded_file is not None:
-    CSV = pd.read_csv(uploaded_file)
+    CSV = pd.read_csv(uploaded_file,delim_whitespace=True)
 else:
     st.write("Exemple d'un fichier CSV")
     CSV = pd.read_csv('trackLog-2021-oct.-28_13-55-24.csv',na_values="-")  
