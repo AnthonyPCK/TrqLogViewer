@@ -3,15 +3,9 @@ import numpy as np
 from matplotlib import pyplot as plt
 import pandas as pd
 
-df = pd.DataFrame(
-    [
-       {"Coef": "Pcy1", "Value": 40.1},
-       {"Coef": "Pdy1", "Value": 5},
-       {"Coef": "Pdy2", "Value": 3},
-   ]
-)
 
-df = pd.DataFrame([40,1, 5, 3],
+
+df = pd.DataFrame([40.1, 5, 3],
      index=['cobra', 'viper', 'sidewinder'],
      columns=['Val'])
 
