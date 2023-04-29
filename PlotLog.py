@@ -5,8 +5,8 @@ import pandas as pd
 
 
 
-df = pd.DataFrame([40.1, 5, 3],
-     index=['Pcy1', 'Pdy1', 'Pdy2'],
+df = pd.DataFrame([1.45, 1.1, -0.1, -1, 0.5, -50, 1.5],
+     index=['Pcy1', 'Pdy1', 'Pdy2', 'Pey1', 'Pey2', 'Pky1', 'pky2'],
      columns=['Val'])
 
 edited_df = st.experimental_data_editor(df)
@@ -19,12 +19,12 @@ Fnomin = 5000
 
 #def f(Pky1, Pky2, Pdy1, Pdy2, Pcy1, Pey1, Pey2):
 Pcy1 = edited_df.loc['Pcy1', 'Val']
-Pky1 = -40
-Pky2 = 1.2
-Pdy1 = 1.2
-Pdy2 = -0.1
-Pey1 = -1
-Pey2 = 0
+Pky1 = edited_df.loc['Pky1', 'Val']
+Pky2 = edited_df.loc['Pky2', 'Val']
+Pdy1 = edited_df.loc['Pdy1', 'Val']
+Pdy2 = edited_df.loc['Pdy2', 'Val']
+Pey1 = edited_df.loc['Pey1', 'Val']
+Pey2 = edited_df.loc['Pey2', 'Val']
 
 f = plt.figure(figsize=(8,6))
 ax = f.add_subplot(221)
