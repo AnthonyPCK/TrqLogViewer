@@ -5,9 +5,9 @@ import pandas as pd
 
 df = pd.DataFrame(
     [
-       {"Coef": "st.selectbox", "Value": 40.1},
-       {"Coef": "st.balloons", "Value": 5},
-       {"Coef": "st.time_input", "Value": 3},
+       {"Coef": "Pcy1", "Value": 40.1},
+       {"Coef": "Pdy1", "Value": 5},
+       {"Coef": "Pdy2", "Value": 3},
    ]
 )
 edited_df = st.experimental_data_editor(df)
