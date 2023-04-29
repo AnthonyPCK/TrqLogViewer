@@ -11,10 +11,6 @@ df = pd.DataFrame([40.1, 5, 3],
 
 edited_df = st.experimental_data_editor(df)
 
-favorite_command = edited_df.loc[edited_df["Value"].idxmax()]["Coef"]
-st.markdown(f"Your favorite command is **{favorite_command}** 🎈")
-
-
 
 Z = np.arange(1000,12000,1000)
 SA = np.arange(-15,15,1)
