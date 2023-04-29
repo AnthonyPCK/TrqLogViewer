@@ -12,9 +12,11 @@ df = pd.DataFrame(data=A, columns=['Channel'])
 df['Plot'] = True
 edited_column = st.experimental_data_editor(df)
 
+df = pd.DataFrame(data=A, columns=['Channel'])
+df['Plot'] = False
+df_f = df[df['Plot']]
+CSV_num_f1 = CSV_num.filter(items=df_f['Channel'])
 
-
-
-fig = px.line(CSV_num, x=CSV_num.index, y=CSV_num.columns)
+fig = px.line(CSV_num_f1, x=CSV_num_f1.index, y=CSV_num_f1.columns)
 
 st.plotly_chart(fig, use_container_width=True)
