@@ -16,12 +16,12 @@ df2 = pd.DataFrame(data=A2, columns=['Channel2'])
 df2['Plot2'] = False
 
 edited_column1 = st.experimental_data_editor(df1)
-df_f1 = edited_column1[edited_column1['Plot']]
-CSV_num_f1 = CSV_num.filter(items=df_f1['Channel'])
+df_f1 = edited_column1[edited_column1['Plot1']]
+CSV_num_f1 = CSV_num.filter(items=df_f1['Channel1'])
 
 edited_column2 = st.experimental_data_editor(df2)
-df_f2 = edited_column2[edited_column2['Plot']]
-CSV_num_f2 = CSV_num.filter(items=df_f2['Channel'])
+df_f2 = edited_column2[edited_column2['Plot2']]
+CSV_num_f2 = CSV_num.filter(items=df_f2['Channel2'])
 
 fig1 = px.line(CSV_num_f1, x=CSV_num_f1.index, y=CSV_num_f1.columns)
 st.plotly_chart(fig1, use_container_width=True)
