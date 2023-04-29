@@ -98,7 +98,7 @@ st.plotly_chart(figxHist, use_container_width=True)
 ## Action :
 '''
 import yfinance as yf
-NomAct1 = st.text_input('ID de l''action :', 'ML.PA')
+NomAct1 = st.text_input('ID de l''action :', 'BTC=F')
 
 def history(self, period="max", interval="1d",
             start=None, end=None, prepost=False, actions=True,
@@ -146,5 +146,5 @@ def history(self, period="max", interval="1d",
 goog = yf.Ticker(NomAct1)
 data = goog.history(period="max")
 #st.write(data.head())
-figAction = px.line(data, x=data.index, y='Close')
+figAction = px.line(data, x=data.index, y='Close', log_y=True)
 st.plotly_chart(figAction, use_container_width=True)
