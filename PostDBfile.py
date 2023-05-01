@@ -119,7 +119,8 @@ for ii in df_Trips.index:
         # On rajoute des channels
         df_T["Time_S"] = (df_T.TIMESTAMP.copy() - df_T.TIMESTAMP.min()) / 1000
         df_T["diffTime_S"] = np.concatenate((np.array([0]),np.diff(df_T.Time_S.copy())))
-        df_T["PuissanceElec_kW"] = df_T.HV_A.copy() * df_T.HV_V.copy() / 1000
+        #df_T["PuissanceElec_kW"] = df_T.HV_A.copy() * df_T.HV_V.copy() / 1000
+        df_T["PuissanceElec_kW"] = df_T.HV_A.copy()
         df_T["Energy_kWh"] = np.cumsum(df_T.PuissanceElec_kW.copy() * df_T.diffTime_S.copy() / 3600)
         df_T["diffSOC"] = np.concatenate((np.array([0]),np.diff(df_T.SOC.copy())))
         
@@ -251,7 +252,7 @@ CapaDech = np.array([df_Out.CapaciteBatDecharge30.mean(),
 
 fig101 = px.line(x=SoC, y=CapaDech,labels={
                      "x": "SoC [%]",
-                     "y": "Capacité Batterie [kW.h"},
+                     "y": "Capacité Batterie"},
                      title="Capacité locale de la batterie :")
 # plot(fig101)   
 
