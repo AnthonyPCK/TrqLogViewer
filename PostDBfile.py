@@ -21,10 +21,6 @@ import plotly.graph_objects as go
 # Viewer de fichier HybridAssistant.db
 ## Fichier exemple Hyundai ioniq Hybrid :
 '''
-option = st.selectbox(
-    'Choisir le signal que vous souhaitez en abscisse',
-    )
-
 
 # On selectionne que la voiture que l'on souhaite
 myVIN = 'KMHC851CGLU177332'; # IONIQ
