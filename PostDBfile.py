@@ -286,6 +286,9 @@ def PostTreat(optionVIN, conn):
     
     return df_Out
 
+
+PostTreat(optionVIN, conn)
+
 df_Out = df_Out[(df_Out.Distance > 5)]
 
 fig100 = px.scatter(df_Out, x=df_Out.DateTrajet, y=df_Out.columns,title="Suivi du viellissement :")
