@@ -43,7 +43,7 @@ else:
     # On selectionne la voiture que l\'on souhaite
     optionVIN = 'KMHC851CGLU177332'; # IONIQ   
     conn = connect("hybridassistant2023.db")  
-
+st.write("t1")
 @st.cache_data
 def PostTreat():
     st.write("t1")
