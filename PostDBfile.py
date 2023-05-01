@@ -15,7 +15,17 @@ import plotly.express as px
 import numpy as np
 from plotly.offline import plot
 import plotly.graph_objects as go
- 
+
+
+'''
+# Viewer de fichier HybridAssistant.db
+## Fichier exemple Hyundai ioniq Hybrid :
+'''
+option = st.selectbox(
+    'Choisir le signal que vous souhaitez en abscisse',
+    )
+
+
 # On selectionne que la voiture que l'on souhaite
 myVIN = 'KMHC851CGLU177332'; # IONIQ
 #myVIN = 'JTHBH5D2805030794'; # IS300h Romain
@@ -25,6 +35,11 @@ conn = connect("hybridassistant2023.db")
 df_FastLog = pd.read_sql('SELECT * FROM FASTLOG', conn)
 df_Trips = pd.read_sql('SELECT * FROM TRIPS', conn)
 df_TripInfo = pd.read_sql('SELECT * FROM TRIPINFO', conn)
+
+
+option = st.selectbox(
+    'Choisir le signal que vous souhaitez en abscisse',
+    pd.unique(df_TripInfo.VIN))
 
 # On conserve uniquement les données correspondant à un VIN
 df_TripInfo_MyVIN = df_TripInfo[(df_TripInfo.VIN == myVIN)]
@@ -223,10 +238,7 @@ fig101 = px.line(x=SoC, y=CapaDech,labels={
                      title="Linéarité du SoC :")
 # plot(fig101)   
 
-'''
-# Viewer de fichier HybridAssistant.db
-## Fichier exemple Hyundai ioniq Hybrid :
-'''
+
 
 st.plotly_chart(fig100, use_container_width=True)
 st.plotly_chart(fig101, use_container_width=True)
