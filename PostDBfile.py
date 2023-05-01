@@ -25,33 +25,33 @@ import uuid
 '''
 
 
-uploaded_file = st.file_uploader("Upload a SQLite database file.", type="db")
 
-if uploaded_file is not None:
-    fp = pathlib.Path(str(uuid.uuid4()))
-    # fp = pathlib.Path("/path/to/your/tmpfile")
-    try:
-        fp.write_bytes(uploaded_file.getvalue())
-        conn = connect(str(fp))
-    finally:
-        if fp.is_file():
-            fp.unlink()
-    
-    
-    
-else:
-    # On selectionne la voiture que l\'on souhaite
-    optionVIN = 'KMHC851CGLU177332'; # IONIQ   
-    conn = connect("hybridassistant2023.db")  
-
-df_FastLog = pd.read_sql('SELECT * FROM FASTLOG', conn)
-df_Trips = pd.read_sql('SELECT * FROM TRIPS', conn)
-df_TripInfo = pd.read_sql('SELECT * FROM TRIPINFO', conn)
 
 @st.cache_data
-def posttreatmyvin(optionVIN, df_FastLog, df_Trips, df_TripInfo):
+def posttreatmyvin(optionVIN):
 
-    
+    uploaded_file = st.file_uploader("Upload a SQLite database file.", type="db")
+
+    if uploaded_file is not None:
+        fp = pathlib.Path(str(uuid.uuid4()))
+        # fp = pathlib.Path("/path/to/your/tmpfile")
+        try:
+            fp.write_bytes(uploaded_file.getvalue())
+            conn = connect(str(fp))
+        finally:
+            if fp.is_file():
+                fp.unlink()
+
+
+
+    else:
+        # On selectionne la voiture que l\'on souhaite
+        optionVIN = 'KMHC851CGLU177332'; # IONIQ   
+        conn = connect("hybridassistant2023.db")  
+
+    df_FastLog = pd.read_sql('SELECT * FROM FASTLOG', conn)
+    df_Trips = pd.read_sql('SELECT * FROM TRIPS', conn)
+    df_TripInfo = pd.read_sql('SELECT * FROM TRIPINFO', conn)
     
     
     if uploaded_file is not None:
@@ -289,7 +289,7 @@ def posttreatmyvin(optionVIN, df_FastLog, df_Trips, df_TripInfo):
     return df_Out, df
 
 
-df_Out, df = posttreatmyvin(optionVIN, df_FastLog, df_Trips, df_TripInfo)
+df_Out, df = posttreatmyvin(optionVIN)
 
 df_Out = df_Out[(df_Out.Distance > 5)]
 
