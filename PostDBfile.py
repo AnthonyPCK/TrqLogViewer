@@ -46,7 +46,7 @@ else:
 
 
     
-    df_FastLog = pd.read_sql('SELECT * FROM FASTLOG', conn)
+df_FastLog = pd.read_sql('SELECT * FROM FASTLOG', conn)
 df_Trips = pd.read_sql('SELECT * FROM TRIPS', conn)
 df_TripInfo = pd.read_sql('SELECT * FROM TRIPINFO', conn)
 
