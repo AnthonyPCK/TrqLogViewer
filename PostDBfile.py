@@ -54,7 +54,7 @@ df_FastLog, df_Trips, df_TripInfo = loadsqlite(uploaded_file)
 
 if uploaded_file is not None:
     optionVIN = st.selectbox(
-    "On selectionne que la voiture que l\'on souhaite",
+    "On selectionne la voiture que l\'on souhaite",
     pd.unique(df_TripInfo.VIN))
 else:
     optionVIN = 'KMHC851CGLU177332'; # IONIQ
