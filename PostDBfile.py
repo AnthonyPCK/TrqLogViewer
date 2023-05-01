@@ -49,7 +49,7 @@ df_Trips = pd.read_sql('SELECT * FROM TRIPS', conn)
 df_TripInfo = pd.read_sql('SELECT * FROM TRIPINFO', conn)
 
 @st.cache_data
-def posttreatmyvin(optionVIN):
+def posttreatmyvin(optionVIN, df_FastLog, df_Trips, df_TripInfo):
 
     
     
