@@ -38,8 +38,8 @@ option = st.selectbox(
     pd.unique(df_TripInfo.VIN))
 
 # On conserve uniquement les données correspondant à un VIN
-df_TripInfo_MyVIN = df_TripInfo[(df_TripInfo.VIN == myVIN)]
-df_Trips_MyVIN = df_Trips[(df_TripInfo.VIN == myVIN)]
+df_TripInfo_MyVIN = df_TripInfo[(df_TripInfo.VIN == option)]
+df_Trips_MyVIN = df_Trips[(df_TripInfo.VIN == option)]
 
 # On garde seulement les trajet de plus d'un km (on écrase les ancien dataframe))
 df_Trips = df_Trips_MyVIN[(df_Trips_MyVIN.NKMS >1)]
