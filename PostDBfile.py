@@ -28,33 +28,33 @@ def connection_base(id):
     return connect(id)
 
 uploaded_file = st.file_uploader("Upload a SQLite database file.", type="db")
-if uploaded_file is not None:
-    fp = pathlib.Path(str(uuid.uuid4()))
-    # fp = pathlib.Path("/path/to/your/tmpfile")
-    try:
-        fp.write_bytes(uploaded_file.getvalue())
-        conn = connection_base(str(fp))
-    finally:
-        if fp.is_file():
-            fp.unlink()
-else:
-    # On selectionne la voiture que l\'on souhaite
-    optionVIN = 'KMHC851CGLU177332'; # IONIQ   
-    conn = connection_base("hybridassistant2023.db")  
 
-df_FastLog = pd.read_sql('SELECT * FROM FASTLOG', conn)
-df_Trips = pd.read_sql('SELECT * FROM TRIPS', conn)
-df_TripInfo = pd.read_sql('SELECT * FROM TRIPINFO', conn)
-
-
-if uploaded_file is not None:
-    optionVIN = st.selectbox(
-    "On selectionne que la voiture que l\'on souhaite",
-    pd.unique(df_TripInfo.VIN))
 
 @st.cache_data
-def posttreatmyvin(uploaded_file, optionVIN, df_FastLog, df_Trips, df_TripInfo):
+def posttreatmyvin(uploaded_file):
+    if uploaded_file is not None:
+        fp = pathlib.Path(str(uuid.uuid4()))
+        # fp = pathlib.Path("/path/to/your/tmpfile")
+        try:
+            fp.write_bytes(uploaded_file.getvalue())
+            conn = connection_base(str(fp))
+        finally:
+            if fp.is_file():
+                fp.unlink()
+    else:
+        # On selectionne la voiture que l\'on souhaite
+        optionVIN = 'KMHC851CGLU177332'; # IONIQ   
+        conn = connection_base("hybridassistant2023.db")  
 
+    df_FastLog = pd.read_sql('SELECT * FROM FASTLOG', conn)
+    df_Trips = pd.read_sql('SELECT * FROM TRIPS', conn)
+    df_TripInfo = pd.read_sql('SELECT * FROM TRIPINFO', conn)
+
+
+    if uploaded_file is not None:
+        optionVIN = st.selectbox(
+        "On selectionne que la voiture que l\'on souhaite",
+        pd.unique(df_TripInfo.VIN))
       
     # On conserve uniquement les données correspondant à un VIN
     df_TripInfo_MyVIN = df_TripInfo[(df_TripInfo.VIN == optionVIN)]
@@ -284,7 +284,7 @@ def posttreatmyvin(uploaded_file, optionVIN, df_FastLog, df_Trips, df_TripInfo):
     return df_Out, df
 
 
-df_Out, df = posttreatmyvin(uploaded_file, optionVIN, df_FastLog, df_Trips, df_TripInfo)
+df_Out, df = posttreatmyvin(uploaded_file)
 
 df_Out = df_Out[(df_Out.Distance > 5)]
 
