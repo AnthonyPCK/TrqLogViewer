@@ -49,7 +49,7 @@ df_Trips = pd.read_sql('SELECT * FROM TRIPS', conn)
 df_TripInfo = pd.read_sql('SELECT * FROM TRIPINFO', conn)
 
 @st.cache_data
-def posttreatmyvin(optionVIN, conn):
+def posttreatmyvin(optionVIN):
 
     
     
@@ -289,7 +289,7 @@ def posttreatmyvin(optionVIN, conn):
     return df_Out
 
 
-df_Out = posttreatmyvin(optionVIN, conn)
+df_Out = posttreatmyvin(optionVIN)
 
 df_Out = df_Out[(df_Out.Distance > 5)]
 
