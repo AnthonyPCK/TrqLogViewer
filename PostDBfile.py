@@ -43,10 +43,10 @@ else:
     # On selectionne la voiture que l\'on souhaite
     optionVIN = 'KMHC851CGLU177332'; # IONIQ   
     conn = connect("hybridassistant2023.db")  
-st.write("t1")
-#@st.cache_data
-def PostTreat():
-    st.write("t1")
+
+@st.cache_data
+def PostTreat(optionVIN, conn):
+
     df_FastLog = pd.read_sql('SELECT * FROM FASTLOG', conn)
     df_Trips = pd.read_sql('SELECT * FROM TRIPS', conn)
     df_TripInfo = pd.read_sql('SELECT * FROM TRIPINFO', conn)
