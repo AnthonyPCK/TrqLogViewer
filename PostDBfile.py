@@ -45,7 +45,7 @@ else:
     conn = connect("hybridassistant2023.db")  
 
 @st.cache_data
-def PostTreat(optionVIN, conn):
+def posttreatmyvin(optionVIN, conn):
 
     df_FastLog = pd.read_sql('SELECT * FROM FASTLOG', conn)
     df_Trips = pd.read_sql('SELECT * FROM TRIPS', conn)
@@ -287,7 +287,7 @@ def PostTreat(optionVIN, conn):
     return df_Out
 
 
-PostTreat(optionVIN, conn)
+posttreatmyvin(optionVIN, conn)
 
 df_Out = df_Out[(df_Out.Distance > 5)]
 
