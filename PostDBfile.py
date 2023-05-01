@@ -8,6 +8,7 @@ Created on Sun Apr 30 11:05:36 2023
 #%reset -f
 #%clear
 
+import streamlit as st
 from sqlite3 import connect
 import pandas as pd
 import plotly.express as px
@@ -222,7 +223,12 @@ fig101 = px.line(x=SoC, y=CapaDech,labels={
                      title="Linéarité du SoC :")
 # plot(fig101)   
 
+'''
+# Viewer de fichier HybridAssistant.db
+## Fichier exemple Hyundai ioniq Hybrid :
+'''
 
-
+st.plotly_chart(fig100, use_container_width=True)
+st.plotly_chart(fig101, use_container_width=True)
 
 
