@@ -37,9 +37,7 @@ if uploaded_file is not None:
         if fp.is_file():
             fp.unlink()
     
-    optionVIN = st.selectbox(
-    "On selectionne que la voiture que l\'on souhaite",
-    pd.unique(df_TripInfo.VIN))
+    
     
 else:
     # On selectionne que la voiture que l\'on souhaite
@@ -47,15 +45,16 @@ else:
     conn = connect("hybridassistant2023.db")  
 
 
-
-
-
-
-
-df_FastLog = pd.read_sql('SELECT * FROM FASTLOG', conn)
+    
+    df_FastLog = pd.read_sql('SELECT * FROM FASTLOG', conn)
 df_Trips = pd.read_sql('SELECT * FROM TRIPS', conn)
 df_TripInfo = pd.read_sql('SELECT * FROM TRIPINFO', conn)
 
+
+if uploaded_file is not None:
+    optionVIN = st.selectbox(
+    "On selectionne que la voiture que l\'on souhaite",
+    pd.unique(df_TripInfo.VIN))
 
 
 
