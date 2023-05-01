@@ -228,11 +228,11 @@ for ii in df_Trips.index:
         
         
         
-        # if 'df' not in locals():
-        #     df = df_T
-        # else:
-        #     df = pd.concat([df,df_T])
-        # del df_T
+        if 'df' not in locals():
+            df = df_T
+        else:
+            df = pd.concat([df,df_T])
+        del df_T
 
 
 df_Out = df_Out[(df_Out.Distance > 5)]
