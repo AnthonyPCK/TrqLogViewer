@@ -23,7 +23,9 @@ import uuid
 # Viewer de fichier HybridAssistant.db
 ## Fichier exemple Hyundai ioniq Hybrid ou charger votre fichier
 '''
-
+#@st.cache_resource
+def connection_base(id)
+    return connect(id)
 
 uploaded_file = st.file_uploader("Upload a SQLite database file.", type="db")
 if uploaded_file is not None:
@@ -31,14 +33,14 @@ if uploaded_file is not None:
     # fp = pathlib.Path("/path/to/your/tmpfile")
     try:
         fp.write_bytes(uploaded_file.getvalue())
-        conn = connect(str(fp))
+        conn = connection_base(str(fp))
     finally:
         if fp.is_file():
             fp.unlink()
 else:
     # On selectionne la voiture que l\'on souhaite
     optionVIN = 'KMHC851CGLU177332'; # IONIQ   
-    conn = connect("hybridassistant2023.db")  
+    conn = connection_base("hybridassistant2023.db")  
 
 df_FastLog = pd.read_sql('SELECT * FROM FASTLOG', conn)
 df_Trips = pd.read_sql('SELECT * FROM TRIPS', conn)
