@@ -286,7 +286,7 @@ def PostTreat():
 
     return df_Out
 
-df_Out = df_Out[(df_Out.Distance > 5)]
+#df_Out = df_Out[(df_Out.Distance > 5)]
 
 fig100 = px.scatter(df_Out, x=df_Out.DateTrajet, y=df_Out.columns,title="Suivi du viellissement :")
 # plot(fig100)        
