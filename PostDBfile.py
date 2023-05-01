@@ -44,12 +44,14 @@ else:
     optionVIN = 'KMHC851CGLU177332'; # IONIQ   
     conn = connect("hybridassistant2023.db")  
 
+df_FastLog = pd.read_sql('SELECT * FROM FASTLOG', conn)
+df_Trips = pd.read_sql('SELECT * FROM TRIPS', conn)
+df_TripInfo = pd.read_sql('SELECT * FROM TRIPINFO', conn)
+
 @st.cache_data
 def posttreatmyvin(optionVIN, conn):
 
-    df_FastLog = pd.read_sql('SELECT * FROM FASTLOG', conn)
-    df_Trips = pd.read_sql('SELECT * FROM TRIPS', conn)
-    df_TripInfo = pd.read_sql('SELECT * FROM TRIPINFO', conn)
+    
     
     
     if uploaded_file is not None:
