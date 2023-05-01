@@ -24,7 +24,7 @@ import uuid
 ## Fichier exemple Hyundai ioniq Hybrid ou charger votre fichier
 '''
 #@st.cache_resource
-def connection_base(id)
+def connection_base(id):
     return connect(id)
 
 uploaded_file = st.file_uploader("Upload a SQLite database file.", type="db")
