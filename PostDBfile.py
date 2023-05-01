@@ -19,27 +19,38 @@ import plotly.graph_objects as go
 
 '''
 # Viewer de fichier HybridAssistant.db
-## Fichier exemple Hyundai ioniq Hybrid :
+## Fichier exemple Hyundai ioniq Hybrid ou charger votre fichier
 '''
 
-# On selectionne que la voiture que l\'on souhaite
-myVIN = 'KMHC851CGLU177332'; # IONIQ
-#myVIN = 'JTHBH5D2805030794'; # IS300h Romain
 
-conn = connect("hybridassistant2023.db")
+uploaded_file = st.file_uploader(" ")
+if uploaded_file is not None:
+    conn = connect(uploaded_file) 
+    optionVIN = st.selectbox(
+    "On selectionne que la voiture que l\'on souhaite",
+    pd.unique(df_TripInfo.VIN))
+    
+else:
+    # On selectionne que la voiture que l\'on souhaite
+    optionVIN = 'KMHC851CGLU177332'; # IONIQ   
+    conn = connect("hybridassistant2023.db")  
+
+
+
+
+
+
 
 df_FastLog = pd.read_sql('SELECT * FROM FASTLOG', conn)
 df_Trips = pd.read_sql('SELECT * FROM TRIPS', conn)
 df_TripInfo = pd.read_sql('SELECT * FROM TRIPINFO', conn)
 
 
-option = st.selectbox(
-    "On selectionne que la voiture que l\'on souhaite",
-    pd.unique(df_TripInfo.VIN))
+
 
 # On conserve uniquement les données correspondant à un VIN
-df_TripInfo_MyVIN = df_TripInfo[(df_TripInfo.VIN == option)]
-df_Trips_MyVIN = df_Trips[(df_TripInfo.VIN == option)]
+df_TripInfo_MyVIN = df_TripInfo[(df_TripInfo.VIN == optionVIN)]
+df_Trips_MyVIN = df_Trips[(df_TripInfo.VIN == optionVIN)]
 
 # On garde seulement les trajet de plus d'un km (on écrase les ancien dataframe))
 df_Trips = df_Trips_MyVIN[(df_Trips_MyVIN.NKMS >1)]
