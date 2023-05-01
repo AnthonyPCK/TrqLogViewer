@@ -241,13 +241,13 @@ fig100 = px.scatter(df_Out, x=df_Out.DateTrajet, y=df_Out.columns,title="Suivi d
 # plot(fig100)        
 
 SoC = np.arange(30.0, 90.1, 10)
-CapaDech = np.array([df_Out.CapaciteBatCharge30.mean(),
-                     df_Out.CapaciteBatCharge40.mean(),
-                     df_Out.CapaciteBatCharge50.mean(),
-                     df_Out.CapaciteBatCharge60.mean(),
-                     df_Out.CapaciteBatCharge70.mean(),
-                     df_Out.CapaciteBatCharge80.mean(),
-                     df_Out.CapaciteBatCharge90.mean()])
+CapaDech = np.array([df_Out.CapaciteBatDecharge30.mean(),
+                     df_Out.CapaciteBatDecharge40.mean(),
+                     df_Out.CapaciteBatDecharge50.mean(),
+                     df_Out.CapaciteBatDecharge60.mean(),
+                     df_Out.CapaciteBatDecharge70.mean(),
+                     df_Out.CapaciteBatDecharge80.mean(),
+                     df_Out.CapaciteBatDecharge90.mean()])
 
 fig101 = px.line(x=SoC, y=CapaDech,labels={
                      "x": "SoC [%]",
