@@ -100,7 +100,7 @@ df_Out = pd.DataFrame(columns = ['Distance',
                                  'CapaciteBatDecharge65',
                                  'CapaciteBatCharge70',
                                  'CapaciteBatDecharge70',
-                                  'CapaciteBatCharge75',
+                                 'CapaciteBatCharge75',
                                  'CapaciteBatDecharge75',
                                  'CapaciteBatCharge80',
                                  'CapaciteBatDecharge80',
@@ -131,9 +131,8 @@ for ii in df_Trips.index:
         # On rajoute des channels
         df_T["Time_S"] = (df_T.TIMESTAMP.copy() - df_T.TIMESTAMP.min()) / 1000
         df_T["diffTime_S"] = np.concatenate((np.array([0]),np.diff(df_T.Time_S.copy())))
-        #df_T["PuissanceElec_kW"] = df_T.HV_A.copy() * df_T.HV_V.copy() / 1000
-        df_T["PuissanceElec_kW"] = df_T.HV_A.copy()
-        df_T["Energy_kWh"] = np.cumsum(df_T.PuissanceElec_kW.copy() * df_T.diffTime_S.copy() / 3600)
+        df_T["PuissanceElec_kW"] = df_T.HV_A.copy() * df_T.HV_V.copy() / 1000
+        df_T["Energy"] = np.cumsum(df_T.HV_A.copy() * df_T.diffTime_S.copy() / 3600)
         df_T["diffSOC"] = np.concatenate((np.array([0]),np.diff(df_T.SOC.copy())))
         
         
@@ -170,7 +169,7 @@ for ii in df_Trips.index:
         
         ## On identifie la capacité de la batterie
         df_T["NewSOC"] = df_T.SOC[(df_T.diffSOC.copy()!=0)].copy()
-        df_T["NewEnergy"] = df_T.Energy_kWh[(df_T.diffSOC.copy()!=0)].copy()
+        df_T["NewEnergy"] = df_T.Energy[(df_T.diffSOC.copy()!=0)].copy()
         df_T["diffNewEnergy"] = df_T.NewEnergy.copy()
         df_T.diffNewEnergy[~np.isnan(df_T.diffNewEnergy.copy())] = np.concatenate((np.array([np.nan]),np.diff(df_T.NewEnergy[~np.isnan(df_T.diffNewEnergy.copy())].copy())))
         df_T["diffNewSOC"] = df_T.NewSOC.copy()
@@ -306,7 +305,7 @@ CapaDech = np.array([df_Out.CapaciteBatDecharge30.mean(),
 
 fig101 = px.line(x=SoC, y=CapaDech,labels={
                      "x": "SoC [%]",
-                     "y": "Capacité Batterie"},
+                     "y": "Capacité Batterie [A.h]"},
                      title="Capacité locale de la batterie :")
 # plot(fig101)   
 
