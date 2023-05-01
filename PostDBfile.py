@@ -40,7 +40,7 @@ if uploaded_file is not None:
     
     
 else:
-    # On selectionne que la voiture que l\'on souhaite
+    # On selectionne la voiture que l\'on souhaite
     optionVIN = 'KMHC851CGLU177332'; # IONIQ   
     conn = connect("hybridassistant2023.db")  
 
