@@ -28,7 +28,7 @@ import uuid
 uploaded_file = st.file_uploader("Upload a SQLite database file.", type="db")
 
 @st.cache_data
-def posttreatmyvin():
+def posttreatmyvin(uploaded_file):
 
     
 
@@ -289,7 +289,7 @@ def posttreatmyvin():
     return df_Out, df
 
 
-df_Out, df = posttreatmyvin()
+df_Out, df = posttreatmyvin(uploaded_file)
 
 df_Out = df_Out[(df_Out.Distance > 5)]
 
