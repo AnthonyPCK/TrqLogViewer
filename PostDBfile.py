@@ -45,7 +45,7 @@ else:
     conn = connect("hybridassistant2023.db")  
 
 @st.cache_data
-def PostTreat
+def PostTreat():
 
     df_FastLog = pd.read_sql('SELECT * FROM FASTLOG', conn)
     df_Trips = pd.read_sql('SELECT * FROM TRIPS', conn)
