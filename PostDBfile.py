@@ -15,6 +15,8 @@ import plotly.express as px
 import numpy as np
 from plotly.offline import plot
 import plotly.graph_objects as go
+import pathlib
+import uuid
 
 
 '''
@@ -23,10 +25,19 @@ import plotly.graph_objects as go
 '''
 
 
-uploaded_file = st.file_uploader(" ")
+uploaded_file = st.file_uploader("Upload a SQLite database file.", type="db")
 st.write(uploaded_file)
 if uploaded_file is not None:
-    conn = connect(uploaded_file) 
+    if db:
+    fp = pathlib.Path(str(uuid.uuid4()))
+    # fp = pathlib.Path("/path/to/your/tmpfile")
+    try:
+        fp.write_bytes(db.getvalue())
+        conn = connect(str(fp))
+    finally:
+        if fp.is_file():
+            fp.unlink()
+    
     optionVIN = st.selectbox(
     "On selectionne que la voiture que l\'on souhaite",
     pd.unique(df_TripInfo.VIN))
