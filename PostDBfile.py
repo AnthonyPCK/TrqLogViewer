@@ -286,10 +286,10 @@ def posttreatmyvin(optionVIN, df_FastLog, df_Trips, df_TripInfo):
             del df_T
     
     
-    return df_Out
+    return df_Out, df
 
 
-df_Out = posttreatmyvin(optionVIN, df_FastLog, df_Trips, df_TripInfo)
+df_Out, df = posttreatmyvin(optionVIN, df_FastLog, df_Trips, df_TripInfo)
 
 df_Out = df_Out[(df_Out.Distance > 5)]
 
