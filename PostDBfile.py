@@ -31,7 +31,7 @@ if uploaded_file is not None:
     fp = pathlib.Path(str(uuid.uuid4()))
     # fp = pathlib.Path("/path/to/your/tmpfile")
     try:
-        fp.write_bytes(db.getvalue())
+        fp.write_bytes(uploaded_file.getvalue())
         conn = connect(str(fp))
     finally:
         if fp.is_file():
