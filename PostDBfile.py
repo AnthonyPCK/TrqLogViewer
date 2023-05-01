@@ -68,7 +68,7 @@ def PostTreat():
     df_TripInfo = df_TripInfo_MyVIN[(df_Trips_MyVIN.NKMS >1)]
 
     # On supprime les df dont on n'a plus besoin
-    de df_Trips_MyVIN, df_TripInfo_MyVIN
+    del df_Trips_MyVIN, df_TripInfo_MyVIN
 
     # On créé un dataframe qui contient les sorties
     tt=1
