@@ -61,7 +61,7 @@ else:
 
         
 @st.cache_data
-def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo):      
+def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):      
     # On conserve uniquement les données correspondant à un VIN
     df_TripInfo_MyVIN = df_TripInfo[(df_TripInfo.VIN == optionVIN)]
     df_Trips_MyVIN = df_Trips[(df_TripInfo.VIN == optionVIN)]
@@ -290,7 +290,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo):
     return df_Out, df
 
 
-df_Out, df = posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo)
+df_Out, df = posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN)
 
 df_Out = df_Out[(df_Out.Distance > 5)]
 
