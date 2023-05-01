@@ -44,7 +44,7 @@ else:
     optionVIN = 'KMHC851CGLU177332'; # IONIQ   
     conn = connect("hybridassistant2023.db")  
 
-@st.cache_data
+#@st.cache_data
 def posttreatmyvin(optionVIN, conn):
 
     df_FastLog = pd.read_sql('SELECT * FROM FASTLOG', conn)
