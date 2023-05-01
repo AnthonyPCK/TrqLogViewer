@@ -34,7 +34,7 @@ df_TripInfo = pd.read_sql('SELECT * FROM TRIPINFO', conn)
 
 
 option = st.selectbox(
-    'Choisir le signal que vous souhaitez en abscisse',
+    'On selectionne que la voiture que l''on souhaite',
     pd.unique(df_TripInfo.VIN))
 
 # On conserve uniquement les données correspondant à un VIN
