@@ -256,8 +256,25 @@ fig101 = px.line(x=SoC, y=CapaDech,labels={
 # plot(fig101)   
 
 
-
 st.plotly_chart(fig100, use_container_width=True)
 st.plotly_chart(fig101, use_container_width=True)
+
+'''
+
+## Bi-histogramme
+'''
+
+fig200 = px.density_heatmap(df, x=df.ACCELERATOR, y=df.PuissanceElec_kW)
+fig200.update_traces(histnorm = "percent")
+fig200.update_layout(
+    {
+        "coloraxis_cmin": 0,
+        "coloraxis_cmax": 0.5,
+    }
+)
+plot(fig200) 
+st.plotly_chart(fig200, use_container_width=True)
+
+
 
 
