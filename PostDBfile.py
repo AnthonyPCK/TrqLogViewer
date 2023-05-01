@@ -135,7 +135,7 @@ for ii in df_Trips.index:
         
         ## On identifie la resistance moyenne de la batterie sur le trajet
         # On crée un dataframe avec la batterie qui ne débite pas de courant (moins de 1 A)
-        df_LowHVA = df_T[(df_T.HV_A >-0.5) & (df_T.HV_A <0.5)]
+        df_LowHVA = df_T[(df_T.HV_A >-1) & (df_T.HV_A <1)]
         
         p = np.polyfit(df_LowHVA.SOC, df_LowHVA.HV_V, 2)
         SOC = np.arange(0, 100, 0.5)
