@@ -25,12 +25,12 @@ import uuid
 '''
 
 
-
+uploaded_file = st.file_uploader("Upload a SQLite database file.", type="db")
 
 @st.cache_data
 def posttreatmyvin():
 
-    uploaded_file = st.file_uploader("Upload a SQLite database file.", type="db")
+    
 
     if uploaded_file is not None:
         fp = pathlib.Path(str(uuid.uuid4()))
