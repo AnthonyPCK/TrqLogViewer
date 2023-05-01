@@ -287,7 +287,7 @@ def posttreatmyvin(optionVIN, conn):
     return df_Out
 
 
-posttreatmyvin(optionVIN, conn)
+df_Out = posttreatmyvin(optionVIN, conn)
 
 df_Out = df_Out[(df_Out.Distance > 5)]
 
