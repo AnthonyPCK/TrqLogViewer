@@ -22,7 +22,7 @@ import plotly.graph_objects as go
 ## Fichier exemple Hyundai ioniq Hybrid :
 '''
 
-# On selectionne que la voiture que l'on souhaite
+# On selectionne que la voiture que l\'on souhaite
 myVIN = 'KMHC851CGLU177332'; # IONIQ
 #myVIN = 'JTHBH5D2805030794'; # IS300h Romain
 
