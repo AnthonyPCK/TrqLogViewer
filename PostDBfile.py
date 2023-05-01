@@ -24,6 +24,7 @@ import plotly.graph_objects as go
 
 
 uploaded_file = st.file_uploader(" ")
+st.write(uploaded_file)
 if uploaded_file is not None:
     conn = connect(uploaded_file) 
     optionVIN = st.selectbox(
