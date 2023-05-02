@@ -167,7 +167,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             fig22 = px.line(df_T, x=moving_avg(df_T.Energy,FenetreMoyMobile), y=moving_avg(df_T.HV_V_cor,FenetreMoyMobile))
             fig22.add_trace(go.Scatter(x=df_T.Energy, y=df_T.HV_V))
             st.plotly_chart(fig22, use_container_width=True)   
-            st.plotly_chart(px.scatter(df_T, x=np.diff(moving_avg(df_T.Energu,FenetreMoyMobile)), y=np.diff(moving_avg(df_T.HV_V_cor,FenetreMoyMobile))), use_container_width=True)
+            st.plotly_chart(px.scatter(df_T, x=np.diff(moving_avg(df_T.Energy,FenetreMoyMobile)), y=np.diff(moving_avg(df_T.HV_V_cor,FenetreMoyMobile))), use_container_width=True)
             st.plotly_chart(px.line(df_T, x=df_T.SOC, y=df_T.HV_V_cor), use_container_width=True)   
     
             ## On identifie la capacité de la batterie
