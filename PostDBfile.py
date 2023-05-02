@@ -152,7 +152,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
                 df_T["HV_A_corr"] = df_T.HV_A.copy()
                 df_T.HV_A_corr[(df_T.HV_A < 0)] = df_T.HV_A_corr[(df_T.HV_A_corr < 0)] * Bat_Rend
                 df_T["EnergyCor"] = np.cumsum(df_T.HV_A_corr.copy() * df_T.diffTime_S.copy() / 3600)
-                return df_T.HV_V.iloc[0] - 100*df_T.EnergyCor/Bat_Capa - df_T.HV_A*Bat_res
+                return df_T.HV_V.iloc[0] - 100*df_T.EnergyCor/Bat_Capa - df_T.HV_A*Bat_Res
             
             def residuals(params, x, y):
                 Bat_Capa, Bat_Rend, Bat_Res = params
