@@ -67,8 +67,8 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
     df_Trips_MyVIN = df_Trips[(df_TripInfo.VIN == optionVIN)]
     
     # On garde seulement les trajet de plus d'un km (on écrase les ancien dataframe))
-    df_Trips = df_Trips_MyVIN[(df_Trips_MyVIN.NKMS >1)]
-    df_TripInfo = df_TripInfo_MyVIN[(df_Trips_MyVIN.NKMS >1)]
+    df_Trips = df_Trips_MyVIN[(df_Trips_MyVIN.NKMS >100)]
+    df_TripInfo = df_TripInfo_MyVIN[(df_Trips_MyVIN.NKMS >100)]
     
     # On supprime les df dont on n'a plus besoin
     del df_Trips_MyVIN, df_TripInfo_MyVIN
@@ -162,7 +162,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             fig2 = px.line(df_T, x=df_T.SOC, y=df_T.Energy)
             st.plotly_chart(fig2, use_container_width=True)
             #plot(fig2)
-                        
+              
             
     
             df_T["HV_V_var"] = df_T.HV_V.copy() - np.polyval(p,df_T.SOC.copy())
@@ -174,6 +174,9 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             # fig3.add_trace(go.Scatter(x=HV_A, y=Pol))
             # plot(fig3)
             BatResistance = -p[0]
+            
+            fig22 = px.line(df_T, x=df_T.SOC, y=(df_T.HV_V + BatResistance*df_T.HV_V))
+            st.plotly_chart(fig222, use_container_width=True)          
     
             ## On identifie la capacité de la batterie
             df_T["NewSOC"] = df_T.SOC[(df_T.diffSOC.copy()!=0)].copy()
