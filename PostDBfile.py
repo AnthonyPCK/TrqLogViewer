@@ -176,7 +176,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             BatResistance = -p[0]
             
             fig22 = px.line(df_T, x=df_T.SOC, y=(df_T.HV_V + BatResistance*df_T.HV_V))
-            st.plotly_chart(fig222, use_container_width=True)          
+            st.plotly_chart(fig22, use_container_width=True)          
     
             ## On identifie la capacité de la batterie
             df_T["NewSOC"] = df_T.SOC[(df_T.diffSOC.copy()!=0)].copy()
