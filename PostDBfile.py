@@ -156,6 +156,8 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             fig1 = px.scatter(df_T, x=df_T.index, y=df_T.columns)
             st.plotly_chart(fig1, use_container_width=True) 
             
+            st.plotly_chart(px.scatter(df_T, x=df_T.SoCestim, y=df_T.columns), use_container_width=True) 
+            
     
             # On récupère les infos générales sur le trajet
             MeanAmbiantTemp = df_T.AMBIENT_TEMP.mean()
