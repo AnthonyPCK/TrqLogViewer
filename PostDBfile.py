@@ -142,7 +142,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             df_T["diff_HV_A"] = np.concatenate((np.array([0]),np.diff(df_T.HV_A.copy())))
             df_T["diff_HV_V"] = np.concatenate((np.array([0]),np.diff(df_T.HV_V.copy())))
             st.plotly_chart(px.scatter(df_T, x=df_T.HV_A, y=df_T.HV_v), use_container_width=True) 
-            st.plotly_chart(px.scatter(df_T, x=df_T.diff_HV_A, y=df_T.diff_HV_v), use_container_width=True) 
+            st.plotly_chart(px.scatter(df_T, x=df_T.diff_HV_A, y=df_T.diff_HV_V), use_container_width=True) 
             
             
             
