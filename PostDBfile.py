@@ -139,12 +139,11 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             df_T["EnergyPos"] = np.cumsum(df_T.HV_A[(df_T.HV_A > 0)] * df_T.diffTime_S[(df_T.HV_A > 0)] / 3600)
             df_T["EnergyNeg"] = np.cumsum(df_T.HV_A[(df_T.HV_A < 0)] * df_T.diffTime_S[(df_T.HV_A < 0)] / 3600)
             df_T["diffSOC"] = np.concatenate((np.array([0]),np.diff(df_T.SOC.copy())))
-            df_T["diff_HV_A"] = np.concatenate((np.array([0]),np.diff(df_T.HV_A.copy())))
-            df_T["diff_HV_V"] = np.concatenate((np.array([0]),np.diff(df_T.HV_V.copy())))
-            st.plotly_chart(px.scatter(df_T, x=df_T.HV_A, y=df_T.HV_V), use_container_width=True) 
-            st.plotly_chart(px.scatter(df_T, x=df_T.diff_HV_A, y=df_T.diff_HV_V), use_container_width=True) 
             
-            
+            ## On identifie la resistance moyenne de la batterie sur le trajet
+            p = np.polyfit(np.diff(df_T.HV_A.copy()), np.diff(df_T.HV_V.copy()), 1)
+            BatResistance = -p[0]
+            df_T["HV_V_cor"] = df_T.HV_V + BatResistance*df_T.HV_A
             
             fig1 = px.scatter(df_T, x=df_T.index, y=df_T.columns)
             st.plotly_chart(fig1, use_container_width=True) 
@@ -159,33 +158,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             MeanSpeed = df_T.SPEED_OBD.mean()
             MeanRollingSpeed = df_T.SPEED_OBD[(df_T.SPEED_OBD >1)].mean()
     
-            ## On identifie la resistance moyenne de la batterie sur le trajet
-            # On crée un dataframe avec la batterie qui ne débite pas de courant (moins de 1 A)
-            df_LowHVA = df_T[(df_T.HV_A >-1) & (df_T.HV_A <1)]
-    
-            p = np.polyfit(df_LowHVA.SOC, df_LowHVA.HV_V, 2)
-            SOC = np.arange(0, 100, 0.5)
-            Pol = np.polyval(p,SOC)
-    
-            # fig2 = px.line(df_LowHVA, x=df_LowHVA.SOC, y=df_LowHVA.HV_V)
-            # fig2.add_trace(go.Scatter(x=SOC, y=Pol))
-            #fig2 = px.line(df_T, x=df_T.SOC, y=df_T.Energy)
-            st.plotly_chart(px.line(df_T, x=df_T.Energy, y=df_T.SOC), use_container_width=True)
-            #plot(fig2)
-              
             
-    
-            df_T["HV_V_var"] = df_T.HV_V.copy() - np.polyval(p,df_T.SOC.copy())
-            # fig3 = px.scatter(df_T, x=df_T.HV_A, y=df_T.HV_V_var)
-    
-            p = np.polyfit(df_T.HV_A, df_T.HV_V_var, 1)
-            HV_A = np.arange(-200, 200, 0.5)
-            Pol = np.polyval(p,HV_A)
-            # fig3.add_trace(go.Scatter(x=HV_A, y=Pol))
-            # plot(fig3)
-            BatResistance = -p[0]
-            
-            df_T["HV_V_cor"] = df_T.HV_V + BatResistance*df_T.HV_A
             
             fig22 = px.line(df_T, x=df_T.Energy, y=df_T.HV_V_cor)
             fig22.add_trace(go.Scatter(x=df_T.Energy, y=df_T.HV_V))
