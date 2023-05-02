@@ -158,10 +158,14 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             MeanSpeed = df_T.SPEED_OBD.mean()
             MeanRollingSpeed = df_T.SPEED_OBD[(df_T.SPEED_OBD >1)].mean()
     
+            def moving_avg(x, n):
+                cumsum = np.cumsum(np.insert(x, 0, 0)) 
+                return (cumsum[n:] - cumsum[:-n]) / float(n)
             
+            FenetreMoyMobile = 5
             
             fig22 = px.line(df_T, x=df_T.Energy, y=df_T.HV_V_cor)
-            fig22.add_trace(go.Scatter(x=df_T.Energy, y=df_T.HV_V))
+            fig22.add_trace(go.Scatter(x=df_T.Energy, y=moving_avg(df_T.HV_V,FenetreMoyMobile)))
             st.plotly_chart(fig22, use_container_width=True)   
             st.plotly_chart(px.scatter(df_T, x=np.diff(df_T.HV_V_cor), y=np.diff(df_T.Energy)), use_container_width=True)
             st.plotly_chart(px.line(df_T, x=df_T.SOC, y=df_T.HV_V_cor), use_container_width=True)   
