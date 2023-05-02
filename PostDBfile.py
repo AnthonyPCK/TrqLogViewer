@@ -17,6 +17,7 @@ from plotly.offline import plot
 import plotly.graph_objects as go
 import pathlib
 import uuid
+from scipy.optimize import least_squares
 
 
 '''
@@ -144,13 +145,23 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             
             
             
-            BatCapa = 5
-            Bat_Rend = 0.95
+
             df_T["HV_A_corr"] = df_T.HV_A.copy()
             df_T.HV_A_corr[(df_T.HV_A < 0)] = df_T.HV_A_corr[(df_T.HV_A_corr < 0)] * Bat_Rend
             df_T["EnergyCor"] = np.cumsum(df_T.HV_A_corr.copy() * df_T.diffTime_S.copy() / 3600)
-            df_T["SoCestim"] = df_T.SOC.iloc[0] - 100*df_T.EnergyCor/BatCapa
-            df_T["VoltageEstim"] = df_T.HV_V_cor.iloc[0] - 100*df_T.EnergyCor/BatCapa*1.5
+            
+            def EstimVolt(Bat_Capa, Bat_Rend, Bat_Res, df_T):
+                return df_T.HV_V_cor.iloc[0] - 100*df_T.EnergyCor/Bat_Capa - df_T.HV_A*Bat_res
+            
+            def residuals(params, x, y):
+                Bat_Capa, Bat_Rend, Bat_Res = params
+                return EstimVolt(Bat_Capa, Bat_Rend, Bat_Res, df_T) - y
+            
+            params_ini = [5 0.95 0.1]
+            result = least _squares(residuals, params_ini, args(df_T, df_T.HV_V))
+            
+            df_T["SoCestim"] = df_T.SOC.iloc[0] - 100*df_T.EnergyCor/Bat_Capa
+            df_T["VoltageEstim"] = df_T.HV_V_cor.iloc[0] - 100*df_T.EnergyCor/Bat_Capa
             
             
             fig1 = px.scatter(df_T, x=df_T.index, y=df_T.columns)
