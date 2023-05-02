@@ -159,7 +159,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
                 return EstimVolt(Bat_Capa, Bat_Rend, Bat_Res, df_T) - y
             
             params_ini = [5.0, 0.95, 0.1]
-            result = least_squares(residuals, params_ini, args(df_T, df_T.HV_V))
+            result = least_squares(residuals, params_ini, args=(df_T, df_T.HV_V))
             
             st.write(result.x)
             
