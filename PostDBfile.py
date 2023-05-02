@@ -174,10 +174,10 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             df_T["VoltageEstim"] = df_T.HV_V.iloc[0] - 100*df_T.EnergyCor/Bat_Capa  - df_T.HV_A*Bat_Res
             
             
-            fig1 = px.scatter(df_T, x=df_T.index, y=df_T.columns)
-            st.plotly_chart(fig1, use_container_width=True) 
+            #fig1 = px.scatter(df_T, x=df_T.index, y=df_T.columns)
+            #st.plotly_chart(fig1, use_container_width=True) 
             
-            st.plotly_chart(px.scatter(df_T, x=df_T.SoCestim, y=df_T.columns), use_container_width=True) 
+            #st.plotly_chart(px.scatter(df_T, x=df_T.SoCestim, y=df_T.columns), use_container_width=True) 
             
     
             # On récupère les infos générales sur le trajet
