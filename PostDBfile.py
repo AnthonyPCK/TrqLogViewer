@@ -172,7 +172,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             fig50.update_layout(
                 {
                     "coloraxis_cmin": 0,
-                    "coloraxis_cmax": Sat,
+                    "coloraxis_cmax": 1,
                 }
             )
             st.plotly_chart(fig50, use_container_width=True)
