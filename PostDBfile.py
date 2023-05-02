@@ -141,16 +141,17 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             ## On identifie la resistance moyenne de la batterie sur le trajet
             p = np.polyfit(np.diff(df_T.HV_A.copy()), np.diff(df_T.HV_V.copy()), 1)
             BatResistance = -p[0]
-            df_T["HV_V_cor"] = df_T.HV_V + BatResistance*df_T.HV_A
+            #df_T["HV_V_cor"] = df_T.HV_V + BatResistance*df_T.HV_A
             
             
             
 
-            df_T["HV_A_corr"] = df_T.HV_A.copy()
-            df_T.HV_A_corr[(df_T.HV_A < 0)] = df_T.HV_A_corr[(df_T.HV_A_corr < 0)] * Bat_Rend
-            df_T["EnergyCor"] = np.cumsum(df_T.HV_A_corr.copy() * df_T.diffTime_S.copy() / 3600)
+            
             
             def EstimVolt(Bat_Capa, Bat_Rend, Bat_Res, df_T):
+                df_T["HV_A_corr"] = df_T.HV_A.copy()
+                df_T.HV_A_corr[(df_T.HV_A < 0)] = df_T.HV_A_corr[(df_T.HV_A_corr < 0)] * Bat_Rend
+                df_T["EnergyCor"] = np.cumsum(df_T.HV_A_corr.copy() * df_T.diffTime_S.copy() / 3600)
                 return df_T.HV_V_cor.iloc[0] - 100*df_T.EnergyCor/Bat_Capa - df_T.HV_A*Bat_res
             
             def residuals(params, x, y):
@@ -159,6 +160,12 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             
             params_ini = [5.0, 0.95, 0.1]
             result = least_squares(residuals, params_ini, args(df_T, df_T.HV_V))
+            
+            st.write(result.x)
+            
+            df_T["HV_A_corr"] = df_T.HV_A.copy()
+            df_T.HV_A_corr[(df_T.HV_A < 0)] = df_T.HV_A_corr[(df_T.HV_A_corr < 0)] * Bat_Rend
+            df_T["EnergyCor"] = np.cumsum(df_T.HV_A_corr.copy() * df_T.diffTime_S.copy() / 3600)
             
             df_T["SoCestim"] = df_T.SOC.iloc[0] - 100*df_T.EnergyCor/Bat_Capa
             df_T["VoltageEstim"] = df_T.HV_V_cor.iloc[0] - 100*df_T.EnergyCor/Bat_Capa
