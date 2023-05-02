@@ -160,7 +160,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             # fig2 = px.line(df_LowHVA, x=df_LowHVA.SOC, y=df_LowHVA.HV_V)
             # fig2.add_trace(go.Scatter(x=SOC, y=Pol))
             #fig2 = px.line(df_T, x=df_T.SOC, y=df_T.Energy)
-            st.plotly_chart(px.line(df_T, x=df_T.SOC, y=df_T.Energy), use_container_width=True)
+            st.plotly_chart(px.line(df_T, x=df_T.Energy, y=df_T.SOC), use_container_width=True)
             #plot(fig2)
               
             
@@ -177,7 +177,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             
             df_T["HV_V_cor"] = df_T.HV_V + BatResistance*df_T.HV_A
             
-            fig22 = px.line(df_T, x=df_T.SOC, y=df_T.HV_V_cor)
+            fig22 = px.line(df_T, x=df_T.Energy, y=df_T.HV_V_cor)
             st.plotly_chart(fig22, use_container_width=True)          
     
             ## On identifie la capacité de la batterie
