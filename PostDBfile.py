@@ -161,7 +161,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             params_ini = [5.0, 0.95, 0.1]
             result = least_squares(residuals, params_ini, args=(df_T, df_T.HV_V))
             
-            st.write(result.x)
+            Bat_Capa, Bat_Rend, Bat_Res = result.x
             
             df_T["HV_A_corr"] = df_T.HV_A.copy()
             df_T.HV_A_corr[(df_T.HV_A < 0)] = df_T.HV_A_corr[(df_T.HV_A_corr < 0)] * Bat_Rend
