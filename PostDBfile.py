@@ -159,7 +159,11 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
     
             # fig2 = px.line(df_LowHVA, x=df_LowHVA.SOC, y=df_LowHVA.HV_V)
             # fig2.add_trace(go.Scatter(x=SOC, y=Pol))
+            fig2 = px.scatter(df_T, x=df_T.SOC, y=df_T.Energy)
+            st.plotly_chart(fig2, use_container_width=True)
             #plot(fig2)
+                        
+            
     
             df_T["HV_V_var"] = df_T.HV_V.copy() - np.polyval(p,df_T.SOC.copy())
             # fig3 = px.scatter(df_T, x=df_T.HV_A, y=df_T.HV_V_var)
