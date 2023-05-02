@@ -129,16 +129,19 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
         if max_Voltage>1:
     
     
-            # fig1 = px.scatter(df_T, x=df_T.index, y=df_T.columns)
-            # plot(fig1)
+            
     
             # On rajoute des channels
             df_T["Time_S"] = (df_T.TIMESTAMP.copy() - df_T.TIMESTAMP.min()) / 1000
             df_T["diffTime_S"] = np.concatenate((np.array([0]),np.diff(df_T.Time_S.copy())))
             df_T["PuissanceElec_kW"] = df_T.HV_A.copy() * df_T.HV_V.copy() / 1000
             df_T["Energy"] = np.cumsum(df_T.HV_A.copy() * df_T.diffTime_S.copy() / 3600)
+            df_T["EnergyPos"] = np.cumsum(df_T.HV_A[(df_T.HV_A > 0)].copy() * df_T.diffTime_S.copy(HV_A[(df_T.HV_A > 0)]) / 3600)
             df_T["diffSOC"] = np.concatenate((np.array([0]),np.diff(df_T.SOC.copy())))
-    
+            
+            fig1 = px.scatter(df_T, x=df_T.index, y=df_T.columns)
+            st.plotly_chart(fig1, use_container_width=True) 
+            
     
             # On récupère les infos générales sur le trajet
             MeanAmbiantTemp = df_T.AMBIENT_TEMP.mean()
