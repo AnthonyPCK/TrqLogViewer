@@ -68,8 +68,8 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
     df_Trips_MyVIN = df_Trips[(df_TripInfo.VIN == optionVIN)]
     
     # On garde seulement les trajet de plus d'un km (on écrase les ancien dataframe))
-    df_Trips = df_Trips_MyVIN[(df_Trips_MyVIN.NKMS >275)]
-    df_TripInfo = df_TripInfo_MyVIN[(df_Trips_MyVIN.NKMS >275)]
+    df_Trips = df_Trips_MyVIN[(df_Trips_MyVIN.NKMS >5)]
+    df_TripInfo = df_TripInfo_MyVIN[(df_Trips_MyVIN.NKMS >5)]
     
     # On supprime les df dont on n'a plus besoin
     del df_Trips_MyVIN, df_TripInfo_MyVIN
