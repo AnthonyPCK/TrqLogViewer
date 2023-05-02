@@ -168,7 +168,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             df_T["EnergyCor"] = np.cumsum(df_T.HV_A_corr.copy() * df_T.diffTime_S.copy() / 3600)
             
             df_T["SoCestim"] = df_T.SOC.iloc[0] - 100*df_T.EnergyCor/Bat_Capa
-            df_T["VoltageEstim"] = df_T.HV_V_cor.iloc[0] - 100*df_T.EnergyCor/Bat_Capa
+            df_T["VoltageEstim"] = df_T.HV_V.iloc[0] - 100*df_T.EnergyCor/Bat_Capa  - df_T.HV_A*Bat_Res
             
             
             fig1 = px.scatter(df_T, x=df_T.index, y=df_T.columns)
