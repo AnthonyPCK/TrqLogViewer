@@ -141,7 +141,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             df_T["diffSOC"] = np.concatenate((np.array([0]),np.diff(df_T.SOC.copy())))
             
             st.write('Derniere val Energy')
-            st.write(dt_T.Energy.iat[-1])
+            st.write(df_T.Energy.iat[-1])
             
             fig1 = px.scatter(df_T, x=df_T.index, y=df_T.columns)
             st.plotly_chart(fig1, use_container_width=True) 
