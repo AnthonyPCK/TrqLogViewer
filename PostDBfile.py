@@ -162,7 +162,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
                 cumsum = np.cumsum(np.insert(x, 0, 0)) 
                 return (cumsum[n:] - cumsum[:-n]) / float(n)
             
-            FenetreMoyMobile = 5
+            FenetreMoyMobile = 10
             
             fig22 = px.line(df_T, x=moving_avg(df_T.Energy,FenetreMoyMobile), y=moving_avg(df_T.HV_V_cor,FenetreMoyMobile))
             fig22.add_trace(go.Scatter(x=df_T.Energy, y=df_T.HV_V))
