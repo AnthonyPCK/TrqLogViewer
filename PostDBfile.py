@@ -503,12 +503,12 @@ HeatMap_X = st.selectbox(
     
 HeatMap_Y = st.selectbox(
     "On selectionne la voie de mesure en Y",
-    df_FastLog.columns)
+    df_FastLog.columns, index=df_FastLog.columns.get_loc("BSFC"))
     
     
 col1, col2 = st.columns(2)
 with col1:
-    Temperature_ICE = st.slider('Selection de la température ICE', -20.0, 120.0, (80.0, 95.0))
+    Temperature_ICE = st.slider('Selection de la température ICE', -20, 120, (80, 95))
 with col2:
     NbinsX = st.slider('Nbins en X', 50, 500, 100)
     NbinsY = st.slider('Nbins en Y', 50, 500, 100)
