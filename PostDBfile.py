@@ -501,7 +501,7 @@ HeatMap_Y = st.selectbox(
     df_FastLog.columns)
     
     
-
+col1, col2 = st.columns(2)
 with col1:
     Temperature_ICE = st.slider('Selection de la température ICE', -20.0, 120.0, (80.0, 95.0))
 with col2:
