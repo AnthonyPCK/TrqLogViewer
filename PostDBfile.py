@@ -192,7 +192,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
         
         idx = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin)
     
-
+        st.write(df_FastLog.head())
         st.write(df_FastLog[idx].HV_V.max())
 
         # On rajoute des channels
