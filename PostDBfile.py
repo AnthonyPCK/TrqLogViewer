@@ -489,11 +489,11 @@ st.plotly_chart(fig101, use_container_width=True)
 '''
 HeatMap_X = st.selectbox(
     "On selectionne la voie de mesure en abscisse ",
-    df_TripInfo.columns)
+    df_FastLog.columns)
     
 HeatMap_Y = st.selectbox(
     "On selectionne la voie de mesure en ordonnée ",
-    df_TripInfo.columns)
+    df_FastLog.columns)
     
     
 Sat = st.slider('Saturation couleur', 0.0, 0.1, 0.5)
