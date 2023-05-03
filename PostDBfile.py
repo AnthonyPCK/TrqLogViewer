@@ -69,8 +69,8 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
     
     
     # On garde seulement les trajet de plus d'un km (on écrase les ancien dataframe))
-    df_TripInfo = df_TripInfo[(df_Trips.NKMS >275)]
-    df_Trips = df_Trips[(df_Trips.NKMS >275)]
+    df_TripInfo = df_TripInfo[(df_Trips.NKMS >5)]
+    df_Trips = df_Trips[(df_Trips.NKMS >5)]
     
     # On rajoute des channels
     df_FastLog["Time_S"] = np.nan
@@ -486,7 +486,7 @@ st.plotly_chart(fig101, use_container_width=True)
 '''
 
 Sat = st.slider('Saturation couleur', 0.0, 1.0, 0.5)
-fig200 = px.density_heatmap(df, x=df.ACCELERATOR, y=df.PuissanceElec_kW)
+fig200 = px.density_heatmap(df_FastLog, x=df_FastLog.ACCELERATOR, y=df_FastLog.PuissanceElec_kW)
 fig200.update_traces(histnorm = "percent")
 fig200.update_layout(
     {
