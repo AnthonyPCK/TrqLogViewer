@@ -259,7 +259,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             #st.plotly_chart(px.line(df_T, x=df_FastLog[idx].SOC, y=df_FastLog[idx].HV_V_cor), use_container_width=True)   
     
             ## On identifie la capacité de la batterie
-            idx2 = df_FastLog[idx].diffSOC!=0
+            idx2 = df_FastLog.loc[idx,"diffSOC"]!=0
             df_FastLog.loc[idx2,"NewSOC"] = df_FastLog.loc[idx2,"SOC"]
             df_FastLog.loc[idx,"NewEnergy"] = df_FastLog[idx].Energy_Ah[(df_FastLog[idx].diffSOC!=0)]
             df_FastLog.loc[idx,"diffNewEnergy"] = df_FastLog[idx].NewEnergy
@@ -451,7 +451,6 @@ st.plotly_chart(fig100, use_container_width=True)
 #    }
 #)
 #st.plotly_chart(fig200, use_container_width=True)
-
 
 
 
