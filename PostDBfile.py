@@ -120,8 +120,10 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
                                      'CapaciteBatDecharge90'],
                                      dtype = 'float')
     
-    # On construit un df avec les données de roulage du véhicule choisi sur les trajet de plus d'un km
+    # On construit un df avec les données de roulage du véhicule choisi sur les trajet de plus de X km
+    bar = st.progress(0)
     for ii in df_Trips.index:
+        bar.progress(np.round(100*ii/np.max(df_Trips.index)))
         idxDeb = df_Trips.at[ii,"TSDEB"]
         idxFin = df_Trips.at[ii,"TSFIN"]
     
