@@ -496,10 +496,10 @@ st.plotly_chart(fig101, use_container_width=True)
 ## Bi-histogramme
 '''
 
-st.write(df_FastLog.columns.getloc("ICE_RPM"))
+
 HeatMap_X = st.selectbox(
     "On selectionne la voie de mesure en X",
-    df_FastLog.columns, index=df_FastLog.columns.getloc("ICE_RPM"))
+    df_FastLog.columns, index=df_FastLog.columns.get_loc("ICE_RPM"))
     
 HeatMap_Y = st.selectbox(
     "On selectionne la voie de mesure en Y",
