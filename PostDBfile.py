@@ -73,15 +73,15 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
     df_Trips = df_Trips[(df_Trips.NKMS >275)]
     
     # On rajoute des channels
-    df_FastLog["Time_S"] = 0
-    df_FastLog["diffTime_S"] = 0
-    df_FastLog["PuissanceElec_kW"] = 0
-    df_FastLog["Energy_Ah"] = 0
-    df_FastLog["diffSOC"] = 0
-    df_FastLog["NewSOC"] = 0
-    df_FastLog["NewEnergy"] = 0
-    df_FastLog["diffNewEnergy"] = 0
-    df_FastLog["diffNewSOC"] = 0
+    df_FastLog["Time_S"] = np.nan
+    df_FastLog["diffTime_S"] = np.nan
+    df_FastLog["PuissanceElec_kW"] = np.nan
+    df_FastLog["Energy_Ah"] = np.nan
+    df_FastLog["diffSOC"] = np.nan
+    df_FastLog["NewSOC"] = np.nan
+    df_FastLog["NewEnergy"] = np.nan
+    df_FastLog["diffNewEnergy"] = np.nan
+    df_FastLog["diffNewSOC"] = np.nan
     df_FastLog["CapaBat"] = 0
     df_FastLog["CapaBatDecharge"] = 0
     df_FastLog["CapaBatCharge"] = 0
