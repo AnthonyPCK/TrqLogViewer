@@ -176,14 +176,16 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
         idx = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin)
     
         # On garde les point ou on a le signal de tension batterie HV
-        max_Voltage_idx = df_FastLog.HV_V[idx].idxmax()
+        max_Voltage_idx = df_FastLog[idx].HV_V.idxmax()
         max_Voltage = df_FastLog.HV_V.loc[max_Voltage_idx]
+        max_Voltage2 = df_FastLog[max_Voltage_idx].HV_V
         
         st.write(max_Voltage)
+        st.write(max_Voltage2)
         st.plotly_chart(px.line(df_FastLog, x=df_FastLog[idx].index, y=df_FastLog[idx].HV_V), use_container_width=True)
         
         
-        if max_Voltage>1:
+        if max_Voltage<0:
 
             # On rajoute des channels
             df.Time_S[idx] = (df_T.TIMESTAMP.copy() - df_T.TIMESTAMP.min()) / 1000
