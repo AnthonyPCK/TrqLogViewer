@@ -382,19 +382,12 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
     
     
     
-    
-            if 'df' not in locals():
-                df = df_T
-            else:
-                df = pd.concat([df,df_T])
-            del df_T
-    
     bar.empty()
     
-    return df_Out, df
+    return df_Out, df_FastLog
     
 
-df_Out, df = posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN)
+df_Out, df_FastLog = posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN)
 
 df_Out = df_Out[(df_Out.Distance > 5)]
 
