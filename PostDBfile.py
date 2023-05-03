@@ -488,13 +488,13 @@ st.plotly_chart(fig101, use_container_width=True)
 ## Bi-histogramme
 '''
 
-Sat = st.slider('Saturation couleur', 0.0, 0.01, 0.005)
+Sat = st.slider('Saturation couleur', 0.0, 0.1, 0.5)
 fig200 = px.density_heatmap(df_FastLog, x=df_FastLog.ACCELERATOR, y=df_FastLog.PuissanceElec_kW)
 fig200.update_traces(histnorm = "probability density")
 fig200.update_layout(
     {
         "coloraxis_cmin": 0,
-        "coloraxis_cmax": Sat,
+        "coloraxis_cmax": Sat/100,
     }
 )
 st.plotly_chart(fig200, use_container_width=True)
