@@ -516,10 +516,10 @@ col1, col2 = st.columns(2)
 with col1:
     Temperature_ICE = st.slider('Selection de la température ICE', -20, 120, (80, 95))
 with col2:
-    NbinsX = st.slider('Nbins en X', 50, 500, 100)
-    NbinsY = st.slider('Nbins en Y', 50, 500, 100)
+    NbinsX = st.slider('Nbins en X', 50, 1000, 400)
+    NbinsY = st.slider('Nbins en Y', 50, 1000, 250)
 
-    Sat = st.slider('Saturation couleur', 0.0, 0.5, 0.2)
+    Sat = st.slider('Saturation couleur', 0.0001, 0.5, 0.2)
 
 idx200 = (df_FastLog.ICE_TEMP > Temperature_ICE[0]) & (df_FastLog.ICE_TEMP < Temperature_ICE[1])
 
