@@ -151,7 +151,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
 
             
             
-            def EstimVolt(Bat_Capa, Bat_Rend, Bat_Res, Bat_VoltT, Bat_ResT, df_T):
+            def EstimVolt(Bat_Capa, Bat_Rend, Bat_Res, Bat_VoltT, df_T):
                 df_T["HV_A_corr"] = df_T.HV_A.copy()
                 df_T.HV_A_corr[(df_T.HV_A < 0)] = df_T.HV_A_corr[(df_T.HV_A_corr < 0)] * Bat_Rend
                 df_T["EnergyCor"] = np.cumsum(df_T.HV_A_corr.copy() * df_T.diffTime_S.copy() / 3600)
