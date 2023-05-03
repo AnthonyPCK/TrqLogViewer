@@ -19,7 +19,10 @@ import pathlib
 import uuid
 from scipy.optimize import least_squares
 
-
+def numpy_nan_median(a):
+    return np.NaN if np.all(a!=a) else np.nanmedian(a)
+    
+    
 '''
 # Viewer de fichier HybridAssistant.db
 ## Fichier exemple Hyundai ioniq Hybrid ou charger votre fichier
@@ -398,7 +401,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
                                     'TempeBat' : MeanBatTemp,
                                     'ResistanceBat' : BatResistance,
                                     #'CapaBat' : df_FastLog[idx].CapaBat.median(),
-                                    'CapaciteBatCharge' : df_FastLog[idx].CapaBatCharge.median(),
+                                    'CapaciteBatCharge' : numpy_nan_median(df_FastLog[idx].CapaBatCharge),
                                     'CapaciteBatDecharge' : df_FastLog[idx].CapaBatDecharge.median(),
                                     'CapaciteBatCharge30' : df_FastLog[idx].CapaBatCharge30.median(),
                                     'CapaciteBatDecharge30' : df_FastLog[idx].CapaBatDecharge30.median(),
@@ -521,4 +524,5 @@ fig200.update_layout(
     }
 )
 st.plotly_chart(fig200, use_container_width=True)
+
 
