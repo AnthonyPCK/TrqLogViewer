@@ -69,8 +69,8 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
     
     
     # On garde seulement les trajet de plus d'un km (on écrase les ancien dataframe))
-    df_TripInfo = df_TripInfo[(df_Trips.NKMS >5)]
-    df_Trips = df_Trips[(df_Trips.NKMS >5)]
+    df_TripInfo = df_TripInfo[(df_Trips.NKMS >275)]
+    df_Trips = df_Trips[(df_Trips.NKMS >275)]
     
     # On rajoute des channels
     df_FastLog["Time_S"] = 0
@@ -225,8 +225,8 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             #df_FastLog[idx].VoltageEstim = df_FastLog[idx].HV_V.iloc[0] - 100*df_FastLog[idx].EnergyCor/Bat_Capa  - df_FastLog[idx].HV_A*Bat_Res
             
             
-            #fig1 = px.scatter(df_T, x=df_FastLog[idx].index, y=df_FastLog[idx].columns)
             #st.plotly_chart(fig1, use_container_width=True) 
+            #fig1 = px.scatter(df_FastLog[idx], x=df_FastLog[idx].index, y=df_FastLog[idx].columns)
             
     
             # On récupère les infos générales sur le trajet
