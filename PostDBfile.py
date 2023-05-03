@@ -357,6 +357,7 @@ CapaDech = np.array([df_Out.CapaciteBatDecharge30.mean(),
 fig101 = px.line(x=SoC, y=CapaDech,labels={
                      "x": "SoC [%]",
                      "y": "Capacité Batterie [A.h]"},
+                     range_y=[0 1.1*np.max(CapaDech)]
                      title="Capacité locale de la batterie :")
 # plot(fig101)   
 
