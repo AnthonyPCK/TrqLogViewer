@@ -346,7 +346,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
     
     
     return df_Out, df
-
+    bar.empty()
 
 df_Out, df = posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN)
 
