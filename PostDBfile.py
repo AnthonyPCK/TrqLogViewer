@@ -285,6 +285,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
                                     'TempeBat' : MeanBatTemp,
                                     'ResistanceBat' : BatResistance,
                                     'ResistanceBat2' : Bat_Res,
+                                    'CapaBat' : df_T.CapaBat.mean(),
                                     'CapaBat2' : Bat_Capa,
                                     'RendBat2' : Bat_Rend,
                                     'CapaciteBatCharge' : df_T.CapaBatCharge.mean(),
