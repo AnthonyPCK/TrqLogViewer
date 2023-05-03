@@ -500,9 +500,16 @@ HeatMap_Y = st.selectbox(
     "On selectionne la voie de mesure en Y",
     df_FastLog.columns)
     
-NbinsX = st.slider('Nbins en X', 50, 100, 500)
-NbinsY = st.slider('Nbins en Y', 50, 100, 500)
-Sat = st.slider('Saturation couleur', 0.0, 0.2, 0.5)
+    
+
+
+values = st.slider('Select a range of values', -20, 120.0, (80.0, 95.0))
+
+NbinsX = st.slider('Nbins en X', 50, 500, 100)
+NbinsY = st.slider('Nbins en Y', 50, 500, 100)
+
+Sat = st.slider('Saturation couleur', 0.0, 0.5, 0.2)
+
 fig200 = px.density_heatmap(df_FastLog, x=HeatMap_X, y=HeatMap_Y, nbinsx=NbinsX, nbinsy=NbinsY)
 fig200.update_traces(histnorm = "percent")
 fig200.update_layout(
