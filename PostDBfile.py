@@ -260,7 +260,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
     
             ## On identifie la capacité de la batterie
             df_FastLog[idx].NewSOC = df_FastLog[idx].SOC[(df_FastLog[idx].diffSOC.copy()!=0)].copy()
-            df_FastLog[idx].NewEnergy = df_FastLog[idx].Energy[(df_FastLog[idx].diffSOC.copy()!=0)].copy()
+            df_FastLog[idx].NewEnergy = df_FastLog[idx].Energy_Ah[(df_FastLog[idx].diffSOC.copy()!=0)].copy()
             df_FastLog[idx].diffNewEnergy = df_FastLog[idx].NewEnergy.copy()
             df_FastLog[idx].diffNewEnergy[~np.isnan(df_FastLog[idx].diffNewEnergy.copy())] = np.concatenate((np.array([np.nan]),np.diff(df_FastLog[idx].NewEnergy[~np.isnan(df_FastLog[idx].diffNewEnergy.copy())].copy())))
             
