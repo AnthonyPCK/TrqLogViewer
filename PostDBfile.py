@@ -88,6 +88,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
                                      'ResistanceBat2',
                                      'CapaBat',
                                      'CapaBat2',
+                                     'CapaBat3',
                                      'RendBat2',
                                      'CapaciteBatCharge',
                                      'CapaciteBatDecharge',
@@ -283,8 +284,6 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             df_T.SoCestim = df_T.SOC.iloc[0] - 100*df_T.EnergyCor/Bat_Capa/np.mean(df_T.diffNewSoCestim.copy()/df_T.diffNewSOC.copy())
             st.plotly_chart(px.scatter(df_T, x=df_T.SoCestim, y=df_T.columns), use_container_width=True) 
         
-            st.write(100*np.mean(np.diff(df_T.EnergyCor)/np.diff(df_T.SoCestim)))
-            st.write(Bat_Capa*np.mean(df_T.diffNewSoCestim.copy()/df_T.diffNewSOC.copy()))
         
             # fig4 = px.scatter(df_T, x=df_T.SOC, y=df_T.columns)
             # plot(fig4)
@@ -301,6 +300,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
                                     'ResistanceBat2' : Bat_Res,
                                     'CapaBat' : df_T.CapaBat.mean(),
                                     'CapaBat2' : Bat_Capa,
+                                    'CapaBat3' : Bat_Capa*np.mean(df_T.diffNewSoCestim.copy()/df_T.diffNewSOC.copy()),
                                     'RendBat2' : Bat_Rend,
                                     'CapaciteBatCharge' : df_T.CapaBatCharge.mean(),
                                     'CapaciteBatDecharge' : df_T.CapaBatDecharge.mean(),
