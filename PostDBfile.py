@@ -493,15 +493,15 @@ st.plotly_chart(fig101, use_container_width=True)
 ## Bi-histogramme
 '''
 HeatMap_X = st.selectbox(
-    "On selectionne la voie de mesure en abscisse ",
+    "On selectionne la voie de mesure en X",
     df_FastLog.columns)
     
 HeatMap_Y = st.selectbox(
-    "On selectionne la voie de mesure en ordonnée ",
+    "On selectionne la voie de mesure en Y",
     df_FastLog.columns)
     
-NbinsX = st.slider('Nbins', 50, 100, 500)
-NbinsY = st.slider('Nbins', 50, 100, 500)
+NbinsX = st.slider('Nbins en X', 50, 100, 500)
+NbinsY = st.slider('Nbins en Y', 50, 100, 500)
 Sat = st.slider('Saturation couleur', 0.0, 0.2, 0.5)
 fig200 = px.density_heatmap(df_FastLog, x=HeatMap_X, y=HeatMap_Y, nbinsx=NbinsX, nbinsy=NbinsY)
 fig200.update_traces(histnorm = "percent")
