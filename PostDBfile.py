@@ -72,10 +72,60 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
     df_TripInfo = df_TripInfo[(df_Trips.NKMS >5)]
     df_Trips = df_Trips[(df_Trips.NKMS >5)]
     
-    
+    # On rajoute des channels
+    df_FastLog["Time_S"] = 0
+    df_FastLog["diffTime_S"] = 0
+    df_FastLog["PuissanceElec_kW"] = 0
+    df_FastLog["Energy_Ah"] = 0
+    df_FastLog["diffSOC"] = 0
+    df_FastLog["NewSOC"] = 0
+    df_FastLog["NewEnergy"] = 0
+    df_FastLog["diffNewEnergy"] = 0
+    df_FastLog["diffNewSOC"] = 0
+    df_FastLog["CapaBat"] = 0
+    df_FastLog["CapaBatDecharge"] = 0
+    df_FastLog["CapaBatCharge"] = 0
+    df_FastLog["CapaBat30"] = 0
+    df_FastLog["CapaBatDecharge30"] = 0
+    df_FastLog["CapaBatCharge30"] = 0
+    df_FastLog["CapaBat35"] = 0
+    df_FastLog["CapaBatDecharge35"] = 0
+    df_FastLog["CapaBatCharge35"] = 0
+    df_FastLog["CapaBat40"] = 0
+    df_FastLog["CapaBatDecharge40"] = 0
+    df_FastLog["CapaBatCharge40"] = 0
+    df_FastLog["CapaBat45"] = 0
+    df_FastLog["CapaBatDecharge45"] = 0
+    df_FastLog["CapaBatCharge45"] = 0
+    df_FastLog["CapaBat50"] = 0
+    df_FastLog["CapaBatDecharge50"] = 0
+    df_FastLog["CapaBatCharge50"] = 0
+    df_FastLog["CapaBat55"] = 0
+    df_FastLog["CapaBatDecharge55"] = 0
+    df_FastLog["CapaBatCharge55"] = 0
+    df_FastLog["CapaBat60"] = 0
+    df_FastLog["CapaBatDecharge60"] = 0
+    df_FastLog["CapaBatCharge60"] = 0
+    df_FastLog["CapaBat65"] = 0
+    df_FastLog["CapaBatDecharge65"] = 0
+    df_FastLog["CapaBatCharge65"] = 0
+    df_FastLog["CapaBat70"] = 0
+    df_FastLog["CapaBatDecharge70"] = 0
+    df_FastLog["CapaBatCharge70"] = 0
+    df_FastLog["CapaBat75"] = 0
+    df_FastLog["CapaBatDecharge75"] = 0
+    df_FastLog["CapaBatCharge75"] = 0
+    df_FastLog["CapaBat80"] = 0
+    df_FastLog["CapaBatDecharge80"] = 0
+    df_FastLog["CapaBatCharge80"] = 0
+    df_FastLog["CapaBat85"] = 0
+    df_FastLog["CapaBatDecharge85"] = 0
+    df_FastLog["CapaBatCharge85"] = 0
+    df_FastLog["CapaBat90"] = 0
+    df_FastLog["CapaBatDecharge90"] = 0
+    df_FastLog["CapaBatCharge90"] = 0
     
     # On créé un dataframe qui contient les sorties
-    tt=1
     df_Out = pd.DataFrame(columns = ['Distance',
                                      'Kilometrage',
                                      'DateTrajet',
@@ -125,28 +175,26 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
         
         idx = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin)
     
-        df_T = df_FastLog[idx].copy()
-    
         # On garde les point ou on a le signal de tension batterie HV
         max_Voltage_idx = df_T.HV_V.idxmax()
         max_Voltage = df_T.HV_V.loc[max_Voltage_idx]
     
-    
+        
         if max_Voltage>1:
 
             # On rajoute des channels
-            df_T["Time_S"] = (df_T.TIMESTAMP.copy() - df_T.TIMESTAMP.min()) / 1000
-            df_T["diffTime_S"] = np.concatenate((np.array([0]),np.diff(df_T.Time_S.copy())))
-            df_T["PuissanceElec_kW"] = df_T.HV_A.copy() * df_T.HV_V.copy() / 1000
-            df_T["Energy"] = np.cumsum(df_T.HV_A.copy() * df_T.diffTime_S.copy() / 3600)
-            #df_T["EnergyPos"] = np.cumsum(df_T.HV_A[(df_T.HV_A > 0)] * df_T.diffTime_S[(df_T.HV_A > 0)] / 3600)
-            #df_T["EnergyNeg"] = np.cumsum(df_T.HV_A[(df_T.HV_A < 0)] * df_T.diffTime_S[(df_T.HV_A < 0)] / 3600)
-            df_T["diffSOC"] = np.concatenate((np.array([0]),np.diff(df_T.SOC.copy())))
+            df.Time_S[idx] = (df_T.TIMESTAMP.copy() - df_T.TIMESTAMP.min()) / 1000
+            df.diffTime_S[idx] = np.concatenate((np.array([0]),np.diff(df_T.Time_S.copy())))
+            df.PuissanceElec_kW[idx] = df_T.HV_A.copy() * df_T.HV_V.copy() / 1000
+            df.Energy[idx] = np.cumsum(df_T.HV_A.copy() * df_T.diffTime_S.copy() / 3600)
+            #df.EnergyPos[idx] = np.cumsum(df_T.HV_A[(df_T.HV_A > 0)] * df_T.diffTime_S[(df_T.HV_A > 0)] / 3600)
+            #df.EnergyNeg[idx] = np.cumsum(df_T.HV_A[(df_T.HV_A < 0)] * df_T.diffTime_S[(df_T.HV_A < 0)] / 3600)
+            df.diffSOC[idx] = np.concatenate((np.array([0]),np.diff(df_T.SOC.copy())))
             
             ## On identifie la resistance moyenne de la batterie sur le trajet
             p = np.polyfit(np.diff(df_T.HV_A.copy()), np.diff(df_T.HV_V.copy()), 1)
             BatResistance = -p[0]
-            #df_T["HV_V_cor"] = df_T.HV_V + BatResistance*df_T.HV_A
+            #df.HV_V_cor[idx] = df_T.HV_V + BatResistance*df_T.HV_A
             
             
             
@@ -154,9 +202,9 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             #
             #
             #def EstimVolt(Bat_Capa, Bat_Rend, Bat_Res, Bat_VoltT, df_T):
-            #    df_T["HV_A_corr"] = df_T.HV_A.copy()
+            #    df.HV_A_corr[idx] = df_T.HV_A.copy()
             #    df_T.HV_A_corr[(df_T.HV_A < 0)] = df_T.HV_A_corr[(df_T.HV_A_corr < 0)] * Bat_Rend
-            #    df_T["EnergyCor"] = np.cumsum(df_T.HV_A_corr.copy() * df_T.diffTime_S.copy() / 3600)
+            #    df.EnergyCor[idx] = np.cumsum(df_T.HV_A_corr.copy() * df_T.diffTime_S.copy() / 3600)
             #    #return df_T.HV_V.iloc[0] + Bat_VoltT*(df_T.BATTERY_TEMP - df_T.BATTERY_TEMP.iloc[0]) - 100*df_T.EnergyCor/Bat_Capa - df_T.HV_A*(Bat_Res + Bat_ResT*(df_T.BATTERY_TEMP - df_T.BATTERY_TEMP.mean()))
             #    return df_T.HV_V.iloc[0] + Bat_VoltT*(df_T.BATTERY_TEMP - df_T.BATTERY_TEMP.iloc[0]) - 100*df_T.EnergyCor/Bat_Capa - df_T.HV_A*(Bat_Res)
             #
@@ -169,12 +217,12 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             #
             #Bat_Capa, Bat_Rend, Bat_Res, Bat_VoltT = result.x
             #
-            #df_T["HV_A_corr"] = df_T.HV_A.copy()
+            #df.HV_A_corr[idx] = df_T.HV_A.copy()
             #df_T.HV_A_corr[(df_T.HV_A < 0)] = df_T.HV_A_corr[(df_T.HV_A_corr < 0)] * Bat_Rend
-            #df_T["EnergyCor"] = np.cumsum(df_T.HV_A_corr.copy() * df_T.diffTime_S.copy() / 3600)
+            #df.EnergyCor[idx] = np.cumsum(df_T.HV_A_corr.copy() * df_T.diffTime_S.copy() / 3600)
             #
-            #df_T["SoCestim"] = df_T.SOC.iloc[0] - 100*df_T.EnergyCor/Bat_Capa
-            #df_T["VoltageEstim"] = df_T.HV_V.iloc[0] - 100*df_T.EnergyCor/Bat_Capa  - df_T.HV_A*Bat_Res
+            #df.SoCestim[idx] = df_T.SOC.iloc[0] - 100*df_T.EnergyCor/Bat_Capa
+            #df.VoltageEstim[idx] = df_T.HV_V.iloc[0] - 100*df_T.EnergyCor/Bat_Capa  - df_T.HV_A*Bat_Res
             
             
             #fig1 = px.scatter(df_T, x=df_T.index, y=df_T.columns)
@@ -211,73 +259,76 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             #st.plotly_chart(px.line(df_T, x=df_T.SOC, y=df_T.HV_V_cor), use_container_width=True)   
     
             ## On identifie la capacité de la batterie
-            df_T["NewSOC"] = df_T.SOC[(df_T.diffSOC.copy()!=0)].copy()
-            df_T["NewEnergy"] = df_T.Energy[(df_T.diffSOC.copy()!=0)].copy()
-            df_T["diffNewEnergy"] = df_T.NewEnergy.copy()
+            df.NewSOC[idx] = df_T.SOC[(df_T.diffSOC.copy()!=0)].copy()
+            df.NewEnergy[idx] = df_T.Energy[(df_T.diffSOC.copy()!=0)].copy()
+            df.diffNewEnergy[idx] = df_T.NewEnergy.copy()
             df_T.diffNewEnergy[~np.isnan(df_T.diffNewEnergy.copy())] = np.concatenate((np.array([np.nan]),np.diff(df_T.NewEnergy[~np.isnan(df_T.diffNewEnergy.copy())].copy())))
             
-            df_T["diffNewSOC"] = df_T.NewSOC.copy()
+            df.diffNewSOC[idx] = df_T.NewSOC.copy()
             df_T.diffNewSOC[~np.isnan(df_T.diffNewSOC.copy())] = np.concatenate((np.array([np.nan]),np.diff(df_T.NewSOC[~np.isnan(df_T.diffNewSOC.copy())].copy())))
-            df_T["CapaBat"] = -100*df_T.diffNewEnergy.copy()/df_T.diffNewSOC.copy()
-            df_T["CapaBatDecharge"] = df_T.CapaBat[(df_T.diffNewSOC.copy()<0)].copy()
-            df_T["CapaBatCharge"] = df_T.CapaBat[(df_T.diffNewSOC.copy()>0)].copy()
+            df.CapaBat[idx] = -100*df_T.diffNewEnergy.copy()/df_T.diffNewSOC.copy()
+            df.CapaBatDecharge[idx] = df_T.CapaBat[(df_T.diffNewSOC.copy()<0)].copy()
+            df.CapaBatCharge[idx] = df_T.CapaBat[(df_T.diffNewSOC.copy()>0)].copy()
     
-            df_T["CapaBat30"] = -100*df_T.diffNewEnergy[(df_T.NewSOC>25) & (df_T.NewSOC<35)].copy()/df_T.diffNewSOC.copy()
-            df_T["CapaBatDecharge30"] = df_T.CapaBat30/df_T.CapaBat30 * np.mean(df_T.CapaBat30[(df_T.diffNewSOC.copy()<0)].copy())
-            df_T["CapaBatCharge30"] = df_T.CapaBat30/df_T.CapaBat30 * np.mean(df_T.CapaBat30[(df_T.diffNewSOC.copy()>0)].copy())
+            df.CapaBat30[idx] = -100*df_T.diffNewEnergy[(df_T.NewSOC>25) & (df_T.NewSOC<35)].copy()/df_T.diffNewSOC.copy()
+            df.CapaBatDecharge30[idx] = df_T.CapaBat30/df_T.CapaBat30 * np.mean(df_T.CapaBat30[(df_T.diffNewSOC.copy()<0)].copy())
+            df.CapaBatCharge30[idx] = df_T.CapaBat30/df_T.CapaBat30 * np.mean(df_T.CapaBat30[(df_T.diffNewSOC.copy()>0)].copy())
     
-            df_T["CapaBat35"] = -100*df_T.diffNewEnergy[(df_T.NewSOC>30) & (df_T.NewSOC<40)].copy()/df_T.diffNewSOC.copy()
-            df_T["CapaBatDecharge35"] = df_T.CapaBat35/df_T.CapaBat35 * np.mean(df_T.CapaBat35[(df_T.diffNewSOC.copy()<0)].copy())
-            df_T["CapaBatCharge35"] = df_T.CapaBat35/df_T.CapaBat35 * np.mean(df_T.CapaBat35[(df_T.diffNewSOC.copy()>0)].copy())
+            df.CapaBat35[idx] = -100*df_T.diffNewEnergy[(df_T.NewSOC>30) & (df_T.NewSOC<40)].copy()/df_T.diffNewSOC.copy()
+            df.CapaBatDecharge35[idx] = df_T.CapaBat35/df_T.CapaBat35 * np.mean(df_T.CapaBat35[(df_T.diffNewSOC.copy()<0)].copy())
+            df.CapaBatCharge35[idx] = df_T.CapaBat35/df_T.CapaBat35 * np.mean(df_T.CapaBat35[(df_T.diffNewSOC.copy()>0)].copy())
     
-            df_T["CapaBat40"] = -100*df_T.diffNewEnergy[(df_T.NewSOC>35) & (df_T.NewSOC<45)].copy()/df_T.diffNewSOC.copy()
-            df_T["CapaBatDecharge40"] = df_T.CapaBat40/df_T.CapaBat40 * np.mean(df_T.CapaBat40[(df_T.diffNewSOC.copy()<0)].copy())
-            df_T["CapaBatCharge40"] = df_T.CapaBat40/df_T.CapaBat40 * np.mean(df_T.CapaBat40[(df_T.diffNewSOC.copy()>0)].copy())
+            df.CapaBat40[idx] = -100*df_T.diffNewEnergy[(df_T.NewSOC>35) & (df_T.NewSOC<45)].copy()/df_T.diffNewSOC.copy()
+            df.CapaBatDecharge40[idx] = df_T.CapaBat40/df_T.CapaBat40 * np.mean(df_T.CapaBat40[(df_T.diffNewSOC.copy()<0)].copy())
+            df.CapaBatCharge40[idx] = df_T.CapaBat40/df_T.CapaBat40 * np.mean(df_T.CapaBat40[(df_T.diffNewSOC.copy()>0)].copy())
     
-            df_T["CapaBat45"] = -100*df_T.diffNewEnergy[(df_T.NewSOC>40) & (df_T.NewSOC<50)].copy()/df_T.diffNewSOC.copy()
-            df_T["CapaBatDecharge45"] = df_T.CapaBat45/df_T.CapaBat45 * np.mean(df_T.CapaBat45[(df_T.diffNewSOC.copy()<0)].copy())
-            df_T["CapaBatCharge45"] = df_T.CapaBat45/df_T.CapaBat45 * np.mean(df_T.CapaBat45[(df_T.diffNewSOC.copy()>0)].copy())
+            df.CapaBat45[idx] = -100*df_T.diffNewEnergy[(df_T.NewSOC>40) & (df_T.NewSOC<50)].copy()/df_T.diffNewSOC.copy()
+            df.CapaBatDecharge45[idx] = df_T.CapaBat45/df_T.CapaBat45 * np.mean(df_T.CapaBat45[(df_T.diffNewSOC.copy()<0)].copy())
+            df.CapaBatCharge45[idx] = df_T.CapaBat45/df_T.CapaBat45 * np.mean(df_T.CapaBat45[(df_T.diffNewSOC.copy()>0)].copy())
     
-            df_T["CapaBat50"] = -100*df_T.diffNewEnergy[(df_T.NewSOC>45) & (df_T.NewSOC<55)].copy()/df_T.diffNewSOC.copy()
-            df_T["CapaBatDecharge50"] = df_T.CapaBat50/df_T.CapaBat50 * np.mean(df_T.CapaBat50[(df_T.diffNewSOC.copy()<0)].copy())
-            df_T["CapaBatCharge50"] = df_T.CapaBat50/df_T.CapaBat50 * np.mean(df_T.CapaBat50[(df_T.diffNewSOC.copy()>0)].copy())
+            df.CapaBat50[idx] = -100*df_T.diffNewEnergy[(df_T.NewSOC>45) & (df_T.NewSOC<55)].copy()/df_T.diffNewSOC.copy()
+            df.CapaBatDecharge50[idx] = df_T.CapaBat50/df_T.CapaBat50 * np.mean(df_T.CapaBat50[(df_T.diffNewSOC.copy()<0)].copy())
+            df.CapaBatCharge50[idx] = df_T.CapaBat50/df_T.CapaBat50 * np.mean(df_T.CapaBat50[(df_T.diffNewSOC.copy()>0)].copy())
     
-            df_T["CapaBat55"] = -100*df_T.diffNewEnergy[(df_T.NewSOC>50) & (df_T.NewSOC<60)].copy()/df_T.diffNewSOC.copy()
-            df_T["CapaBatDecharge55"] = df_T.CapaBat55/df_T.CapaBat55 * np.mean(df_T.CapaBat55[(df_T.diffNewSOC.copy()<0)].copy())
-            df_T["CapaBatCharge55"] = df_T.CapaBat55/df_T.CapaBat55 * np.mean(df_T.CapaBat55[(df_T.diffNewSOC.copy()>0)].copy())
+            df.CapaBat55[idx] = -100*df_T.diffNewEnergy[(df_T.NewSOC>50) & (df_T.NewSOC<60)].copy()/df_T.diffNewSOC.copy()
+            df.CapaBatDecharge55[idx] = df_T.CapaBat55/df_T.CapaBat55 * np.mean(df_T.CapaBat55[(df_T.diffNewSOC.copy()<0)].copy())
+            df.CapaBatCharge55[idx] = df_T.CapaBat55/df_T.CapaBat55 * np.mean(df_T.CapaBat55[(df_T.diffNewSOC.copy()>0)].copy())
     
-            df_T["CapaBat60"] = -100*df_T.diffNewEnergy[(df_T.NewSOC>55) & (df_T.NewSOC<65)].copy()/df_T.diffNewSOC.copy()
-            df_T["CapaBatDecharge60"] = df_T.CapaBat60/df_T.CapaBat60 * np.mean(df_T.CapaBat60[(df_T.diffNewSOC.copy()<0)].copy())
-            df_T["CapaBatCharge60"] = df_T.CapaBat60/df_T.CapaBat60 * np.mean(df_T.CapaBat60[(df_T.diffNewSOC.copy()>0)].copy())
+            df.CapaBat60[idx] = -100*df_T.diffNewEnergy[(df_T.NewSOC>55) & (df_T.NewSOC<65)].copy()/df_T.diffNewSOC.copy()
+            df.CapaBatDecharge60[idx] = df_T.CapaBat60/df_T.CapaBat60 * np.mean(df_T.CapaBat60[(df_T.diffNewSOC.copy()<0)].copy())
+            df.CapaBatCharge60[idx] = df_T.CapaBat60/df_T.CapaBat60 * np.mean(df_T.CapaBat60[(df_T.diffNewSOC.copy()>0)].copy())
     
-            df_T["CapaBat65"] = -100*df_T.diffNewEnergy[(df_T.NewSOC>60) & (df_T.NewSOC<70)].copy()/df_T.diffNewSOC.copy()
-            df_T["CapaBatDecharge65"] = df_T.CapaBat65/df_T.CapaBat65 * np.mean(df_T.CapaBat65[(df_T.diffNewSOC.copy()<0)].copy())
-            df_T["CapaBatCharge65"] = df_T.CapaBat65/df_T.CapaBat65 * np.mean(df_T.CapaBat65[(df_T.diffNewSOC.copy()>0)].copy())
+            df.CapaBat65[idx] = -100*df_T.diffNewEnergy[(df_T.NewSOC>60) & (df_T.NewSOC<70)].copy()/df_T.diffNewSOC.copy()
+            df.CapaBatDecharge65[idx] = df_T.CapaBat65/df_T.CapaBat65 * np.mean(df_T.CapaBat65[(df_T.diffNewSOC.copy()<0)].copy())
+            df.CapaBatCharge65[idx] = df_T.CapaBat65/df_T.CapaBat65 * np.mean(df_T.CapaBat65[(df_T.diffNewSOC.copy()>0)].copy())
     
-            df_T["CapaBat70"] = -100*df_T.diffNewEnergy[(df_T.NewSOC>65) & (df_T.NewSOC<75)].copy()/df_T.diffNewSOC.copy()
-            df_T["CapaBatDecharge70"] = df_T.CapaBat70/df_T.CapaBat70 * np.mean(df_T.CapaBat70[(df_T.diffNewSOC.copy()<0)].copy())
-            df_T["CapaBatCharge70"] = df_T.CapaBat70/df_T.CapaBat70 * np.mean(df_T.CapaBat70[(df_T.diffNewSOC.copy()>0)].copy())
+            df.CapaBat70[idx] = -100*df_T.diffNewEnergy[(df_T.NewSOC>65) & (df_T.NewSOC<75)].copy()/df_T.diffNewSOC.copy()
+            df.CapaBatDecharge70[idx] = df_T.CapaBat70/df_T.CapaBat70 * np.mean(df_T.CapaBat70[(df_T.diffNewSOC.copy()<0)].copy())
+            df.CapaBatCharge70[idx] = df_T.CapaBat70/df_T.CapaBat70 * np.mean(df_T.CapaBat70[(df_T.diffNewSOC.copy()>0)].copy())
     
-            df_T["CapaBat75"] = -100*df_T.diffNewEnergy[(df_T.NewSOC>70) & (df_T.NewSOC<80)].copy()/df_T.diffNewSOC.copy()
-            df_T["CapaBatDecharge75"] = df_T.CapaBat75/df_T.CapaBat75 * np.mean(df_T.CapaBat75[(df_T.diffNewSOC.copy()<0)].copy())
-            df_T["CapaBatCharge75"] = df_T.CapaBat75/df_T.CapaBat75 * np.mean(df_T.CapaBat75[(df_T.diffNewSOC.copy()>0)].copy())
+            df.CapaBat75[idx] = -100*df_T.diffNewEnergy[(df_T.NewSOC>70) & (df_T.NewSOC<80)].copy()/df_T.diffNewSOC.copy()
+            df.CapaBatDecharge75[idx] = df_T.CapaBat75/df_T.CapaBat75 * np.mean(df_T.CapaBat75[(df_T.diffNewSOC.copy()<0)].copy())
+            df.CapaBatCharge75[idx] = df_T.CapaBat75/df_T.CapaBat75 * np.mean(df_T.CapaBat75[(df_T.diffNewSOC.copy()>0)].copy())
     
-            df_T["CapaBat80"] = -100*df_T.diffNewEnergy[(df_T.NewSOC>75) & (df_T.NewSOC<85)].copy()/df_T.diffNewSOC.copy()
-            df_T["CapaBatDecharge80"] = df_T.CapaBat80/df_T.CapaBat80 * np.mean(df_T.CapaBat80[(df_T.diffNewSOC.copy()<0)].copy())
-            df_T["CapaBatCharge80"] = df_T.CapaBat80/df_T.CapaBat80 * np.mean(df_T.CapaBat80[(df_T.diffNewSOC.copy()>0)].copy())
+            df.CapaBat80[idx] = -100*df_T.diffNewEnergy[(df_T.NewSOC>75) & (df_T.NewSOC<85)].copy()/df_T.diffNewSOC.copy()
+            df.CapaBatDecharge80[idx] = df_T.CapaBat80/df_T.CapaBat80 * np.mean(df_T.CapaBat80[(df_T.diffNewSOC.copy()<0)].copy())
+            df.CapaBatCharge80[idx] = df_T.CapaBat80/df_T.CapaBat80 * np.mean(df_T.CapaBat80[(df_T.diffNewSOC.copy()>0)].copy())
     
-            df_T["CapaBat85"] = -100*df_T.diffNewEnergy[(df_T.NewSOC>80) & (df_T.NewSOC<90)].copy()/df_T.diffNewSOC.copy()
-            df_T["CapaBatDecharge85"] = df_T.CapaBat85/df_T.CapaBat85 * np.mean(df_T.CapaBat85[(df_T.diffNewSOC.copy()<0)].copy())
-            df_T["CapaBatCharge85"] = df_T.CapaBat85/df_T.CapaBat85 * np.mean(df_T.CapaBat85[(df_T.diffNewSOC.copy()>0)].copy())
+            df.CapaBat85[idx] = -100*df_T.diffNewEnergy[(df_T.NewSOC>80) & (df_T.NewSOC<90)].copy()/df_T.diffNewSOC.copy()
+            df.CapaBatDecharge85[idx] = df_T.CapaBat85/df_T.CapaBat85 * np.mean(df_T.CapaBat85[(df_T.diffNewSOC.copy()<0)].copy())
+            df.CapaBatCharge85[idx] = df_T.CapaBat85/df_T.CapaBat85 * np.mean(df_T.CapaBat85[(df_T.diffNewSOC.copy()>0)].copy())
     
-            df_T["CapaBat90"] = -100*df_T.diffNewEnergy[(df_T.NewSOC>85) & (df_T.NewSOC<95)].copy()/df_T.diffNewSOC.copy()
-            df_T["CapaBatDecharge90"] = df_T.CapaBat90/df_T.CapaBat90 * np.mean(df_T.CapaBat90[(df_T.diffNewSOC.copy()<0)].copy())
-            df_T["CapaBatCharge90"] = df_T.CapaBat90/df_T.CapaBat90 * np.mean(df_T.CapaBat90[(df_T.diffNewSOC.copy()>0)].copy())
-    
+            df.CapaBat90[idx] = -100*df_T.diffNewEnergy[(df_T.NewSOC>85) & (df_T.NewSOC<95)].copy()/df_T.diffNewSOC.copy()
+            df.CapaBatDecharge90[idx] = df_T.CapaBat90/df_T.CapaBat90 * np.mean(df_T.CapaBat90[(df_T.diffNewSOC.copy()<0)].copy())
+            df.CapaBatCharge90[idx] = df_T.CapaBat90/df_T.CapaBat90 * np.mean(df_T.CapaBat90[(df_T.diffNewSOC.copy()>0)].copy())
+            
+            
+            
+            
     #
     #
-            #df_T["NewSoCestim"] = df_T.SoCestim[(df_T.diffSOC.copy()!=0)].copy()
-            #df_T["diffNewSoCestim"] = df_T.NewSoCestim.copy()
+            #df.NewSoCestim[idx] = df_T.SoCestim[(df_T.diffSOC.copy()!=0)].copy()
+            #df.diffNewSoCestim[idx] = df_T.NewSoCestim.copy()
             #df_T.diffNewSoCestim[~np.isnan(df_T.diffNewSoCestim.copy())] = np.concatenate((np.array([np.nan]),np.diff(df_T.NewSoCestim[~np.isnan(df_T.diffNewSoCestim.copy())].copy())))
             #
 #
