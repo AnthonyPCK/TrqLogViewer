@@ -494,7 +494,7 @@ st.plotly_chart(fig101, use_container_width=True)
 '''
 HeatMap_X = st.selectbox(
     "On selectionne la voie de mesure en X",
-    df_FastLog.columns)
+    df_FastLog.columns, index="ICE_RPM")
     
 HeatMap_Y = st.selectbox(
     "On selectionne la voie de mesure en Y",
