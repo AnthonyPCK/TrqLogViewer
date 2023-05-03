@@ -362,6 +362,7 @@ fig101 = px.line(x=SoC, y=CapaDech,labels={
 
 
 st.plotly_chart(fig100, use_container_width=True)
+st.plotly_chart(px.scatter(df_Out, x=df_Out.TempeBat, y=df_Out.columns), use_container_width=True)
 st.plotly_chart(fig101, use_container_width=True)
 
 '''
