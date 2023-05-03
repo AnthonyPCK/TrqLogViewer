@@ -216,12 +216,6 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             df_T["diffNewEnergy"] = df_T.NewEnergy.copy()
             df_T.diffNewEnergy[~np.isnan(df_T.diffNewEnergy.copy())] = np.concatenate((np.array([np.nan]),np.diff(df_T.NewEnergy[~np.isnan(df_T.diffNewEnergy.copy())].copy())))
             
-            df_T["NewSoCestim"] = df_T.SoCestim[(df_T.diffSOC.copy()!=0)].copy()
-            df_T["diffNewSoCestim"] = df_T.NewSoCestim.copy()
-            df_T.diffNewSoCestim[~np.isnan(df_T.diffNewSoCestim.copy())] = np.concatenate((np.array([np.nan]),np.diff(df_T.NewSoCestim[~np.isnan(df_T.diffNewSoCestim.copy())].copy())))
-            st.write(np.mean(df_T.diffNewEnergy.copy()/df_T.diffNewSOC.copy()))
-            
-            
             df_T["diffNewSOC"] = df_T.NewSOC.copy()
             df_T.diffNewSOC[~np.isnan(df_T.diffNewSOC.copy())] = np.concatenate((np.array([np.nan]),np.diff(df_T.NewSOC[~np.isnan(df_T.diffNewSOC.copy())].copy())))
             df_T["CapaBat"] = -100*df_T.diffNewEnergy.copy()/df_T.diffNewSOC.copy()
@@ -280,6 +274,15 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             df_T["CapaBatDecharge90"] = df_T.CapaBat90/df_T.CapaBat90 * np.mean(df_T.CapaBat90[(df_T.diffNewSOC.copy()<0)].copy())
             df_T["CapaBatCharge90"] = df_T.CapaBat90/df_T.CapaBat90 * np.mean(df_T.CapaBat90[(df_T.diffNewSOC.copy()>0)].copy())
     
+    
+    
+            df_T["NewSoCestim"] = df_T.SoCestim[(df_T.diffSOC.copy()!=0)].copy()
+            df_T["diffNewSoCestim"] = df_T.NewSoCestim.copy()
+            df_T.diffNewSoCestim[~np.isnan(df_T.diffNewSoCestim.copy())] = np.concatenate((np.array([np.nan]),np.diff(df_T.NewSoCestim[~np.isnan(df_T.diffNewSoCestim.copy())].copy())))
+            st.write(np.mean(df_T.diffNewEnergy.copy()/df_T.diffNewSOC.copy()))
+        
+        
+        
             # fig4 = px.scatter(df_T, x=df_T.SOC, y=df_T.columns)
             # plot(fig4)
     
