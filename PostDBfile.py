@@ -178,7 +178,10 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
         # On garde les point ou on a le signal de tension batterie HV
         max_Voltage_idx = df_FastLog.HV_V[idx].idxmax()
         max_Voltage = df_FastLog.HV_V.loc[max_Voltage_idx]
-    
+        
+        st.write(max_Voltage)
+        st.plotly_chart(px.line(df_FastLog, x=df_FastLog.index, y=df_FastLog.HV_V), use_container_width=True)
+        
         
         if max_Voltage>1:
 
