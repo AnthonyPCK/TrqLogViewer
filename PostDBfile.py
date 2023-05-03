@@ -258,12 +258,10 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             #st.plotly_chart(px.line(df_T, x=df_FastLog[idx].SOC, y=df_FastLog[idx].HV_V_cor), use_container_width=True)   
     
             ## On identifie la capacité de la batterie
-            idx2 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0)
-            df_FastLog.loc[idx2,"NewSOC"] = df_FastLog.loc[idx2].SOC
+            df_FastLog.loc[idx,"NewSOC"] = df_FastLog[idx].SOC[(df_FastLog[idx].diffSOC!=0)]
             df_FastLog.loc[idx,"NewEnergy"] = df_FastLog[idx].Energy_Ah[(df_FastLog[idx].diffSOC!=0)]
             df_FastLog.loc[idx,"diffNewEnergy"] = df_FastLog[idx].NewEnergy
-            df_FastLog.loc[idx,"diffNewEnergy"][~np.isnan(df_FastLog[idx].diffNewEnergy)] = np.concatenate((np.array([np.nan]),np.diff(df_FastLog[idx].NewEnergy[~np.isnan(df_FastLog[idx].diffNewEnergy)])))
-            
+            df_FastLog.loc[~np.isnan(df_FastLog[idx].diffNewEnergy),"diffNewEnergy"] = np.concatenate((np.array([np.nan]),np.diff(df_FastLog[~np.isnan(df_FastLog[idx].diffNewEnergy)].NewEnergy)))
             df_FastLog.loc[idx,"diffNewSOC"] = df_FastLog[idx].NewSOC
             df_FastLog.loc[idx,"diffNewSOC"][~np.isnan(df_FastLog[idx].diffNewSOC)] = np.concatenate((np.array([np.nan]),np.diff(df_FastLog[idx].NewSOC[~np.isnan(df_FastLog[idx].diffNewSOC)])))
             df_FastLog.loc[idx,"CapaBat"] = -100*df_FastLog[idx].diffNewEnergy/df_FastLog[idx].diffNewSOC
@@ -451,7 +449,6 @@ st.plotly_chart(fig100, use_container_width=True)
 #    }
 #)
 #st.plotly_chart(fig200, use_container_width=True)
-
 
 
 
