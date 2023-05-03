@@ -265,7 +265,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             df_FastLog.loc[idx2,"diffNewEnergy"] = np.concatenate((np.array([np.nan]),np.diff(df_FastLog[idx2].NewEnergy)))
             
             #df_FastLog.loc[idx,"diffNewSOC"] = df_FastLog[idx].NewSOC
-            df_FastLog.loc[idx,"diffNewSOC"][~np.isnan(df_FastLog[idx].diffNewSOC)] = np.concatenate((np.array([np.nan]),np.diff(df_FastLog[idx].NewSOC[~np.isnan(df_FastLog[idx].diffNewSOC)])))
+            df_FastLog.loc[idx2,"diffNewSOC"] = np.concatenate((np.array([np.nan]),np.diff(df_FastLog[idx2].NewSOC)))
             df_FastLog.loc[idx,"CapaBat"] = -100*df_FastLog[idx].diffNewEnergy/df_FastLog[idx].diffNewSOC
             df_FastLog.loc[idx,"CapaBatDecharge"] = df_FastLog[idx].CapaBat[(df_FastLog[idx].diffNewSOC<0)]
             df_FastLog.loc[idx,"CapaBatCharge"] = df_FastLog[idx].CapaBat[(df_FastLog[idx].diffNewSOC>0)]
