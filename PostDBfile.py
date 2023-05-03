@@ -502,13 +502,13 @@ HeatMap_Y = st.selectbox(
     
     
 
+with col1:
+    Temperature_ICE = st.slider('Selection de la température ICE', -20.0, 120.0, (80.0, 95.0))
+with col2:
+    NbinsX = st.slider('Nbins en X', 50, 500, 100)
+    NbinsY = st.slider('Nbins en Y', 50, 500, 100)
 
-Temperature_ICE = st.slider('Selection la température ICE', -20.0, 120.0, (80.0, 95.0))
-
-NbinsX = st.slider('Nbins en X', 50, 500, 100)
-NbinsY = st.slider('Nbins en Y', 50, 500, 100)
-
-Sat = st.slider('Saturation couleur', 0.0, 0.5, 0.2)
+    Sat = st.slider('Saturation couleur', 0.0, 0.5, 0.2)
 
 idx200 = (df_FastLog.ICE_TEMP > Temperature_ICE[0]) & (df_FastLog.ICE_TEMP < Temperature_ICE[1])
 
@@ -521,5 +521,4 @@ fig200.update_layout(
     }
 )
 st.plotly_chart(fig200, use_container_width=True)
-
 
