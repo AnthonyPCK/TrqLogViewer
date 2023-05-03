@@ -438,9 +438,7 @@ df_Out, df_FastLog = posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_Trip
 
 
 
-##################################################### Plot All vs date
-fig100 = px.scatter(df_Out, x=df_Out.DateTrajet, y=df_Out.columns,title="Suivi du viellissement :")
-st.plotly_chart(fig100, use_container_width=True)     
+   
  
 
 
@@ -449,7 +447,12 @@ st.plotly_chart(fig100, use_container_width=True)
 ##################################################### Plot Resistance batterie
 st.plotly_chart(px.scatter(df_Out, x=df_Out.TempeBat, y=df_Out.ResistanceBat), use_container_width=True)
 
+##################################################### Plot Capa batterie
+st.plotly_chart(px.scatter(df_Out, x=df_Out.TempeBat, y=df_Out.CapaciteBatDecharge), use_container_width=True)
 
+##################################################### Plot All vs date
+fig100 = px.scatter(df_Out, x=df_Out.DateTrajet, y=df_Out.columns,title="Suivi du viellissement :")
+st.plotly_chart(fig100, use_container_width=True)  
 
 #################################################### Plot Capa locale batterie
 SoC = np.arange(30.0, 90.1, 5)
