@@ -82,48 +82,51 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
     df_FastLog["NewEnergy"] = np.nan
     df_FastLog["diffNewEnergy"] = np.nan
     df_FastLog["diffNewSOC"] = np.nan
-    df_FastLog["CapaBat"] = np.nan
+    #df_FastLog["CapaBat"] = np.nan
     df_FastLog["CapaBatDecharge"] = np.nan
     df_FastLog["CapaBatCharge"] = np.nan
-    df_FastLog["CapaBat30"] = np.nan
+    #df_FastLog["CapaBat30"] = np.nan
     df_FastLog["CapaBatDecharge30"] = np.nan
     df_FastLog["CapaBatCharge30"] = np.nan
-    df_FastLog["CapaBat35"] = np.nan
+    #df_FastLog["CapaBat35"] = np.nan
     df_FastLog["CapaBatDecharge35"] = np.nan
     df_FastLog["CapaBatCharge35"] = np.nan
-    df_FastLog["CapaBat40"] = np.nan
+    #df_FastLog["CapaBat40"] = np.nan
     df_FastLog["CapaBatDecharge40"] = np.nan
     df_FastLog["CapaBatCharge40"] = np.nan
-    df_FastLog["CapaBat45"] = np.nan
+    #df_FastLog["CapaBat45"] = np.nan
     df_FastLog["CapaBatDecharge45"] = np.nan
     df_FastLog["CapaBatCharge45"] = np.nan
-    df_FastLog["CapaBat50"] = np.nan
+    #df_FastLog["CapaBat50"] = np.nan
     df_FastLog["CapaBatDecharge50"] = np.nan
     df_FastLog["CapaBatCharge50"] = np.nan
-    df_FastLog["CapaBat55"] = np.nan
+    #df_FastLog["CapaBat55"] = np.nan
     df_FastLog["CapaBatDecharge55"] = np.nan
     df_FastLog["CapaBatCharge55"] = np.nan
-    df_FastLog["CapaBat60"] = np.nan
+    #df_FastLog["CapaBat60"] = np.nan
     df_FastLog["CapaBatDecharge60"] = np.nan
     df_FastLog["CapaBatCharge60"] = np.nan
-    df_FastLog["CapaBat65"] = np.nan
+    #df_FastLog["CapaBat65"] = np.nan
     df_FastLog["CapaBatDecharge65"] = np.nan
     df_FastLog["CapaBatCharge65"] = np.nan
-    df_FastLog["CapaBat70"] = np.nan
+    #df_FastLog["CapaBat70"] = np.nan
     df_FastLog["CapaBatDecharge70"] = np.nan
     df_FastLog["CapaBatCharge70"] = np.nan
-    df_FastLog["CapaBat75"] = np.nan
+    #df_FastLog["CapaBat75"] = np.nan
     df_FastLog["CapaBatDecharge75"] = np.nan
     df_FastLog["CapaBatCharge75"] = np.nan
-    df_FastLog["CapaBat80"] = np.nan
+    #df_FastLog["CapaBat80"] = np.nan
     df_FastLog["CapaBatDecharge80"] = np.nan
     df_FastLog["CapaBatCharge80"] = np.nan
-    df_FastLog["CapaBat85"] = np.nan
+    #df_FastLog["CapaBat85"] = np.nan
     df_FastLog["CapaBatDecharge85"] = np.nan
     df_FastLog["CapaBatCharge85"] = np.nan
-    df_FastLog["CapaBat90"] = np.nan
+    #df_FastLog["CapaBat90"] = np.nan
     df_FastLog["CapaBatDecharge90"] = np.nan
     df_FastLog["CapaBatCharge90"] = np.nan
+    #df_FastLog["CapaBat95"] = np.nan
+    df_FastLog["CapaBatDecharge95"] = np.nan
+    df_FastLog["CapaBatCharge95"] = np.nan
     
     # On créé un dataframe qui contient les sorties
     df_Out = pd.DataFrame(columns = ['Distance',
@@ -163,7 +166,9 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
                                      'CapaciteBatCharge85',
                                      'CapaciteBatDecharge85',
                                      'CapaciteBatCharge90',
-                                     'CapaciteBatDecharge90'],
+                                     'CapaciteBatDecharge90',
+                                     'CapaciteBatCharge95',
+                                     'CapaciteBatDecharge95'],
                                      dtype = 'float')
     
     
@@ -269,44 +274,111 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             
             DeltaSOC = 3
             
-            idx3 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 30) < DeltaSOC)
+            #idx3 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 30) < DeltaSOC)
             idx4 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 30) < DeltaSOC) & (df_FastLog.diffNewSOC < 0 )
             idx5 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 30) < DeltaSOC) & (df_FastLog.diffNewSOC > 0 )
-            df_FastLog.loc[idx3,"CapaBat30"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx3].diffNewSOC
+            #df_FastLog.loc[idx3,"CapaBat30"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx3].diffNewSOC
             df_FastLog.loc[idx,"CapaBatDecharge30"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx4].diffNewSOC
             df_FastLog.loc[idx,"CapaBatCharge30"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx5].diffNewSOC
-    
-    
-            idx3 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 60) < DeltaSOC)
+            
+            #idx3 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 35) < DeltaSOC)
+            idx4 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 35) < DeltaSOC) & (df_FastLog.diffNewSOC < 0 )
+            idx5 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 35) < DeltaSOC) & (df_FastLog.diffNewSOC > 0 )
+            #df_FastLog.loc[idx3,"CapaBat35"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx3].diffNewSOC
+            df_FastLog.loc[idx,"CapaBatDecharge35"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx4].diffNewSOC
+            df_FastLog.loc[idx,"CapaBatCharge35"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx5].diffNewSOC
+            
+            #idx3 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 40) < DeltaSOC)
+            idx4 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 40) < DeltaSOC) & (df_FastLog.diffNewSOC < 0 )
+            idx5 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 40) < DeltaSOC) & (df_FastLog.diffNewSOC > 0 )
+            #df_FastLog.loc[idx3,"CapaBat40"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx3].diffNewSOC
+            df_FastLog.loc[idx,"CapaBatDecharge40"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx4].diffNewSOC
+            df_FastLog.loc[idx,"CapaBatCharge40"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx5].diffNewSOC
+            
+            #idx3 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 45) < DeltaSOC)
+            idx4 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 45) < DeltaSOC) & (df_FastLog.diffNewSOC < 0 )
+            idx5 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 45) < DeltaSOC) & (df_FastLog.diffNewSOC > 0 )
+            #df_FastLog.loc[idx3,"CapaBat45"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx3].diffNewSOC
+            df_FastLog.loc[idx,"CapaBatDecharge45"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx4].diffNewSOC
+            df_FastLog.loc[idx,"CapaBatCharge45"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx5].diffNewSOC
+            
+            #idx3 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 50) < DeltaSOC)
+            idx4 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 50) < DeltaSOC) & (df_FastLog.diffNewSOC < 0 )
+            idx5 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 50) < DeltaSOC) & (df_FastLog.diffNewSOC > 0 )
+            #df_FastLog.loc[idx3,"CapaBat50"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx3].diffNewSOC
+            df_FastLog.loc[idx,"CapaBatDecharge50"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx4].diffNewSOC
+            df_FastLog.loc[idx,"CapaBatCharge50"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx5].diffNewSOC
+            
+            #idx3 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 55) < DeltaSOC)
+            idx4 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 55) < DeltaSOC) & (df_FastLog.diffNewSOC < 0 )
+            idx5 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 55) < DeltaSOC) & (df_FastLog.diffNewSOC > 0 )
+            #df_FastLog.loc[idx3,"CapaBat55"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx3].diffNewSOC
+            df_FastLog.loc[idx,"CapaBatDecharge55"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx4].diffNewSOC
+            df_FastLog.loc[idx,"CapaBatCharge55"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx5].diffNewSOC
+                        
+            #idx3 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 60) < DeltaSOC)
             idx4 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 60) < DeltaSOC) & (df_FastLog.diffNewSOC < 0 )
             idx5 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 60) < DeltaSOC) & (df_FastLog.diffNewSOC > 0 )
-            df_FastLog.loc[idx3,"CapaBat60"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx3].diffNewSOC
+            #df_FastLog.loc[idx3,"CapaBat60"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx3].diffNewSOC
             df_FastLog.loc[idx,"CapaBatDecharge60"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx4].diffNewSOC
             df_FastLog.loc[idx,"CapaBatCharge60"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx5].diffNewSOC
             
+            #idx3 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 65) < DeltaSOC)
+            idx4 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 65) < DeltaSOC) & (df_FastLog.diffNewSOC < 0 )
+            idx5 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 65) < DeltaSOC) & (df_FastLog.diffNewSOC > 0 )
+            #df_FastLog.loc[idx3,"CapaBat65"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx3].diffNewSOC
+            df_FastLog.loc[idx,"CapaBatDecharge65"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx4].diffNewSOC
+            df_FastLog.loc[idx,"CapaBatCharge65"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx5].diffNewSOC
             
+            #idx3 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 70) < DeltaSOC)
+            idx4 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 70) < DeltaSOC) & (df_FastLog.diffNewSOC < 0 )
+            idx5 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 70) < DeltaSOC) & (df_FastLog.diffNewSOC > 0 )
+            #df_FastLog.loc[idx3,"CapaBat70"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx3].diffNewSOC
+            df_FastLog.loc[idx,"CapaBatDecharge70"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx4].diffNewSOC
+            df_FastLog.loc[idx,"CapaBatCharge70"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx5].diffNewSOC
             
+            #idx3 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 75) < DeltaSOC)
+            idx4 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 75) < DeltaSOC) & (df_FastLog.diffNewSOC < 0 )
+            idx5 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 75) < DeltaSOC) & (df_FastLog.diffNewSOC > 0 )
+            #df_FastLog.loc[idx3,"CapaBat75"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx3].diffNewSOC
+            df_FastLog.loc[idx,"CapaBatDecharge75"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx4].diffNewSOC
+            df_FastLog.loc[idx,"CapaBatCharge75"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx5].diffNewSOC
             
+            #idx3 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 80) < DeltaSOC)
+            idx4 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 80) < DeltaSOC) & (df_FastLog.diffNewSOC < 0 )
+            idx5 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 80) < DeltaSOC) & (df_FastLog.diffNewSOC > 0 )
+            #df_FastLog.loc[idx3,"CapaBat80"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx3].diffNewSOC
+            df_FastLog.loc[idx,"CapaBatDecharge80"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx4].diffNewSOC
+            df_FastLog.loc[idx,"CapaBatCharge80"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx5].diffNewSOC
             
+            #idx3 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 85) < DeltaSOC)
+            idx4 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 85) < DeltaSOC) & (df_FastLog.diffNewSOC < 0 )
+            idx5 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 85) < DeltaSOC) & (df_FastLog.diffNewSOC > 0 )
+            #df_FastLog.loc[idx3,"CapaBat85"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx3].diffNewSOC
+            df_FastLog.loc[idx,"CapaBatDecharge85"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx4].diffNewSOC
+            df_FastLog.loc[idx,"CapaBatCharge85"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx5].diffNewSOC
             
+            #idx3 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 90) < DeltaSOC)
+            idx4 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 90) < DeltaSOC) & (df_FastLog.diffNewSOC < 0 )
+            idx5 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 90) < DeltaSOC) & (df_FastLog.diffNewSOC > 0 )
+            #df_FastLog.loc[idx3,"CapaBat90"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx3].diffNewSOC
+            df_FastLog.loc[idx,"CapaBatDecharge90"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx4].diffNewSOC
+            df_FastLog.loc[idx,"CapaBatCharge90"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx5].diffNewSOC
+            
+            #idx3 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 95) < DeltaSOC)
+            idx4 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 95) < DeltaSOC) & (df_FastLog.diffNewSOC < 0 )
+            idx5 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (np.abs(df_FastLog.SOC - 95) < DeltaSOC) & (df_FastLog.diffNewSOC > 0 )
+            #df_FastLog.loc[idx3,"CapaBat95"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx3].diffNewSOC
+            df_FastLog.loc[idx,"CapaBatDecharge95"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx4].diffNewSOC
+            df_FastLog.loc[idx,"CapaBatCharge95"] = -100*df_FastLog[idx3].diffNewEnergy/df_FastLog[idx5].diffNewSOC
             
             
             fig1 = px.scatter(df_FastLog[idx], x=df_FastLog[idx].index, y=df_FastLog[idx].columns)
             st.plotly_chart(fig1, use_container_width=True) 
+        
+            fig2 = px.scatter(df_FastLog[idx], x=df_FastLog[idx].SOC, y=df_FastLog[idx].columns)
+            st.plotly_chart(fig2, use_container_width=True) 
             
-    #
-    #
-            #df_FastLog[idx].NewSoCestim = df_FastLog[idx].SoCestim[(df_FastLog[idx].diffSOC!=0)]
-            #df_FastLog[idx].diffNewSoCestim = df_FastLog[idx].NewSoCestim
-            #df_FastLog[idx].diffNewSoCestim[~np.isnan(df_FastLog[idx].diffNewSoCestim)] = np.concatenate((np.array([np.nan]),np.diff(df_FastLog[idx].NewSoCestim[~np.isnan(df_FastLog[idx].diffNewSoCestim)])))
-            #
-#
-            #df_FastLog[idx].SoCestim = df_FastLog[idx].SOC.iloc[0] - 100*df_FastLog[idx].EnergyCor/Bat_Capa/np.mean(df_FastLog[idx].diffNewSoCestim/df_FastLog[idx].diffNewSOC)
-            #st.plotly_chart(px.scatter(df_T, x=df_FastLog[idx].SoCestim, y=df_FastLog[idx].columns), use_container_width=True) 
-        
-        
-            # fig4 = px.scatter(df_T, x=df_FastLog[idx].SOC, y=df_FastLog[idx].columns)
-            # plot(fig4)
     
             df_new_row = pd.DataFrame.from_records([{'Distance' : df_Trips.at[ii,"NKMS"],
                                     'Kilometrage' : MeanKilometrage,
@@ -317,7 +389,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
                                     'TempeAmbiante' : MeanAmbiantTemp,
                                     'TempeBat' : MeanBatTemp,
                                     'ResistanceBat' : BatResistance,
-                                    'CapaBat' : df_FastLog[idx].CapaBat.mean(),
+                                    #'CapaBat' : df_FastLog[idx].CapaBat.mean(),
                                     'CapaciteBatCharge' : df_FastLog[idx].CapaBatCharge.mean(),
                                     'CapaciteBatDecharge' : df_FastLog[idx].CapaBatDecharge.mean(),
                                     'CapaciteBatCharge30' : df_FastLog[idx].CapaBatCharge30.mean(),
@@ -346,6 +418,8 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
                                     'CapaciteBatDecharge85' : df_FastLog[idx].CapaBatDecharge85.mean(),
                                     'CapaciteBatCharge90' : df_FastLog[idx].CapaBatCharge90.mean(),
                                     'CapaciteBatDecharge90' : df_FastLog[idx].CapaBatDecharge90.mean(),
+                                    'CapaciteBatCharge95' : df_FastLog[idx].CapaBatCharge95.mean(),
+                                    'CapaciteBatDecharge95' : df_FastLog[idx].CapaBatDecharge95.mean(),
                                     }])
             df_Out = pd.concat([df_Out, df_new_row], ignore_index=True)
     
@@ -358,7 +432,6 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
 
 df_Out, df_FastLog = posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN)
 
-df_Out = df_Out[(df_Out.Distance > 5)]
 
 
 
