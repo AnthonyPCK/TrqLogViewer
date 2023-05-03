@@ -284,7 +284,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             st.plotly_chart(px.scatter(df_T, x=df_T.SoCestim, y=df_T.columns), use_container_width=True) 
         
             #st.write = (100*np.mean(np.diff(df_T.EnergyCor)/np.diff(df_T.SoCestim)))
-            st.write = (Bat_Capa*np.mean(df_T.diffNewSoCestim.copy()/df_T.diffNewSOC.copy()))
+            #st.write = (Bat_Capa*np.mean(df_T.diffNewSoCestim.copy()/df_T.diffNewSOC.copy()))
         
             # fig4 = px.scatter(df_T, x=df_T.SOC, y=df_T.columns)
             # plot(fig4)
