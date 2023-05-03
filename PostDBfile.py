@@ -503,14 +503,16 @@ HeatMap_Y = st.selectbox(
     
 
 
-Temperature_ICE = st.slider('Select a range of values', -20.0, 120.0, (80.0, 95.0))
+Temperature_ICE = st.slider('Selection la température ICE', -20.0, 120.0, (80.0, 95.0))
 
 NbinsX = st.slider('Nbins en X', 50, 500, 100)
 NbinsY = st.slider('Nbins en Y', 50, 500, 100)
 
 Sat = st.slider('Saturation couleur', 0.0, 0.5, 0.2)
 
-fig200 = px.density_heatmap(df_FastLog, x=HeatMap_X, y=HeatMap_Y, nbinsx=NbinsX, nbinsy=NbinsY)
+idx200 = (df_FastLog.ICE_TEMP > Temperature_ICE[0]) & (df_FastLog.ICE_TEMP < Temperature_ICE[1])
+
+fig200 = px.density_heatmap(df_FastLog[idx200], x=HeatMap_X, y=HeatMap_Y, nbinsx=NbinsX, nbinsy=NbinsY)
 fig200.update_traces(histnorm = "percent")
 fig200.update_layout(
     {
@@ -519,4 +521,5 @@ fig200.update_layout(
     }
 )
 st.plotly_chart(fig200, use_container_width=True)
+
 
