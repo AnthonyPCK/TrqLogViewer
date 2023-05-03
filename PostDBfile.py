@@ -183,7 +183,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
         if max_Voltage>1:
 
             # On rajoute des channels
-            df_FastLog.loc[idx,Time_S] = (df_FastLog[idx].TIMESTAMP.copy() - df_FastLog[idx].TIMESTAMP.min()) / 1000
+            df_FastLog.loc[idx,"Time_S"] = (df_FastLog[idx].TIMESTAMP.copy() - df_FastLog[idx].TIMESTAMP.min()) / 1000
             df_FastLog[idx].diffTime_S = np.concatenate((np.array([0]),np.diff(df_FastLog[idx].Time_S.copy())))
             df_FastLog[idx].PuissanceElec_kW = df_FastLog[idx].HV_A.copy() * df_FastLog[idx].HV_V.copy() / 1000
             df_FastLog[idx].Energy = np.cumsum(df_FastLog[idx].HV_A.copy() * df_FastLog[idx].diffTime_S.copy() / 3600)
