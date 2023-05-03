@@ -376,11 +376,11 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             df_FastLog.loc[idx5,"CapaBatCharge95"] = -100*df_FastLog[idx5].diffNewEnergy/df_FastLog[idx5].diffNewSOC
             
             
-            fig1 = px.scatter(df_FastLog[idx], x=df_FastLog[idx].index, y=df_FastLog[idx].columns)
-            st.plotly_chart(fig1, use_container_width=True) 
-        
-            fig2 = px.scatter(df_FastLog[idx], x=df_FastLog[idx].SOC, y=df_FastLog[idx].columns)
-            st.plotly_chart(fig2, use_container_width=True) 
+            #fig1 = px.scatter(df_FastLog[idx], x=df_FastLog[idx].index, y=df_FastLog[idx].columns)
+            #st.plotly_chart(fig1, use_container_width=True) 
+            #
+            #fig2 = px.scatter(df_FastLog[idx], x=df_FastLog[idx].SOC, y=df_FastLog[idx].columns)
+            #st.plotly_chart(fig2, use_container_width=True) 
             
     
             df_new_row = pd.DataFrame.from_records([{'Distance' : df_Trips.at[ii,"NKMS"],
