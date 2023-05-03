@@ -268,9 +268,12 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             df_FastLog.loc[idx2,"NewEnergy"] = df_FastLog.loc[idx2].Energy_Ah
             df_FastLog.loc[idx2,"diffNewEnergy"] = np.concatenate((np.array([np.nan]),np.diff(df_FastLog[idx2].NewEnergy)))
             df_FastLog.loc[idx2,"diffNewSOC"] = np.concatenate((np.array([np.nan]),np.diff(df_FastLog[idx2].NewSOC)))
-            #df_FastLog.loc[idx2,"CapaBat"] = -100*df_FastLog[idx2].diffNewEnergy/df_FastLog[idx2].diffNewSOC
-            df_FastLog.loc[idx2,"CapaBatDecharge"] = df_FastLog[idx2].CapaBat[(df_FastLog[idx2].diffNewSOC<0)]
-            df_FastLog.loc[idx2,"CapaBatCharge"] = df_FastLog[idx2].CapaBat[(df_FastLog[idx2].diffNewSOC>0)]
+            
+            idx21 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (df_FastLog.diffNewSOC < 0 )
+            idx22 = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin) & (df_FastLog.diffSOC!=0) & (df_FastLog.diffNewSOC > 0 )
+            
+            df_FastLog.loc[idx21,"CapaBatDecharge"] = -100*df_FastLog[idx2].diffNewEnergy/df_FastLog[idx21].diffNewSOC
+            df_FastLog.loc[idx22,"CapaBatCharge"] = -100*df_FastLog[idx2].diffNewEnergy/df_FastLog[idx22].diffNewSOC
             
             DeltaSOC = 3
             
