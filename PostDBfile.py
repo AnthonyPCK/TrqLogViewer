@@ -85,11 +85,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
                                      'TempeAmbiante',
                                      'TempeBat',
                                      'ResistanceBat',
-                                     'ResistanceBat2',
                                      'CapaBat',
-                                     'CapaBat2',
-                                     'CapaBat3',
-                                     'RendBat2',
                                      'CapaciteBatCharge',
                                      'CapaciteBatDecharge',
                                      'CapaciteBatCharge30',
@@ -141,8 +137,8 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             df_T["diffTime_S"] = np.concatenate((np.array([0]),np.diff(df_T.Time_S.copy())))
             df_T["PuissanceElec_kW"] = df_T.HV_A.copy() * df_T.HV_V.copy() / 1000
             df_T["Energy"] = np.cumsum(df_T.HV_A.copy() * df_T.diffTime_S.copy() / 3600)
-            df_T["EnergyPos"] = np.cumsum(df_T.HV_A[(df_T.HV_A > 0)] * df_T.diffTime_S[(df_T.HV_A > 0)] / 3600)
-            df_T["EnergyNeg"] = np.cumsum(df_T.HV_A[(df_T.HV_A < 0)] * df_T.diffTime_S[(df_T.HV_A < 0)] / 3600)
+            #df_T["EnergyPos"] = np.cumsum(df_T.HV_A[(df_T.HV_A > 0)] * df_T.diffTime_S[(df_T.HV_A > 0)] / 3600)
+            #df_T["EnergyNeg"] = np.cumsum(df_T.HV_A[(df_T.HV_A < 0)] * df_T.diffTime_S[(df_T.HV_A < 0)] / 3600)
             df_T["diffSOC"] = np.concatenate((np.array([0]),np.diff(df_T.SOC.copy())))
             
             ## On identifie la resistance moyenne de la batterie sur le trajet
@@ -152,31 +148,31 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             
             
             
-
-            
-            
-            def EstimVolt(Bat_Capa, Bat_Rend, Bat_Res, Bat_VoltT, df_T):
-                df_T["HV_A_corr"] = df_T.HV_A.copy()
-                df_T.HV_A_corr[(df_T.HV_A < 0)] = df_T.HV_A_corr[(df_T.HV_A_corr < 0)] * Bat_Rend
-                df_T["EnergyCor"] = np.cumsum(df_T.HV_A_corr.copy() * df_T.diffTime_S.copy() / 3600)
-                #return df_T.HV_V.iloc[0] + Bat_VoltT*(df_T.BATTERY_TEMP - df_T.BATTERY_TEMP.iloc[0]) - 100*df_T.EnergyCor/Bat_Capa - df_T.HV_A*(Bat_Res + Bat_ResT*(df_T.BATTERY_TEMP - df_T.BATTERY_TEMP.mean()))
-                return df_T.HV_V.iloc[0] + Bat_VoltT*(df_T.BATTERY_TEMP - df_T.BATTERY_TEMP.iloc[0]) - 100*df_T.EnergyCor/Bat_Capa - df_T.HV_A*(Bat_Res)
-            
-            def residuals(params, x, y):
-                Bat_Capa, Bat_Rend, Bat_Res, Bat_VoltT = params
-                return EstimVolt(Bat_Capa, Bat_Rend, Bat_Res, Bat_VoltT, df_T) - y
-            
-            params_ini = [5.0, 0.95, 0.1, 1.0]
-            result = least_squares(residuals, params_ini, args=(df_T, df_T.HV_V))
-            
-            Bat_Capa, Bat_Rend, Bat_Res, Bat_VoltT = result.x
-            
-            df_T["HV_A_corr"] = df_T.HV_A.copy()
-            df_T.HV_A_corr[(df_T.HV_A < 0)] = df_T.HV_A_corr[(df_T.HV_A_corr < 0)] * Bat_Rend
-            df_T["EnergyCor"] = np.cumsum(df_T.HV_A_corr.copy() * df_T.diffTime_S.copy() / 3600)
-            
-            df_T["SoCestim"] = df_T.SOC.iloc[0] - 100*df_T.EnergyCor/Bat_Capa
-            df_T["VoltageEstim"] = df_T.HV_V.iloc[0] - 100*df_T.EnergyCor/Bat_Capa  - df_T.HV_A*Bat_Res
+#
+            #
+            #
+            #def EstimVolt(Bat_Capa, Bat_Rend, Bat_Res, Bat_VoltT, df_T):
+            #    df_T["HV_A_corr"] = df_T.HV_A.copy()
+            #    df_T.HV_A_corr[(df_T.HV_A < 0)] = df_T.HV_A_corr[(df_T.HV_A_corr < 0)] * Bat_Rend
+            #    df_T["EnergyCor"] = np.cumsum(df_T.HV_A_corr.copy() * df_T.diffTime_S.copy() / 3600)
+            #    #return df_T.HV_V.iloc[0] + Bat_VoltT*(df_T.BATTERY_TEMP - df_T.BATTERY_TEMP.iloc[0]) - 100*df_T.EnergyCor/Bat_Capa - df_T.HV_A*(Bat_Res + Bat_ResT*(df_T.BATTERY_TEMP - df_T.BATTERY_TEMP.mean()))
+            #    return df_T.HV_V.iloc[0] + Bat_VoltT*(df_T.BATTERY_TEMP - df_T.BATTERY_TEMP.iloc[0]) - 100*df_T.EnergyCor/Bat_Capa - df_T.HV_A*(Bat_Res)
+            #
+            #def residuals(params, x, y):
+            #    Bat_Capa, Bat_Rend, Bat_Res, Bat_VoltT = params
+            #    return EstimVolt(Bat_Capa, Bat_Rend, Bat_Res, Bat_VoltT, df_T) - y
+            #
+            #params_ini = [5.0, 0.95, 0.1, 1.0]
+            #result = least_squares(residuals, params_ini, args=(df_T, df_T.HV_V))
+            #
+            #Bat_Capa, Bat_Rend, Bat_Res, Bat_VoltT = result.x
+            #
+            #df_T["HV_A_corr"] = df_T.HV_A.copy()
+            #df_T.HV_A_corr[(df_T.HV_A < 0)] = df_T.HV_A_corr[(df_T.HV_A_corr < 0)] * Bat_Rend
+            #df_T["EnergyCor"] = np.cumsum(df_T.HV_A_corr.copy() * df_T.diffTime_S.copy() / 3600)
+            #
+            #df_T["SoCestim"] = df_T.SOC.iloc[0] - 100*df_T.EnergyCor/Bat_Capa
+            #df_T["VoltageEstim"] = df_T.HV_V.iloc[0] - 100*df_T.EnergyCor/Bat_Capa  - df_T.HV_A*Bat_Res
             
             
             #fig1 = px.scatter(df_T, x=df_T.index, y=df_T.columns)
@@ -192,11 +188,11 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             MeanSpeed = df_T.SPEED_OBD.mean()
             MeanRollingSpeed = df_T.SPEED_OBD[(df_T.SPEED_OBD >1)].mean()
     
-            def moving_avg(x, n):
-                cumsum = np.cumsum(np.insert(x, 0, 0)) 
-                return (cumsum[n:] - cumsum[:-n]) / float(n)
-            
-            FenetreMoyMobile = 5
+            #def moving_avg(x, n):
+            #    cumsum = np.cumsum(np.insert(x, 0, 0)) 
+            #    return (cumsum[n:] - cumsum[:-n]) / float(n)
+            #
+            #FenetreMoyMobile = 5
             
             #fig22 = px.line(df_T, x=moving_avg(df_T.Energy,FenetreMoyMobile), y=moving_avg(df_T.HV_V_cor,FenetreMoyMobile))
             #fig22.add_trace(go.Scatter(x=df_T.Energy, y=df_T.HV_V))
@@ -276,14 +272,14 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             df_T["CapaBatDecharge90"] = df_T.CapaBat90/df_T.CapaBat90 * np.mean(df_T.CapaBat90[(df_T.diffNewSOC.copy()<0)].copy())
             df_T["CapaBatCharge90"] = df_T.CapaBat90/df_T.CapaBat90 * np.mean(df_T.CapaBat90[(df_T.diffNewSOC.copy()>0)].copy())
     
-    
-    
-            df_T["NewSoCestim"] = df_T.SoCestim[(df_T.diffSOC.copy()!=0)].copy()
-            df_T["diffNewSoCestim"] = df_T.NewSoCestim.copy()
-            df_T.diffNewSoCestim[~np.isnan(df_T.diffNewSoCestim.copy())] = np.concatenate((np.array([np.nan]),np.diff(df_T.NewSoCestim[~np.isnan(df_T.diffNewSoCestim.copy())].copy())))
-            
-
-            df_T.SoCestim = df_T.SOC.iloc[0] - 100*df_T.EnergyCor/Bat_Capa/np.mean(df_T.diffNewSoCestim.copy()/df_T.diffNewSOC.copy())
+    #
+    #
+            #df_T["NewSoCestim"] = df_T.SoCestim[(df_T.diffSOC.copy()!=0)].copy()
+            #df_T["diffNewSoCestim"] = df_T.NewSoCestim.copy()
+            #df_T.diffNewSoCestim[~np.isnan(df_T.diffNewSoCestim.copy())] = np.concatenate((np.array([np.nan]),np.diff(df_T.NewSoCestim[~np.isnan(df_T.diffNewSoCestim.copy())].copy())))
+            #
+#
+            #df_T.SoCestim = df_T.SOC.iloc[0] - 100*df_T.EnergyCor/Bat_Capa/np.mean(df_T.diffNewSoCestim.copy()/df_T.diffNewSOC.copy())
             #st.plotly_chart(px.scatter(df_T, x=df_T.SoCestim, y=df_T.columns), use_container_width=True) 
         
         
@@ -299,11 +295,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
                                     'TempeAmbiante' : MeanAmbiantTemp,
                                     'TempeBat' : MeanBatTemp,
                                     'ResistanceBat' : BatResistance,
-                                    'ResistanceBat2' : Bat_Res,
                                     'CapaBat' : df_T.CapaBat.mean(),
-                                    'CapaBat2' : Bat_Capa,
-                                    'CapaBat3' : Bat_Capa*np.mean(df_T.diffNewSoCestim.copy()/df_T.diffNewSOC.copy()),
-                                    'RendBat2' : Bat_Rend,
                                     'CapaciteBatCharge' : df_T.CapaBatCharge.mean(),
                                     'CapaciteBatDecharge' : df_T.CapaBatDecharge.mean(),
                                     'CapaciteBatCharge30' : df_T.CapaBatCharge30.mean(),
