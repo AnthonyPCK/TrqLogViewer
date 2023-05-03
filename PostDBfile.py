@@ -78,6 +78,12 @@ else:
 @st.cache_data
 def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):      
     # On conserve uniquement les données correspondant à un VIN
+    df_Trips = df_Trips[(df_TripInfo.VIN != optionVIN)]
+    for ii in df_Trips.index:
+        idxDeb = df_Trips.at[ii,"TSDEB"]
+        idxFin = df_Trips.at[ii,"TSFIN"]
+        df_FastLog = df_FastLog.loc[(df_FastLog["TIMESTAMP"] < idxDeb) & (df_FastLog.["TIMESTAMP"] > idxFin)]
+    
     df_Trips = df_Trips[(df_TripInfo.VIN == optionVIN)]
     df_TripInfo = df_TripInfo[(df_TripInfo.VIN == optionVIN)]
     
