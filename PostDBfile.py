@@ -76,7 +76,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
     df_TripInfo = df_TripInfo[(df_TripInfo.VIN == optionVIN)]
     
     # On garde les point ou on a le signal de tension batterie HV
-    df_FastLog = df_FastLog.loc[df_FastLog.HV<1]
+    df_FastLog = df_FastLog.loc[df_FastLog.HV_V<1]
     
     # On garde seulement les trajet de plus d'un km (on écrase les ancien dataframe))
     df_TripInfo = df_TripInfo[(df_Trips.NKMS >5)]
