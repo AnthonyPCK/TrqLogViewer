@@ -31,7 +31,7 @@ def connection_base(id):
 uploaded_file = st.file_uploader("Upload a SQLite database file.", type="db")
 
 
-@st.cache_data
+#@st.cache_data
 def loadsqlite(uploaded_file):
     if uploaded_file is not None:
         fp = pathlib.Path(str(uuid.uuid4()))
@@ -72,7 +72,7 @@ else:
     optionVIN = 'KMHC851CGLU177332'; # IONIQ
 
         
-@st.cache_data
+#@st.cache_data
 def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):      
     # On conserve uniquement les données correspondant à un VIN
     df_Trips = df_Trips[(df_TripInfo.VIN == optionVIN)]
