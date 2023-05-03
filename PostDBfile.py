@@ -268,7 +268,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             df_FastLog.loc[idx2,"NewEnergy"] = df_FastLog.loc[idx2].Energy_Ah
             df_FastLog.loc[idx2,"diffNewEnergy"] = np.concatenate((np.array([np.nan]),np.diff(df_FastLog[idx2].NewEnergy)))
             df_FastLog.loc[idx2,"diffNewSOC"] = np.concatenate((np.array([np.nan]),np.diff(df_FastLog[idx2].NewSOC)))
-            df_FastLog.loc[idx2,"CapaBat"] = -100*df_FastLog[idx2].diffNewEnergy/df_FastLog[idx2].diffNewSOC
+            #df_FastLog.loc[idx2,"CapaBat"] = -100*df_FastLog[idx2].diffNewEnergy/df_FastLog[idx2].diffNewSOC
             df_FastLog.loc[idx2,"CapaBatDecharge"] = df_FastLog[idx2].CapaBat[(df_FastLog[idx2].diffNewSOC<0)]
             df_FastLog.loc[idx2,"CapaBatCharge"] = df_FastLog[idx2].CapaBat[(df_FastLog[idx2].diffNewSOC>0)]
             
@@ -440,58 +440,58 @@ fig100 = px.scatter(df_Out, x=df_Out.DateTrajet, y=df_Out.columns,title="Suivi d
 st.plotly_chart(fig100, use_container_width=True)     
  
 
-#
-#
-#
-###################################################### Plot Resistance batterie
-#st.plotly_chart(px.scatter(df_Out, x=df_Out.TempeBat, y=df_Out.ResistanceBat), use_container_width=True)
-#
-#
-#
-##################################################### Plot Capa locale batterie
-#SoC = np.arange(30.0, 90.1, 5)
-#CapaDech = np.array([df_Out.CapaciteBatDecharge30.mean(),
-#                     df_Out.CapaciteBatDecharge35.mean(),
-#                     df_Out.CapaciteBatDecharge40.mean(),
-#                     df_Out.CapaciteBatDecharge45.mean(),
-#                     df_Out.CapaciteBatDecharge50.mean(),
-#                     df_Out.CapaciteBatDecharge55.mean(),
-#                     df_Out.CapaciteBatDecharge60.mean(),
-#                     df_Out.CapaciteBatDecharge65.mean(),
-#                     df_Out.CapaciteBatDecharge70.mean(),
-#                     df_Out.CapaciteBatDecharge75.mean(),
-#                     df_Out.CapaciteBatDecharge80.mean(),
-#                     df_Out.CapaciteBatDecharge85.mean(),
-#                     df_Out.CapaciteBatDecharge90.mean()])
-#fig101 = px.line(x=SoC, y=CapaDech,labels={
-#                     "x": "SoC [%]",
-#                     "y": "Capacité Batterie [A.h]"},
-#                     range_y=[0, 1.1*np.max(CapaDech)],
-#                     title="Capacité locale de la batterie :")
-#st.plotly_chart(fig101, use_container_width=True)
-#
-#
-#
-#
-#
-#
-#
-##################################################### Heatmap avec Slider
-#'''
-#
-### Bi-histogramme
-#'''
-#
-#Sat = st.slider('Saturation couleur', 0.0, 1.0, 0.5)
-#fig200 = px.density_heatmap(df, x=df.ACCELERATOR, y=df.PuissanceElec_kW)
-#fig200.update_traces(histnorm = "percent")
-#fig200.update_layout(
-#    {
-#        "coloraxis_cmin": 0,
-#        "coloraxis_cmax": Sat,
-#    }
-#)
-#st.plotly_chart(fig200, use_container_width=True)
+
+
+
+##################################################### Plot Resistance batterie
+st.plotly_chart(px.scatter(df_Out, x=df_Out.TempeBat, y=df_Out.ResistanceBat), use_container_width=True)
+
+
+
+#################################################### Plot Capa locale batterie
+SoC = np.arange(30.0, 90.1, 5)
+CapaDech = np.array([df_Out.CapaciteBatDecharge30.mean(),
+                     df_Out.CapaciteBatDecharge35.mean(),
+                     df_Out.CapaciteBatDecharge40.mean(),
+                     df_Out.CapaciteBatDecharge45.mean(),
+                     df_Out.CapaciteBatDecharge50.mean(),
+                     df_Out.CapaciteBatDecharge55.mean(),
+                     df_Out.CapaciteBatDecharge60.mean(),
+                     df_Out.CapaciteBatDecharge65.mean(),
+                     df_Out.CapaciteBatDecharge70.mean(),
+                     df_Out.CapaciteBatDecharge75.mean(),
+                     df_Out.CapaciteBatDecharge80.mean(),
+                     df_Out.CapaciteBatDecharge85.mean(),
+                     df_Out.CapaciteBatDecharge90.mean()])
+fig101 = px.line(x=SoC, y=CapaDech,labels={
+                     "x": "SoC [%]",
+                     "y": "Capacité Batterie [A.h]"},
+                     range_y=[0, 1.1*np.max(CapaDech)],
+                     title="Capacité locale de la batterie :")
+st.plotly_chart(fig101, use_container_width=True)
+
+
+
+
+
+
+
+#################################################### Heatmap avec Slider
+'''
+
+## Bi-histogramme
+'''
+
+Sat = st.slider('Saturation couleur', 0.0, 1.0, 0.5)
+fig200 = px.density_heatmap(df, x=df.ACCELERATOR, y=df.PuissanceElec_kW)
+fig200.update_traces(histnorm = "percent")
+fig200.update_layout(
+    {
+        "coloraxis_cmin": 0,
+        "coloraxis_cmax": Sat,
+    }
+)
+st.plotly_chart(fig200, use_container_width=True)
 
 
 
