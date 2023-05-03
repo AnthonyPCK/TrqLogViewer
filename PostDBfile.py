@@ -58,7 +58,9 @@ def loadsqlite(uploaded_file):
     df_TripInfo = pd.read_sql('SELECT VIN FROM TRIPINFO', conn)
     
     # On garde les point ou on a le signal de tension batterie HV
-    #df_FastLog = df_FastLog.loc[df_FastLog["HV_V"] > 1]
+    st.write(df_FastLog.head)
+    df_FastLog = df_FastLog.loc[df_FastLog["HV_V"] > 1]
+    st.write(df_FastLog.head)
     
     return df_FastLog, df_Trips, df_TripInfo
 
