@@ -502,7 +502,7 @@ HeatMap_Y = st.selectbox(
     
     
 Sat = st.slider('Saturation couleur', 0.0, 0.2, 0.5)
-fig200 = px.density_heatmap(df_FastLog, x=HeatMap_X, y=HeatMap_Y)
+fig200 = px.density_heatmap(df_FastLog, x=HeatMap_X, y=HeatMap_Y, nbinsx=50, nbinsy=50)
 fig200.update_traces(histnorm = "percent")
 fig200.update_layout(
     {
@@ -511,7 +511,6 @@ fig200.update_layout(
     }
 )
 st.plotly_chart(fig200, use_container_width=True)
-
 
 
 
