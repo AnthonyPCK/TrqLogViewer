@@ -503,7 +503,7 @@ HeatMap_Y = st.selectbox(
     
 
 
-values = st.slider('Select a range of values', -20, 120.0, (80.0, 95.0))
+Temperature_ICE = st.slider('Select a range of values', -20.0, 120.0, (80.0, 95.0))
 
 NbinsX = st.slider('Nbins en X', 50, 500, 100)
 NbinsY = st.slider('Nbins en Y', 50, 500, 100)
