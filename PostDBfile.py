@@ -57,6 +57,9 @@ def loadsqlite(uploaded_file):
     df_Trips = pd.read_sql('SELECT NKMS, TSDEB, TSFIN FROM TRIPS', conn)
     df_TripInfo = pd.read_sql('SELECT VIN FROM TRIPINFO', conn)
     
+    # On garde les point ou on a le signal de tension batterie HV
+    df_FastLog = df_FastLog[df_FastLog.HV_V>1]
+    
     return df_FastLog, df_Trips, df_TripInfo
 
 df_FastLog, df_Trips, df_TripInfo = loadsqlite(uploaded_file)
@@ -74,9 +77,6 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
     # On conserve uniquement les données correspondant à un VIN
     df_Trips = df_Trips[(df_TripInfo.VIN == optionVIN)]
     df_TripInfo = df_TripInfo[(df_TripInfo.VIN == optionVIN)]
-    
-    # On garde les point ou on a le signal de tension batterie HV
-    df_FastLog = df_FastLog[df_FastLog.HV_V>1]
     
     # On garde seulement les trajet de plus d'un km (on écrase les ancien dataframe))
     df_TripInfo = df_TripInfo[(df_Trips.NKMS >5)]
