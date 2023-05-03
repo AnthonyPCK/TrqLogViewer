@@ -59,8 +59,8 @@ def loadsqlite(uploaded_file):
     
     # On garde les point ou on a le signal de tension batterie HV
     st.write(df_FastLog.head())
-    df_FastLog = df_FastLog.loc[df_FastLog["HV_V"] > 1]
-    st.write(df_FastLog.head())
+    #df_FastLog = df_FastLog.loc[df_FastLog["HV_V"] > 1]
+    #st.write(df_FastLog.head())
     
     return df_FastLog, df_Trips, df_TripInfo
 
@@ -192,7 +192,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
         
         idx = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin)
     
-        st.write(df_FastLog.head())
+        st.write(df_FastLog[idx].head())
         st.write(df_FastLog[idx].HV_V.max())
 
         # On rajoute des channels
