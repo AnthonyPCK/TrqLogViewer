@@ -45,9 +45,17 @@ def loadsqlite(uploaded_file):
     else:   
         conn = connection_base("hybridassistant2023.db")  
 
-    df_FastLog = pd.read_sql('SELECT * FROM FASTLOG', conn)
-    df_Trips = pd.read_sql('SELECT * FROM TRIPS', conn)
-    df_TripInfo = pd.read_sql('SELECT * FROM TRIPINFO', conn)
+    # Niv1
+    df_FastLog = pd.read_sql('SELECT TIMESTAMP, ODO, SPEED_OBD, GPS_SPEED, GPS_ALT, HV_V, HV_A, SOC, ICE_TEMP, ICE_RPM, ICE_PWR, TRIP_DIST, HSI, IGN, LTFT, STFT, TRIPFUEL, FUELFLOWH, DCL, CCL, BSFC, ICE_LOAD, BATTERY_TEMP, INHALING_TEMP, AMBIENT_TEMP, ACCELERATOR  FROM FASTLOG', conn)
+    
+    # Niv 2
+    #df_FastLog = pd.read_sql('SELECT TIMESTAMP, ODO, SPEED_OBD, GPS_SPEED, GPS_ALT, HV_V, HV_A, SOC, ICE_TEMP, ICE_RPM, ICE_PWR, TRIP_DIST, HSI, MG2_RPM, IGN, LTFT, STFT, TRIPFUEL, FUELFLOWH, DCL, CCL, BSFC, ICE_LOAD, INVERTER_TEMP, BATTERY_TEMP, MG_TEMP, INHALING_TEMP, AMBIENT_TEMP, ROOM_TEMP, MG2_TORQUE, MG1_RPM, MG1_TORQUE, MGR_RPM, MGR_TORQUE, ACCELERATOR  FROM FASTLOG', conn)
+    
+    #Niv 3
+    #df_FastLog = pd.read_sql('SELECT *  FROM FASTLOG', conn)
+    
+    df_Trips = pd.read_sql('SELECT NKMS, TSDEB, TSFIN FROM TRIPS', conn)
+    df_TripInfo = pd.read_sql('SELECT VIN FROM TRIPINFO', conn)
     
     return df_FastLog, df_Trips, df_TripInfo
 
@@ -496,7 +504,7 @@ HeatMap_Y = st.selectbox(
     df_FastLog.columns)
     
     
-Sat = st.slider('Saturation couleur', 0.0, 0.1, 0.5)
+Sat = st.slider('Saturation couleur', 0.0, 0.2, 0.5)
 fig200 = px.density_heatmap(df_FastLog, x=HeatMap_X, y=HeatMap_Y)
 fig200.update_traces(histnorm = "percent")
 fig200.update_layout(
