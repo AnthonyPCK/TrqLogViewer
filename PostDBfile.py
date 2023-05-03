@@ -514,22 +514,27 @@ HeatMap_Y = st.selectbox(
     
 col1, col2 = st.columns(2)
 with col1:
-    Temperature_ICE = st.slider('Selection de la température ICE', -20, 120, (80, 95))
+    sTemperature_ICE = st.slider('Selection de la température ICE', -20, 120, (80, 95))
+    sLTFT = st.slider('Selection du LTFT', -50, 50, (-5, 5))
+    sSTFT = st.slider('Selection du STFT', -50, 50, (-5, 5))
 with col2:
-    NbinsX = st.slider('Nbins en X', 50, 1000, 400)
-    NbinsY = st.slider('Nbins en Y', 50, 1000, 250)
+    sNbinsX = st.slider('Nbins en X', 50, 1000, 800)
+    sNbinsY = st.slider('Nbins en Y', 50, 1000, 500)
 
-    Sat = st.slider('Saturation couleur', 0.0001, 0.5, 0.2)
+    sSat = st.slider('Saturation couleur', 0.0001, 0.5, 0.2)
 
-idx200 = (df_FastLog.ICE_TEMP > Temperature_ICE[0]) & (df_FastLog.ICE_TEMP < Temperature_ICE[1])
+idx200 = df_FastLog.ICE_TEMP > Temperature_ICE[0]) & (df_FastLog.ICE_TEMP < sTemperature_ICE[1]) & (df_FastLog.LTFT > sLTFT[0]) & (df_FastLog.LTFT < sLTFT[1]) & (df_FastLog.STFT > sSTFT[0]) & (df_FastLog.STFT < sSTFT[1])
 
-fig200 = px.density_heatmap(df_FastLog[idx200], x=HeatMap_X, y=HeatMap_Y, nbinsx=NbinsX, nbinsy=NbinsY)
+
+
+fig200 = px.density_heatmap(df_FastLog[idx200], x=HeatMap_X, y=HeatMap_Y, nbinsx=sNbinsX, nbinsy=sNbinsY)
 fig200.update_traces(histnorm = "percent")
 fig200.update_layout(
     {
         "coloraxis_cmin": 0,
-        "coloraxis_cmax": Sat,
+        "coloraxis_cmax": sSat,
     }
 )
 st.plotly_chart(fig200, use_container_width=True)
+
 
