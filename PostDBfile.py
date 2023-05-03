@@ -68,8 +68,8 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
     df_Trips_MyVIN = df_Trips[(df_TripInfo.VIN == optionVIN)]
     
     # On garde seulement les trajet de plus d'un km (on écrase les ancien dataframe))
-    df_Trips = df_Trips_MyVIN[(df_Trips_MyVIN.NKMS >5)]
-    df_TripInfo = df_TripInfo_MyVIN[(df_Trips_MyVIN.NKMS >5)]
+    df_Trips = df_Trips_MyVIN[(df_Trips_MyVIN.NKMS >275)]
+    df_TripInfo = df_TripInfo_MyVIN[(df_Trips_MyVIN.NKMS >275)]
     
     # On supprime les df dont on n'a plus besoin
     del df_Trips_MyVIN, df_TripInfo_MyVIN
@@ -175,10 +175,9 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             df_T["VoltageEstim"] = df_T.HV_V.iloc[0] - 100*df_T.EnergyCor/Bat_Capa  - df_T.HV_A*Bat_Res
             
             
-            #fig1 = px.scatter(df_T, x=df_T.index, y=df_T.columns)
-            #st.plotly_chart(fig1, use_container_width=True) 
-            
-            #st.plotly_chart(px.scatter(df_T, x=df_T.SoCestim, y=df_T.columns), use_container_width=True) 
+            fig1 = px.scatter(df_T, x=df_T.index, y=df_T.columns)
+            st.plotly_chart(fig1, use_container_width=True) 
+            st.plotly_chart(px.scatter(df_T, x=df_T.SoCestim, y=df_T.columns), use_container_width=True) 
             
     
             # On récupère les infos générales sur le trajet
@@ -336,55 +335,65 @@ df_Out, df = posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, op
 
 df_Out = df_Out[(df_Out.Distance > 5)]
 
+
+
+##################################################### Plot All vs date
 fig100 = px.scatter(df_Out, x=df_Out.DateTrajet, y=df_Out.columns,title="Suivi du viellissement :")
-# plot(fig100)        
+st.plotly_chart(fig100, use_container_width=True)     
+ 
 
-SoC = np.arange(30.0, 90.1, 5)
-CapaDech = np.array([df_Out.CapaciteBatDecharge30.mean(),
-                     df_Out.CapaciteBatDecharge35.mean(),
-                     df_Out.CapaciteBatDecharge40.mean(),
-                     df_Out.CapaciteBatDecharge45.mean(),
-                     df_Out.CapaciteBatDecharge50.mean(),
-                     df_Out.CapaciteBatDecharge55.mean(),
-                     df_Out.CapaciteBatDecharge60.mean(),
-                     df_Out.CapaciteBatDecharge65.mean(),
-                     df_Out.CapaciteBatDecharge70.mean(),
-                     df_Out.CapaciteBatDecharge75.mean(),
-                     df_Out.CapaciteBatDecharge80.mean(),
-                     df_Out.CapaciteBatDecharge85.mean(),
-                     df_Out.CapaciteBatDecharge90.mean()])
-
-fig101 = px.line(x=SoC, y=CapaDech,labels={
-                     "x": "SoC [%]",
-                     "y": "Capacité Batterie [A.h]"},
-                     range_y=[0, 1.1*np.max(CapaDech)],
-                     title="Capacité locale de la batterie :")
-# plot(fig101)   
-
-
-st.plotly_chart(fig100, use_container_width=True)
-st.plotly_chart(px.scatter(df_Out, x=df_Out.TempeBat, y=df_Out.ResistanceBat), use_container_width=True)
-st.plotly_chart(px.scatter(df_Out, x=df_Out.TempeBat, y=df_Out.ResistanceBat2), use_container_width=True)
-st.plotly_chart(fig101, use_container_width=True)
-
-'''
-
-## Bi-histogramme
-'''
-
-#%%
-Sat = st.slider('Saturation couleur', 0.0, 1.0, 0.5)
-
-fig200 = px.density_heatmap(df, x=df.ACCELERATOR, y=df.PuissanceElec_kW)
-fig200.update_traces(histnorm = "percent")
-fig200.update_layout(
-    {
-        "coloraxis_cmin": 0,
-        "coloraxis_cmax": Sat,
-    }
-)
-plot(fig200) 
-st.plotly_chart(fig200, use_container_width=True)
+#
+#
+#
+###################################################### Plot Resistance batterie
+#st.plotly_chart(px.scatter(df_Out, x=df_Out.TempeBat, y=df_Out.ResistanceBat), use_container_width=True)
+#
+#
+#
+##################################################### Plot Capa locale batterie
+#SoC = np.arange(30.0, 90.1, 5)
+#CapaDech = np.array([df_Out.CapaciteBatDecharge30.mean(),
+#                     df_Out.CapaciteBatDecharge35.mean(),
+#                     df_Out.CapaciteBatDecharge40.mean(),
+#                     df_Out.CapaciteBatDecharge45.mean(),
+#                     df_Out.CapaciteBatDecharge50.mean(),
+#                     df_Out.CapaciteBatDecharge55.mean(),
+#                     df_Out.CapaciteBatDecharge60.mean(),
+#                     df_Out.CapaciteBatDecharge65.mean(),
+#                     df_Out.CapaciteBatDecharge70.mean(),
+#                     df_Out.CapaciteBatDecharge75.mean(),
+#                     df_Out.CapaciteBatDecharge80.mean(),
+#                     df_Out.CapaciteBatDecharge85.mean(),
+#                     df_Out.CapaciteBatDecharge90.mean()])
+#fig101 = px.line(x=SoC, y=CapaDech,labels={
+#                     "x": "SoC [%]",
+#                     "y": "Capacité Batterie [A.h]"},
+#                     range_y=[0, 1.1*np.max(CapaDech)],
+#                     title="Capacité locale de la batterie :")
+#st.plotly_chart(fig101, use_container_width=True)
+#
+#
+#
+#
+#
+#
+#
+##################################################### Heatmap avec Slider
+#'''
+#
+### Bi-histogramme
+#'''
+#
+#Sat = st.slider('Saturation couleur', 0.0, 1.0, 0.5)
+#fig200 = px.density_heatmap(df, x=df.ACCELERATOR, y=df.PuissanceElec_kW)
+#fig200.update_traces(histnorm = "percent")
+#fig200.update_layout(
+#    {
+#        "coloraxis_cmin": 0,
+#        "coloraxis_cmax": Sat,
+#    }
+#)
+#st.plotly_chart(fig200, use_container_width=True)
 
 
 
