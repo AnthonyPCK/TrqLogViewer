@@ -224,8 +224,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             #df_FastLog[idx].SoCestim = df_FastLog[idx].SOC.iloc[0] - 100*df_FastLog[idx].EnergyCor/Bat_Capa
             #df_FastLog[idx].VoltageEstim = df_FastLog[idx].HV_V.iloc[0] - 100*df_FastLog[idx].EnergyCor/Bat_Capa  - df_FastLog[idx].HV_A*Bat_Res
             
-            fig1 = px.scatter(df_FastLog[idx], x=df_FastLog[idx].index, y=df_FastLog[idx].columns)
-            st.plotly_chart(fig1, use_container_width=True) 
+            
             
             
     
@@ -324,7 +323,8 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
             df_FastLog.loc[idx,"CapaBatCharge90"] = df_FastLog[idx].CapaBat90/df_FastLog[idx].CapaBat90 * np.mean(df_FastLog[idx].CapaBat90[(df_FastLog[idx].diffNewSOC>0)])
             
             
-            
+            fig1 = px.scatter(df_FastLog[idx], x=df_FastLog[idx].index, y=df_FastLog[idx].columns)
+            st.plotly_chart(fig1, use_container_width=True) 
             
     #
     #
@@ -451,6 +451,7 @@ st.plotly_chart(fig100, use_container_width=True)
 #    }
 #)
 #st.plotly_chart(fig200, use_container_width=True)
+
 
 
 
