@@ -180,7 +180,7 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
         max_Voltage = df_FastLog.HV_V.loc[max_Voltage_idx]
         
         st.write(max_Voltage)
-        st.plotly_chart(px.line(df_FastLog, x=df_FastLog.index, y=df_FastLog.HV_V), use_container_width=True)
+        st.plotly_chart(px.line(df_FastLog, x=df_FastLog[idx].index, y=df_FastLog[idx].HV_V), use_container_width=True)
         
         
         if max_Voltage>1:
