@@ -64,12 +64,14 @@ else:
 @st.cache_data
 def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):      
     # On conserve uniquement les données correspondant à un VIN
-    df_TripInfo = df_TripInfo[(df_TripInfo.VIN == optionVIN)]
     df_Trips = df_Trips[(df_TripInfo.VIN == optionVIN)]
+    df_TripInfo = df_TripInfo[(df_TripInfo.VIN == optionVIN)]
+    
     
     # On garde seulement les trajet de plus d'un km (on écrase les ancien dataframe))
-    df_Trips = df_Trips[(df_Trips.NKMS >5)]
     df_TripInfo = df_TripInfo[(df_Trips.NKMS >5)]
+    df_Trips = df_Trips[(df_Trips.NKMS >5)]
+    
     
     
     # On créé un dataframe qui contient les sorties
