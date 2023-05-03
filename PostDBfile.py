@@ -122,8 +122,10 @@ def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):
         bar.progress(ii/np.max(df_Trips.index))
         idxDeb = df_Trips.at[ii,"TSDEB"]
         idxFin = df_Trips.at[ii,"TSFIN"]
+        
+        idx = (df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin)
     
-        df_T = df_FastLog[(df_FastLog.TIMESTAMP > idxDeb) & (df_FastLog.TIMESTAMP < idxFin)].copy()
+        df_T = df_FastLog[idx].copy()
     
         # On garde les point ou on a le signal de tension batterie HV
         max_Voltage_idx = df_T.HV_V.idxmax()
