@@ -562,10 +562,15 @@ for vv in SigSelectionPts:
 
 
 with col2:
-    sNbinsX = st.slider('Nbins en X', 50, 1000, 800)
-    sNbinsY = st.slider('Nbins en Y', 50, 1000, 500)
-
-    sSat = st.slider('Saturation couleur', 0.0001, 0.5, 0.2)
+    df_ParamFig = pd.DataFrame([[500], [300], [5]],
+     index=['Nbins en X', 'Nbins en Y', 'Saturation couleur'],
+     columns=['Valeur'])
+    df_SigSel = st.experimental_data_editor(df_SigSel)
+    
+    #sNbinsX = st.slider('Nbins en X', 50, 1000, 800)
+    #sNbinsY = st.slider('Nbins en Y', 50, 1000, 500)
+    #
+    #sSat = st.slider('Saturation couleur', 0.0001, 0.5, 0.2)
 
 
 fig200 = px.density_heatmap(df_FastLog[idx200], x=HeatMap_X, y=HeatMap_Y, nbinsx=sNbinsX, nbinsy=sNbinsY)
