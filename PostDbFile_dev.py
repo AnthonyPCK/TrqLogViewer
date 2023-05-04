@@ -19,7 +19,7 @@ import plotly.graph_objects as go
 import pathlib
 import uuid
 from scipy.optimize import least_squares
-
+import psutil
 from streamlit_profiler import Profiler
 
 with Profiler():
