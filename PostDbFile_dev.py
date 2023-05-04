@@ -543,7 +543,7 @@ for vv in SigSelectionPts:
         with col4:
             df_SigSel.loc[vv,"Max"] = st.number_input(' ', value=20, key=4000+vvi)
     
-    idx200 = (df_FastLog.loc[vv] >= df_SigSel.loc[vv,"Min"]) & (df_FastLog.loc[vv] <= df_SigSel.loc[vv,"Max"])
+    idx200 = (df_FastLog[vv] >= df_SigSel.loc[vv,"Min"]) & (df_FastLog[vv] <= df_SigSel.loc[vv,"Max"])
     st.write(vv)
 
 st.write(df_SigSel)
