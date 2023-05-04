@@ -572,21 +572,23 @@ with col2:
     minTemp = st.number_input('Insert a number', value=20)
     st.write('The current number is ', minTemp)
 
-idx200 = (df_FastLog.ICE_TEMP >= sTemperature_ICE[0]) & (df_FastLog.ICE_TEMP <= sTemperature_ICE[1]) \
-            & (df_FastLog.ICE_RPM >= sICE_RPM[0]) & (df_FastLog.ICE_RPM <= sICE_RPM[1]) \
-            & (df_FastLog.ICE_LOAD >= sICE_LOAD[0]) & (df_FastLog.ICE_LOAD <= sICE_LOAD[1]) \
-            & (df_FastLog.ICE_PWR >= sICE_PWR[0]) & (df_FastLog.ICE_PWR <= sICE_PWR[1]) \
-            & (df_FastLog.BSFC >= sBSFC[0]) & (df_FastLog.BSFC <= sBSFC[1]) \
-            & (df_FastLog.LTFT >= sLTFT[0]) & (df_FastLog.LTFT <= sLTFT[1]) \
-            & (df_FastLog.STFT >= sSTFT[0]) & (df_FastLog.STFT <= sSTFT[1]) \
-            & (df_FastLog.BATTERY_TEMP >= sBATTERY_TEMP[0]) & (df_FastLog.BATTERY_TEMP <= sBATTERY_TEMP[1]) \
-            & (df_FastLog.AMBIENT_TEMP >= sAMBIENT_TEMP[0]) & (df_FastLog.AMBIENT_TEMP <= sAMBIENT_TEMP[1]) \
-            & (df_FastLog.SPEED_OBD >= sSPEED_OBD[0]) & (df_FastLog.SPEED_OBD <= sSPEED_OBD[1]) \
-            & (df_FastLog.ACCELERATOR >= sACCELERATOR[0]) & (df_FastLog.ACCELERATOR <= sACCELERATOR[1]) \
-            & (df_FastLog.SOC >= sSOC[0]) & (df_FastLog.SOC <= sSOC[1]) \
-            & (df_FastLog.PuissanceElec_kW >= sPuissanceElec_kW[0]) & (df_FastLog.PuissanceElec_kW <= sPuissanceElec_kW[1]) \
+#idx200 = (df_FastLog.ICE_TEMP >= sTemperature_ICE[0]) & (df_FastLog.ICE_TEMP <= sTemperature_ICE[1]) \
+#            & (df_FastLog.ICE_RPM >= sICE_RPM[0]) & (df_FastLog.ICE_RPM <= sICE_RPM[1]) \
+#            & (df_FastLog.ICE_LOAD >= sICE_LOAD[0]) & (df_FastLog.ICE_LOAD <= sICE_LOAD[1]) \
+#            & (df_FastLog.ICE_PWR >= sICE_PWR[0]) & (df_FastLog.ICE_PWR <= sICE_PWR[1]) \
+#            & (df_FastLog.BSFC >= sBSFC[0]) & (df_FastLog.BSFC <= sBSFC[1]) \
+#            & (df_FastLog.LTFT >= sLTFT[0]) & (df_FastLog.LTFT <= sLTFT[1]) \
+#            & (df_FastLog.STFT >= sSTFT[0]) & (df_FastLog.STFT <= sSTFT[1]) \
+#            & (df_FastLog.BATTERY_TEMP >= sBATTERY_TEMP[0]) & (df_FastLog.BATTERY_TEMP <= sBATTERY_TEMP[1]) \
+#            & (df_FastLog.AMBIENT_TEMP >= sAMBIENT_TEMP[0]) & (df_FastLog.AMBIENT_TEMP <= sAMBIENT_TEMP[1]) \
+#            & (df_FastLog.SPEED_OBD >= sSPEED_OBD[0]) & (df_FastLog.SPEED_OBD <= sSPEED_OBD[1]) \
+#            & (df_FastLog.ACCELERATOR >= sACCELERATOR[0]) & (df_FastLog.ACCELERATOR <= sACCELERATOR[1]) \
+#            & (df_FastLog.SOC >= sSOC[0]) & (df_FastLog.SOC <= sSOC[1]) \
+#            & (df_FastLog.PuissanceElec_kW >= sPuissanceElec_kW[0]) & (df_FastLog.PuissanceElec_kW <= sPuissanceElec_kW[1]) \
 
-
+idx2222 = (df_FastLog.ICE_TEMP >= sTemperature_ICE[0])
+idx3333 = (df_FastLog.ICE_TEMP <= sTemperature_ICE[1])
+idx200 = idx2222 & idx3333
 
 fig200 = px.density_heatmap(df_FastLog[idx200], x=HeatMap_X, y=HeatMap_Y, nbinsx=sNbinsX, nbinsy=sNbinsY)
 fig200.update_traces(histnorm = "percent")
@@ -597,6 +599,5 @@ fig200.update_layout(
     }
 )
 st.plotly_chart(fig200, use_container_width=True)
-
 
 
