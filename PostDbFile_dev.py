@@ -522,7 +522,6 @@ SigSelectionPts = st.multiselect(
 #df_SigSel = pd.DataFrame(columns = SigSelectionPts)
 df_SigSel = pd.DataFrame()
 df_SigSel.loc["SOC","min"] = 12
-st.write(df_SigSel)
 
 col1, col2, col3, col4 = st.columns(4)
 
@@ -531,7 +530,7 @@ for vv in SigSelectionPts:
     vvi = vvi + 1
     with col1:
         if (vvi % 2)!=0:
-            a = st.number_input('Insert a number'+vv, value=20)
+            df_SigSel.loc[vv,"min"] = st.number_input('Insert a number'+vv, value=20)
     with col2:
         if (vvi % 2)!=0:
             st.write(vv)
@@ -547,7 +546,7 @@ for vv in SigSelectionPts:
     
     st.write(vv)
 
-st.write(st.number_input('Insert a number'+'SOC'))
+st.write(df_SigSel)
 
 
 #col1, col2 = st.columns(2)
