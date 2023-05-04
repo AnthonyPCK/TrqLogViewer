@@ -95,6 +95,10 @@ with Profiler():
             
     @st.cache_data
     def posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN):      
+        mem_info = process.memory_info()
+        st.write(f"Memory used by Streamlit process: {mem_info.rss / 1024 / 1024:.2f} MB")
+
+        
         # On conserve uniquement les données correspondant à un VIN
         df_TripsKO = df_Trips[(df_TripInfo.VIN != optionVIN)]
         for ii in df_TripsKO.index:
@@ -464,9 +468,13 @@ with Profiler():
         
         return df_Out, df_FastLog
         
+    mem_info = process.memory_info()
+    st.write(f"Memory used by Streamlit process: {mem_info.rss / 1024 / 1024:.2f} MB")
 
     df_Out, df_FastLog = posttreatmyvin(uploaded_file, df_FastLog, df_Trips, df_TripInfo, optionVIN)
 
+    mem_info = process.memory_info()
+    st.write(f"Memory used by Streamlit process: {mem_info.rss / 1024 / 1024:.2f} MB")
 
 
 
