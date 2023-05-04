@@ -547,8 +547,8 @@ with col1:
     vvi=0
     for vv in SigSelectionPts:
         vvi = vvi + 1    
-        df_SigSel.loc[vv,"Min"] = 0 
-        df_SigSel.loc[vv,"Max"] = 100
+        df_SigSel.loc[vv,"Min"] = df_SigSel.loc[vv].min() 
+        df_SigSel.loc[vv,"Max"] = df_SigSel.loc[vv].max() 
     df_SigSel = st.experimental_data_editor(df_SigSel)
 
 vvi=0
@@ -562,7 +562,7 @@ for vv in SigSelectionPts:
 
 
 with col2:
-    df_ParamFig = pd.DataFrame([[500], [300], [5]],
+    df_ParamFig = pd.DataFrame([[50], [50], [5]],
      index=['Nbins en X', 'Nbins en Y', 'Saturation couleur'],
      columns=['Valeur'],
      dtype = 'float')
