@@ -591,6 +591,11 @@ st.write(df_SigSel)
 #            & (df_FastLog.PuissanceElec_kW >= sPuissanceElec_kW[0]) & (df_FastLog.PuissanceElec_kW <= sPuissanceElec_kW[1]) \
 
 
+sNbinsX = st.slider('Nbins en X', 50, 1000, 800)
+sNbinsY = st.slider('Nbins en Y', 50, 1000, 500)
+
+sSat = st.slider('Saturation couleur', 0.0001, 0.5, 0.2)
+
 
 fig200 = px.density_heatmap(df_FastLog[idx200], x=HeatMap_X, y=HeatMap_Y, nbinsx=sNbinsX, nbinsy=sNbinsY)
 fig200.update_traces(histnorm = "percent")
