@@ -579,7 +579,7 @@ fig200.update_traces(histnorm = "percent")
 fig200.update_layout(
     {
         "coloraxis_cmin": 0,
-        "coloraxis_cmax": 1/df_ParamFig.loc["Saturation couleur"].valeur
+        "coloraxis_cmax": 1/df_ParamFig.loc["Saturation couleur"].Valeur
     }
 )
 st.plotly_chart(fig200, use_container_width=True)
