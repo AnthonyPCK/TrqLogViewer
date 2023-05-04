@@ -4,3 +4,4 @@ plotly
 yfinance
 streamlit_profiler
 streamlit-profiler
+psutil
