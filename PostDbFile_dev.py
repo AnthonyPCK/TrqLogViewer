@@ -573,12 +573,12 @@ with col2:
     #sSat = st.slider('Saturation couleur', 0.0001, 0.5, 0.2)
 
 
-fig200 = px.density_heatmap(df_FastLog[idx200], x=HeatMap_X, y=HeatMap_Y, nbinsx=df_ParamFig["Nbins en X"], nbinsy=nbinsx=df_ParamFig["Nbins en X"])
+fig200 = px.density_heatmap(df_FastLog[idx200], x=HeatMap_X, y=HeatMap_Y, nbinsx=df_ParamFig["Nbins en X"], nbinsy=df_ParamFig["Nbins en X"])
 fig200.update_traces(histnorm = "percent")
 fig200.update_layout(
     {
         "coloraxis_cmin": 0,
-        "coloraxis_cmax": 1/nbinsx=df_ParamFig["Saturation couleur"],
+        "coloraxis_cmax": 1/df_ParamFig["Saturation couleur"],
     }
 )
 st.plotly_chart(fig200, use_container_width=True)
