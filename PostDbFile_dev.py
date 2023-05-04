@@ -525,19 +525,19 @@ df_SigSel = pd.DataFrame()
 col1, col2, col3, col4 = st.columns(4)
 
 vvi=0
+
 for vv in SigSelectionPts:
     vvi = vvi + 1
-    with col1:
-        if (vvi % 2)!=0:
+    
+    if (vvi % 2)!=0:
+        with col1:
             df_SigSel.loc[vv,"Min"] = st.number_input('Min/Max '+vv, value=20, key=1000+vvi)
-    with col2:
-        if (vvi % 2)!=0:
+        with col2:
             df_SigSel.loc[vv,"Max"] = st.number_input(' ', value=20, key=2000+vvi)
-    with col3:
-        if (vvi % 2)==0:
+    if (vvi % 2)==0:
+        with col3:
             df_SigSel.loc[vv,"Min"] = st.number_input('Min/Max '+vv, value=20, key=3000+vvi)
-    with col4:
-        if (vvi % 2)==0:
+        with col4:
             df_SigSel.loc[vv,"Max"] = st.number_input(' ', value=20, key=4000+vvi)
     
     st.write(vv)
@@ -545,33 +545,33 @@ for vv in SigSelectionPts:
 st.write(df_SigSel)
 
 
-col1, col2 = st.columns(2)
-with col1:
-    sTemperature_ICE = st.slider('Température ICE', -20, 120, (80, 95))
-    sICE_RPM = st.slider('Régime ICE', 0, 8000, (0, 8000))
-    sICE_LOAD = st.slider('Charge ICE', 0, 120, (0, 120))
-    sICE_PWR = st.slider('Puissance ICE en kW', -50, 300, (-50, 300))
-    sBSFC = st.slider('BSFC', 0, 500, (0, 500))
-    sLTFT = st.slider('LTFT', -50, 50, (-5, 5))
-    sSTFT = st.slider('STFT', -50, 50, (-5, 5))
-with col2:
-    
-    sBATTERY_TEMP = st.slider('Température batterie', -20, 80, (-20, 80))
-    sAMBIENT_TEMP = st.slider('Température ambiante', -20, 50, (-20, 50))
-    sSPEED_OBD = st.slider('Vitesse OBD', 0, 250, (0, 250))
-    sACCELERATOR = st.slider('Position accelerateur', 0, 100, (0, 100))
-    sSOC = st.slider('SoC', 0, 100, (0, 100))
-    sPuissanceElec_kW = st.slider('Puissance électrique en kW', -100, 100, (-100, 100))
-
-    sNbinsX = st.slider('Nbins en X', 50, 1000, 800)
-    sNbinsY = st.slider('Nbins en Y', 50, 1000, 500)
-
-    sSat = st.slider('Saturation couleur', 0.0001, 0.5, 0.2)
-
-    
-    minTemp = st.number_input('Insert a number', value=20)
-    st.write('The current number is ', minTemp)
-
+#col1, col2 = st.columns(2)
+#with col1:
+#    sTemperature_ICE = st.slider('Température ICE', -20, 120, (80, 95))
+#    sICE_RPM = st.slider('Régime ICE', 0, 8000, (0, 8000))
+#    sICE_LOAD = st.slider('Charge ICE', 0, 120, (0, 120))
+#    sICE_PWR = st.slider('Puissance ICE en kW', -50, 300, (-50, 300))
+#    sBSFC = st.slider('BSFC', 0, 500, (0, 500))
+#    sLTFT = st.slider('LTFT', -50, 50, (-5, 5))
+#    sSTFT = st.slider('STFT', -50, 50, (-5, 5))
+#with col2:
+#    
+#    sBATTERY_TEMP = st.slider('Température batterie', -20, 80, (-20, 80))
+#    sAMBIENT_TEMP = st.slider('Température ambiante', -20, 50, (-20, 50))
+#    sSPEED_OBD = st.slider('Vitesse OBD', 0, 250, (0, 250))
+#    sACCELERATOR = st.slider('Position accelerateur', 0, 100, (0, 100))
+#    sSOC = st.slider('SoC', 0, 100, (0, 100))
+#    sPuissanceElec_kW = st.slider('Puissance électrique en kW', -100, 100, (-100, 100))
+#
+#    sNbinsX = st.slider('Nbins en X', 50, 1000, 800)
+#    sNbinsY = st.slider('Nbins en Y', 50, 1000, 500)
+#
+#    sSat = st.slider('Saturation couleur', 0.0001, 0.5, 0.2)
+#
+#    
+#    minTemp = st.number_input('Insert a number', value=20)
+#    st.write('The current number is ', minTemp)
+#
 #idx200 = (df_FastLog.ICE_TEMP >= sTemperature_ICE[0]) & (df_FastLog.ICE_TEMP <= sTemperature_ICE[1]) \
 #            & (df_FastLog.ICE_RPM >= sICE_RPM[0]) & (df_FastLog.ICE_RPM <= sICE_RPM[1]) \
 #            & (df_FastLog.ICE_LOAD >= sICE_LOAD[0]) & (df_FastLog.ICE_LOAD <= sICE_LOAD[1]) \
@@ -586,9 +586,7 @@ with col2:
 #            & (df_FastLog.SOC >= sSOC[0]) & (df_FastLog.SOC <= sSOC[1]) \
 #            & (df_FastLog.PuissanceElec_kW >= sPuissanceElec_kW[0]) & (df_FastLog.PuissanceElec_kW <= sPuissanceElec_kW[1]) \
 
-idx2222 = (df_FastLog.ICE_TEMP >= sTemperature_ICE[0])
-idx3333 = (df_FastLog.ICE_TEMP <= sTemperature_ICE[1])
-idx200 = idx2222 & idx3333
+
 
 fig200 = px.density_heatmap(df_FastLog[idx200], x=HeatMap_X, y=HeatMap_Y, nbinsx=sNbinsX, nbinsy=sNbinsY)
 fig200.update_traces(histnorm = "percent")
