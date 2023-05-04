@@ -526,8 +526,7 @@ for vv in SigSelectionPts:
     vvi = vvi + 1
     with col1:
         if (vvi % 2)!=0:
-            st.write(vv)
-            st.write("Min")
+            a = st.number_input('Insert a number'+vv, value=20)
     with col2:
         if (vvi % 2)!=0:
             st.write(vv)
@@ -596,6 +595,5 @@ for vv in SigSelectionPts:
 #    }
 #)
 #st.plotly_chart(fig200, use_container_width=True)
-
 
 
