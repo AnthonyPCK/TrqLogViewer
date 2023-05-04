@@ -547,8 +547,8 @@ with col1:
     vvi=0
     for vv in SigSelectionPts:
         vvi = vvi + 1    
-        df_SigSel.loc[vv,"Min"] = df_SigSel.loc[vv].min() 
-        df_SigSel.loc[vv,"Max"] = df_SigSel.loc[vv].max() 
+        df_SigSel.loc[vv,"Min"] = df_SigSel[vv].min() 
+        df_SigSel.loc[vv,"Max"] = df_SigSel[vv].max() 
     df_SigSel = st.experimental_data_editor(df_SigSel)
 
 vvi=0
