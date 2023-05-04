@@ -542,7 +542,9 @@ for vv in SigSelectionPts:
     
     st.write(vv)
 
-    
+st.write(st.number_input('Insert a number'+'SOC'))
+
+
 #col1, col2 = st.columns(2)
 #with col1:
 #    sTemperature_ICE = st.slider('Température ICE', -20, 120, (80, 95))
