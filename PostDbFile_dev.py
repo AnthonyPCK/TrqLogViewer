@@ -516,7 +516,7 @@ HeatMap_Y = st.selectbox(
     
 
 SigSelectionPts = st.multiselect(
-    'Selectionner des points sur les signaux :',
+    'Selectionner les voies sur lesquelles on veut filtrer les données :',
     df_FastLog.columns)
 
 
