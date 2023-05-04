@@ -525,19 +525,19 @@ vvi=0
 for vv in SigSelectionPts:
     vvi = vvi + 1
     with col1:
-        if (vvi % 2)!=0
+        if (vvi % 2)!=0:
             st.write(vv)
             st.write("Min")
     with col2:
-        if (vvi % 2)!=0
+        if (vvi % 2)!=0:
             st.write(vv)
             st.write("Max")
     with col3:
-        if (vvi % 2)==0
+        if (vvi % 2)==0:
             st.write(vv)
             st.write("Min")
     with col4:
-        if (vvi % 2)==0
+        if (vvi % 2)==0:
             st.write(vv)
             st.write("Max")
     
@@ -596,5 +596,6 @@ for vv in SigSelectionPts:
 #    }
 #)
 #st.plotly_chart(fig200, use_container_width=True)
+
 
 
