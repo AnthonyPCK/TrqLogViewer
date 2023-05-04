@@ -540,8 +540,18 @@ with col2:
     sSat = st.slider('Saturation couleur', 0.0001, 0.5, 0.2)
 
 idx200 = (df_FastLog.ICE_TEMP >= sTemperature_ICE[0]) & (df_FastLog.ICE_TEMP <= sTemperature_ICE[1]) \
+            & (df_FastLog.ICE_RPM >= sICE_RPM[0]) & (df_FastLog.ICE_RPM <= sICE_RPM[1]) \
+            & (df_FastLog.ICE_LOAD >= sICE_LOAD[0]) & (df_FastLog.ICE_LOAD <= sICE_LOAD[1]) \
+            & (df_FastLog.ICE_PWR >= sICE_PWR[0]) & (df_FastLog.ICE_PWR <= sICE_PWR[1]) \
+            & (df_FastLog.BSFC >= sBSFC[0]) & (df_FastLog.BSFC <= sBSFC[1]) \
             & (df_FastLog.LTFT >= sLTFT[0]) & (df_FastLog.LTFT <= sLTFT[1]) \
-            & (df_FastLog.STFT >= sSTFT[0]) & (df_FastLog.STFT <= sSTFT[1])
+            & (df_FastLog.STFT >= sSTFT[0]) & (df_FastLog.STFT <= sSTFT[1]) \
+            & (df_FastLog.BATTERY_TEMP >= sBATTERY_TEMP[0]) & (df_FastLog.BATTERY_TEMP <= sBATTERY_TEMP[1]) \
+            & (df_FastLog.AMBIENT_TEMP >= sAMBIENT_TEMP[0]) & (df_FastLog.AMBIENT_TEMP <= sAMBIENT_TEMP[1]) \
+            & (df_FastLog.SPEED_OBD >= sSPEED_OBD[0]) & (df_FastLog.SPEED_OBD <= sSPEED_OBD[1]) \
+            & (df_FastLog.ACCELERATOR >= sACCELERATOR[0]) & (df_FastLog.ACCELERATOR <= sACCELERATOR[1]) \
+            & (df_FastLog.SOC >= sSOC[0]) & (df_FastLog.SOC <= sSOC[1]) \
+            & (df_FastLog.PuissanceElec_kW >= sPuissanceElec_kW[0]) & (df_FastLog.PuissanceElec_kW <= sPuissanceElec_kW[1]) \
 
 
 
