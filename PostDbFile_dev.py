@@ -564,7 +564,8 @@ for vv in SigSelectionPts:
 with col2:
     df_ParamFig = pd.DataFrame([[500], [300], [5]],
      index=['Nbins en X', 'Nbins en Y', 'Saturation couleur'],
-     columns=['Valeur'])
+     columns=['Valeur'],
+     dtype = 'float')
     df_ParamFig = st.experimental_data_editor(df_ParamFig)
     
     #sNbinsX = st.slider('Nbins en X', 50, 1000, 800)
