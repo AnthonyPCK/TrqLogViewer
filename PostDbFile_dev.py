@@ -544,7 +544,7 @@ for vv in SigSelectionPts:
     
     if (vvi==1):
         idx200 = (df_FastLog[vv] >= df_SigSel.loc[vv,"Min"]) & (df_FastLog[vv] <= df_SigSel.loc[vv,"Max"])
-        else
+    else:
         idx200 = idx200 & (df_FastLog[vv] >= df_SigSel.loc[vv,"Min"]) & (df_FastLog[vv] <= df_SigSel.loc[vv,"Max"])
 
 
