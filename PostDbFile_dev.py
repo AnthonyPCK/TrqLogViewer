@@ -550,6 +550,7 @@ for vv in SigSelectionPts:
 
 st.write(df_SigSel)
 
+df_SigSel = st.experimental_data_editor(df_SigSel)
 
 sNbinsX = st.slider('Nbins en X', 50, 1000, 800)
 sNbinsY = st.slider('Nbins en Y', 50, 1000, 500)
