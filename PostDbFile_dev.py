@@ -521,7 +521,7 @@ SigSelectionPts = st.multiselect(
 
 #df_SigSel = pd.DataFrame(columns = SigSelectionPts)
 df_SigSel = pd.DataFrame()
-df_SigSel["SOC","min"] = 12
+df_SigSel.loc["SOC","min"] = 12
 st.write(df_SigSel)
 
 col1, col2, col3, col4 = st.columns(4)
