@@ -514,12 +514,15 @@ HeatMap_Y = st.selectbox(
     "On selectionne la voie de mesure en Y",
     df_FastLog.columns, index=df_FastLog.columns.get_loc("BSFC"))
     
+
+SigSelectionPts = st.multiselect(
+    'Selectionner de points sur les signaux :',
+    df_FastLog.columns)
+st.write('The current number is ', SigSelectionPts)
     
 col1, col2 = st.columns(2)
 with col1:
     sTemperature_ICE = st.slider('Température ICE', -20, 120, (80, 95))
-    minTemp = st.number_input('Insert a number', value=20)
-    st.write('The current number is ', minTemp)
     sICE_RPM = st.slider('Régime ICE', 0, 8000, (0, 8000))
     sICE_LOAD = st.slider('Charge ICE', 0, 120, (0, 120))
     sICE_PWR = st.slider('Puissance ICE en kW', -50, 300, (-50, 300))
@@ -534,12 +537,15 @@ with col2:
     sACCELERATOR = st.slider('Position accelerateur', 0, 100, (0, 100))
     sSOC = st.slider('SoC', 0, 100, (0, 100))
     sPuissanceElec_kW = st.slider('Puissance électrique en kW', -100, 100, (-100, 100))
-    
-    
+
     sNbinsX = st.slider('Nbins en X', 50, 1000, 800)
     sNbinsY = st.slider('Nbins en Y', 50, 1000, 500)
 
     sSat = st.slider('Saturation couleur', 0.0001, 0.5, 0.2)
+
+    
+    minTemp = st.number_input('Insert a number', value=20)
+    st.write('The current number is ', minTemp)
 
 idx200 = (df_FastLog.ICE_TEMP >= sTemperature_ICE[0]) & (df_FastLog.ICE_TEMP <= sTemperature_ICE[1]) \
             & (df_FastLog.ICE_RPM >= sICE_RPM[0]) & (df_FastLog.ICE_RPM <= sICE_RPM[1]) \
