@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 """
 Created on Sun Apr 30 11:05:36 2023
@@ -49,7 +50,7 @@ def loadsqlite(uploaded_file):
         conn = connection_base("hybridassistant2023.db")  
 
     # Niv1
-    df_FastLog = pd.read_sql('SELECT TIMESTAMP, ODO, SPEED_OBD, GPS_SPEED, HV_V, HV_A, SOC, ICE_TEMP, ICE_RPM, ICE_PWR, TRIP_DIST, IGN, LTFT, STFT, TRIPFUEL, FUELFLOWH, DCL, CCL, BSFC, ICE_LOAD, BATTERY_TEMP, AMBIENT_TEMP, ACCELERATOR FROM FASTLOG', conn)
+    df_FastLog = pd.read_sql('SELECT TIMESTAMP, ODO, SPEED_OBD, GPS_SPEED, HV_V, HV_A, SOC, DCL, CCL, BATTERY_TEMP, AMBIENT_TEMP, ICE_TEMP, ICE_RPM, ICE_LOAD, ICE_PWR, BSFC, IGN, LTFT, STFT, FUELFLOWH, TRIP_DIST, TRIPFUEL, ACCELERATOR FROM FASTLOG', conn)
     
     # Niv 2
     #df_FastLog = pd.read_sql('SELECT TIMESTAMP, ODO, SPEED_OBD, GPS_SPEED, GPS_ALT, HV_V, HV_A, SOC, ICE_TEMP, ICE_RPM, ICE_PWR, TRIP_DIST, HSI, MG2_RPM, IGN, LTFT, STFT, TRIPFUEL, FUELFLOWH, DCL, CCL, BSFC, ICE_LOAD, INVERTER_TEMP, BATTERY_TEMP, MG_TEMP, INHALING_TEMP, AMBIENT_TEMP, ROOM_TEMP, MG2_TORQUE, MG1_RPM, MG1_TORQUE, MGR_RPM, MGR_TORQUE, ACCELERATOR FROM FASTLOG', conn)
@@ -502,6 +503,8 @@ st.plotly_chart(fig101, use_container_width=True)
 ## Bi-histogramme
 '''
 
+# TIMESTAMP, ODO, SPEED_OBD, GPS_SPEED, HV_V, HV_A, SOC, DCL, CCL, BATTERY_TEMP, AMBIENT_TEMP, ICE_TEMP, ICE_RPM, ICE_LOAD, ICE_PWR, BSFC, IGN, LTFT, STFT, FUELFLOWH, TRIP_DIST, TRIPFUEL, ACCELERATOR
+# PuissanceElec_kW
 
 HeatMap_X = st.selectbox(
     "On selectionne la voie de mesure en X",
@@ -511,30 +514,122 @@ HeatMap_Y = st.selectbox(
     "On selectionne la voie de mesure en Y",
     df_FastLog.columns, index=df_FastLog.columns.get_loc("BSFC"))
     
-    
+
+SigSelectionPts = st.multiselect(
+    'Selectionner les voies sur lesquelles on veut filtrer les données :',
+    df_FastLog.columns)
+
+
+df_SigSel = pd.DataFrame()
+
+#col1, col2, col3, col4 = st.columns(4)
+#
+#vvi=0
+#for vv in SigSelectionPts:
+#    vvi = vvi + 1
+#    
+#    if (vvi % 2)!=0:
+#        with col1:
+#            df_SigSel.loc[vv,"Min"] = st.number_input('Min/Max '+vv, value=20, key=1000+vvi)
+#        with col2:
+#            df_SigSel.loc[vv,"Max"] = st.number_input(' ', value=20, key=2000+vvi)
+#        
+#    if (vvi % 2)==0:
+#        with col3:
+#            df_SigSel.loc[vv,"Min"] = st.number_input('Min/Max '+vv, value=20, key=3000+vvi)
+#        with col4:
+#            df_SigSel.loc[vv,"Max"] = st.number_input(' ', value=20, key=4000+vvi)
+# 
+#st.write(df_SigSel) 
+
 col1, col2 = st.columns(2)
 with col1:
-    sTemperature_ICE = st.slider('Selection de la température ICE', -20, 120, (80, 95))
-    sLTFT = st.slider('Selection du LTFT', -50, 50, (-5, 5))
-    sSTFT = st.slider('Selection du STFT', -50, 50, (-5, 5))
+    vvi=0
+    for vv in SigSelectionPts:
+        vvi = vvi + 1    
+        df_SigSel.loc[vv,"Min"] = df_FastLog[vv].min() 
+        df_SigSel.loc[vv,"Max"] = df_FastLog[vv].max() 
+    df_SigSel = st.experimental_data_editor(df_SigSel)
+
+vvi=0
+for vv in SigSelectionPts:
+    vvi = vvi + 1
+    
+    if (vvi==1):
+        idx200 = (df_FastLog[vv] >= df_SigSel.loc[vv,"Min"]) & (df_FastLog[vv] <= df_SigSel.loc[vv,"Max"])
+    else:
+        idx200 = idx200 & (df_FastLog[vv] >= df_SigSel.loc[vv,"Min"]) & (df_FastLog[vv] <= df_SigSel.loc[vv,"Max"])
+
+
 with col2:
-    sNbinsX = st.slider('Nbins en X', 50, 1000, 800)
-    sNbinsY = st.slider('Nbins en Y', 50, 1000, 500)
+    df_ParamFig = pd.DataFrame([[50], [50], [5]],
+     index=['Nbins en X', 'Nbins en Y', 'Saturation couleur'],
+     columns=['Valeur'],
+     dtype = 'float')
+    df_ParamFig = st.experimental_data_editor(df_ParamFig)
+    
+    #sNbinsX = st.slider('Nbins en X', 50, 1000, 800)
+    #sNbinsY = st.slider('Nbins en Y', 50, 1000, 500)
+    #
+    #sSat = st.slider('Saturation couleur', 0.0001, 0.5, 0.2)
 
-    sSat = st.slider('Saturation couleur', 0.0001, 0.5, 0.2)
+if "idx200" in locals():
+    fig200 = px.density_heatmap(df_FastLog[idx200], x=HeatMap_X, y=HeatMap_Y, nbinsx=int(df_ParamFig.loc["Nbins en X"].Valeur), nbinsy=int(df_ParamFig.loc["Nbins en Y"].Valeur))
+else:
+    fig200 = px.density_heatmap(df_FastLog, x=HeatMap_X, y=HeatMap_Y, nbinsx=int(df_ParamFig.loc["Nbins en X"].Valeur), nbinsy=int(df_ParamFig.loc["Nbins en Y"].Valeur))
 
-idx200 = (df_FastLog.ICE_TEMP >= sTemperature_ICE[0]) & (df_FastLog.ICE_TEMP <= sTemperature_ICE[1]) & (df_FastLog.LTFT >= sLTFT[0]) & (df_FastLog.LTFT <= sLTFT[1]) & (df_FastLog.STFT >= sSTFT[0]) & (df_FastLog.STFT <= sSTFT[1])
-
-
-
-fig200 = px.density_heatmap(df_FastLog[idx200], x=HeatMap_X, y=HeatMap_Y, nbinsx=sNbinsX, nbinsy=sNbinsY)
 fig200.update_traces(histnorm = "percent")
 fig200.update_layout(
     {
         "coloraxis_cmin": 0,
-        "coloraxis_cmax": sSat,
+        "coloraxis_cmax": 1/df_ParamFig.loc["Saturation couleur"].Valeur
     }
 )
 st.plotly_chart(fig200, use_container_width=True)
+
+#col1, col2 = st.columns(2)
+#with col1:
+#    sTemperature_ICE = st.slider('Température ICE', -20, 120, (80, 95))
+#    sICE_RPM = st.slider('Régime ICE', 0, 8000, (0, 8000))
+#    sICE_LOAD = st.slider('Charge ICE', 0, 120, (0, 120))
+#    sICE_PWR = st.slider('Puissance ICE en kW', -50, 300, (-50, 300))
+#    sBSFC = st.slider('BSFC', 0, 500, (0, 500))
+#    sLTFT = st.slider('LTFT', -50, 50, (-5, 5))
+#    sSTFT = st.slider('STFT', -50, 50, (-5, 5))
+#with col2:
+#    
+#    sBATTERY_TEMP = st.slider('Température batterie', -20, 80, (-20, 80))
+#    sAMBIENT_TEMP = st.slider('Température ambiante', -20, 50, (-20, 50))
+#    sSPEED_OBD = st.slider('Vitesse OBD', 0, 250, (0, 250))
+#    sACCELERATOR = st.slider('Position accelerateur', 0, 100, (0, 100))
+#    sSOC = st.slider('SoC', 0, 100, (0, 100))
+#    sPuissanceElec_kW = st.slider('Puissance électrique en kW', -100, 100, (-100, 100))
+#
+#    sNbinsX = st.slider('Nbins en X', 50, 1000, 800)
+#    sNbinsY = st.slider('Nbins en Y', 50, 1000, 500)
+#
+#    sSat = st.slider('Saturation couleur', 0.0001, 0.5, 0.2)
+#
+#    
+#    minTemp = st.number_input('Insert a number', value=20)
+#    st.write('The current number is ', minTemp)
+#
+#idx200 = (df_FastLog.ICE_TEMP >= sTemperature_ICE[0]) & (df_FastLog.ICE_TEMP <= sTemperature_ICE[1]) \
+#            & (df_FastLog.ICE_RPM >= sICE_RPM[0]) & (df_FastLog.ICE_RPM <= sICE_RPM[1]) \
+#            & (df_FastLog.ICE_LOAD >= sICE_LOAD[0]) & (df_FastLog.ICE_LOAD <= sICE_LOAD[1]) \
+#            & (df_FastLog.ICE_PWR >= sICE_PWR[0]) & (df_FastLog.ICE_PWR <= sICE_PWR[1]) \
+#            & (df_FastLog.BSFC >= sBSFC[0]) & (df_FastLog.BSFC <= sBSFC[1]) \
+#            & (df_FastLog.LTFT >= sLTFT[0]) & (df_FastLog.LTFT <= sLTFT[1]) \
+#            & (df_FastLog.STFT >= sSTFT[0]) & (df_FastLog.STFT <= sSTFT[1]) \
+#            & (df_FastLog.BATTERY_TEMP >= sBATTERY_TEMP[0]) & (df_FastLog.BATTERY_TEMP <= sBATTERY_TEMP[1]) \
+#            & (df_FastLog.AMBIENT_TEMP >= sAMBIENT_TEMP[0]) & (df_FastLog.AMBIENT_TEMP <= sAMBIENT_TEMP[1]) \
+#            & (df_FastLog.SPEED_OBD >= sSPEED_OBD[0]) & (df_FastLog.SPEED_OBD <= sSPEED_OBD[1]) \
+#            & (df_FastLog.ACCELERATOR >= sACCELERATOR[0]) & (df_FastLog.ACCELERATOR <= sACCELERATOR[1]) \
+#            & (df_FastLog.SOC >= sSOC[0]) & (df_FastLog.SOC <= sSOC[1]) \
+#            & (df_FastLog.PuissanceElec_kW >= sPuissanceElec_kW[0]) & (df_FastLog.PuissanceElec_kW <= sPuissanceElec_kW[1]) \
+
+
+
+
 
 
