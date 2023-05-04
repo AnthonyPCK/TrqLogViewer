@@ -540,7 +540,7 @@ with col2:
     sSat = st.slider('Saturation couleur', 0.0001, 0.5, 0.2)
 
 idx200 = (df_FastLog.ICE_TEMP >= sTemperature_ICE[0]) 
-            & (df_FastLog.ICE_TEMP <= sTemperature_ICE[1]) & (df_FastLog.LTFT >= sLTFT[0]) & (df_FastLog.LTFT <= sLTFT[1]) & (df_FastLog.STFT >= sSTFT[0]) & (df_FastLog.STFT <= sSTFT[1])
+& (df_FastLog.ICE_TEMP <= sTemperature_ICE[1]) & (df_FastLog.LTFT >= sLTFT[0]) & (df_FastLog.LTFT <= sLTFT[1]) & (df_FastLog.STFT >= sSTFT[0]) & (df_FastLog.STFT <= sSTFT[1])
 
 
 
@@ -553,5 +553,6 @@ fig200.update_layout(
     }
 )
 st.plotly_chart(fig200, use_container_width=True)
+
 
 
