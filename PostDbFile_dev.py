@@ -521,7 +521,26 @@ SigSelectionPts = st.multiselect(
 
 col1, col2, col3, col4 = st.columns(4)
 
+vvi=0
 for vv in SigSelectionPts:
+    vvi = vvi + 1
+    with col1:
+        if (vvi % 2)!=0
+            st.write(vv)
+            st.write("Min")
+    with col2:
+        if (vvi % 2)!=0
+            st.write(vv)
+            st.write("Max")
+    with col3:
+        if (vvi % 2)==0
+            st.write(vv)
+            st.write("Min")
+    with col4:
+        if (vvi % 2)==0
+            st.write(vv)
+            st.write("Max")
+    
     st.write(vv)
 
     
@@ -568,14 +587,14 @@ for vv in SigSelectionPts:
 
 
 
-fig200 = px.density_heatmap(df_FastLog[idx200], x=HeatMap_X, y=HeatMap_Y, nbinsx=sNbinsX, nbinsy=sNbinsY)
-fig200.update_traces(histnorm = "percent")
-fig200.update_layout(
-    {
-        "coloraxis_cmin": 0,
-        "coloraxis_cmax": sSat,
-    }
-)
-st.plotly_chart(fig200, use_container_width=True)
+#fig200 = px.density_heatmap(df_FastLog[idx200], x=HeatMap_X, y=HeatMap_Y, nbinsx=sNbinsX, nbinsy=sNbinsY)
+#fig200.update_traces(histnorm = "percent")
+#fig200.update_layout(
+#    {
+#        "coloraxis_cmin": 0,
+#        "coloraxis_cmax": sSat,
+#    }
+#)
+#st.plotly_chart(fig200, use_container_width=True)
 
 
