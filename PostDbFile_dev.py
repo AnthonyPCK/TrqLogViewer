@@ -531,6 +531,7 @@ for vv in SigSelectionPts:
     if (vvi % 2)!=0:
         with col1:
             df_SigSel.loc[vv,"Min"] = st.number_input('Min/Max '+vv, value=20, key=1000+vvi)
+
         with col2:
             df_SigSel.loc[vv,"Max"] = st.number_input(' ', value=20, key=2000+vvi)
         
@@ -542,6 +543,8 @@ for vv in SigSelectionPts:
         with col4:
             df_SigSel.loc[vv,"Max"] = st.number_input(' ', value=20, key=4000+vvi)
     
+    df_SigSel = st.experimental_data_editor(df_SigSel)
+    
     if (vvi==1):
         idx200 = (df_FastLog[vv] >= df_SigSel.loc[vv,"Min"]) & (df_FastLog[vv] <= df_SigSel.loc[vv,"Max"])
     else:
@@ -550,7 +553,7 @@ for vv in SigSelectionPts:
 
 st.write(df_SigSel)
 
-df_SigSel = st.experimental_data_editor(df_SigSel)
+
 
 sNbinsX = st.slider('Nbins en X', 50, 1000, 800)
 sNbinsY = st.slider('Nbins en Y', 50, 1000, 500)
