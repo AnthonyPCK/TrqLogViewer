@@ -519,7 +519,7 @@ SigSelectionPts = st.multiselect(
     'Selectionner des points sur les signaux :',
     df_FastLog.columns)
 st.write('The current number is ', SigSelectionPts)
-st.plotly_chart(px.line(df_FastLog[SigSelectionPts], x=df_FastLog.index, y=df_FastLog.columns), use_container_width=True)
+st.plotly_chart(px.line(df_FastLog, x=df_FastLog.index, y=SigSelectionPts), use_container_width=True)
 
     
 col1, col2 = st.columns(2)
@@ -574,6 +574,5 @@ fig200.update_layout(
     }
 )
 st.plotly_chart(fig200, use_container_width=True)
-
 
 
