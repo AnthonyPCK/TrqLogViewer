@@ -573,7 +573,7 @@ with col2:
     #
     #sSat = st.slider('Saturation couleur', 0.0001, 0.5, 0.2)
 
-if idx200 in locals:
+if "idx200" in locals:
     fig200 = px.density_heatmap(df_FastLog[idx200], x=HeatMap_X, y=HeatMap_Y, nbinsx=int(df_ParamFig.loc["Nbins en X"].Valeur), nbinsy=int(df_ParamFig.loc["Nbins en Y"].Valeur))
 else:
     fig200 = px.density_heatmap(df_FastLog, x=HeatMap_X, y=HeatMap_Y, nbinsx=int(df_ParamFig.loc["Nbins en X"].Valeur), nbinsy=int(df_ParamFig.loc["Nbins en Y"].Valeur))
@@ -627,7 +627,6 @@ st.plotly_chart(fig200, use_container_width=True)
 #            & (df_FastLog.ACCELERATOR >= sACCELERATOR[0]) & (df_FastLog.ACCELERATOR <= sACCELERATOR[1]) \
 #            & (df_FastLog.SOC >= sSOC[0]) & (df_FastLog.SOC <= sSOC[1]) \
 #            & (df_FastLog.PuissanceElec_kW >= sPuissanceElec_kW[0]) & (df_FastLog.PuissanceElec_kW <= sPuissanceElec_kW[1]) \
-
 
 
 
