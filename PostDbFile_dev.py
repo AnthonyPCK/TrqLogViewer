@@ -574,7 +574,7 @@ with col2:
     #sSat = st.slider('Saturation couleur', 0.0001, 0.5, 0.2)
 
 st.write(df_ParamFig.loc["Nbins en X"].Valeur)
-fig200 = px.density_heatmap(df_FastLog[idx200], x=HeatMap_X, y=HeatMap_Y, nbinsx=df_ParamFig.loc["Nbins en X"].Valeur, nbinsy=df_ParamFig.loc["Nbins en Y"].Valeur)
+fig200 = px.density_heatmap(df_FastLog[idx200], x=HeatMap_X, y=HeatMap_Y, nbinsx=int(df_ParamFig.loc["Nbins en X"].Valeur), nbinsy=int(df_ParamFig.loc["Nbins en Y"].Valeur))
 fig200.update_traces(histnorm = "percent")
 fig200.update_layout(
     {
