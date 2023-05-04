@@ -519,7 +519,8 @@ SigSelectionPts = st.multiselect(
     'Selectionner des points sur les signaux :',
     df_FastLog.columns)
 
-df_SigSel = pd.DataFrame(columns = SigSelectionPts)
+#df_SigSel = pd.DataFrame(columns = SigSelectionPts)
+df_SigSel = pd.DataFrame()
 st.write(df_SigSel)
 
 col1, col2, col3, col4 = st.columns(4)
