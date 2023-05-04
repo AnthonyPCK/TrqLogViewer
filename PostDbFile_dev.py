@@ -30,7 +30,8 @@ st.write(f"Memory used by Streamlit process: {mem_info.rss / 1024 / 1024:.2f} MB
 
 with Profiler():
     st.title("My app")
-
+    mem_info = process.memory_info()
+    st.write(f"Memory used by Streamlit process: {mem_info.rss / 1024 / 1024:.2f} MB")
 
     def numpy_nan_median(a):
         return np.NaN if np.all(a!=a) else np.nanmedian(a)
@@ -77,9 +78,13 @@ with Profiler():
         df_FastLog = df_FastLog.loc[df_FastLog["HV_V"] > 1]
         
         return df_FastLog, df_Trips, df_TripInfo
-
+    
+    mem_info = process.memory_info()
+    st.write(f"Memory used by Streamlit process: {mem_info.rss / 1024 / 1024:.2f} MB")
     df_FastLog, df_Trips, df_TripInfo = loadsqlite(uploaded_file)
-
+    mem_info = process.memory_info()
+    st.write(f"Memory used by Streamlit process: {mem_info.rss / 1024 / 1024:.2f} MB")
+    
     if uploaded_file is not None:
         optionVIN = st.selectbox(
         "On selectionne la voiture que l\'on souhaite",
