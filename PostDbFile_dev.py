@@ -522,32 +522,38 @@ SigSelectionPts = st.multiselect(
 
 df_SigSel = pd.DataFrame()
 
-col1, col2, col3, col4 = st.columns(4)
+#col1, col2, col3, col4 = st.columns(4)
+#
+#vvi=0
+#for vv in SigSelectionPts:
+#    vvi = vvi + 1
+#    
+#    if (vvi % 2)!=0:
+#        with col1:
+#            df_SigSel.loc[vv,"Min"] = st.number_input('Min/Max '+vv, value=20, key=1000+vvi)
+#        with col2:
+#            df_SigSel.loc[vv,"Max"] = st.number_input(' ', value=20, key=2000+vvi)
+#        
+#    if (vvi % 2)==0:
+#        with col3:
+#            df_SigSel.loc[vv,"Min"] = st.number_input('Min/Max '+vv, value=20, key=3000+vvi)
+#        with col4:
+#            df_SigSel.loc[vv,"Max"] = st.number_input(' ', value=20, key=4000+vvi)
+# 
+#st.write(df_SigSel) 
+
+col1, col2 = st.columns(4)
+with col1:
+    vvi=0
+    for vv in SigSelectionPts:
+        vvi = vvi + 1    
+        df_SigSel.loc[vv,"Min"] = 0 
+        df_SigSel.loc[vv,"Max"] = 100
+    df_SigSel = st.experimental_data_editor(df_SigSel)
 
 vvi=0
 for vv in SigSelectionPts:
     vvi = vvi + 1
-    
-    if (vvi % 2)!=0:
-        with col1:
-            df_SigSel.loc[vv,"Min"] = st.number_input('Min/Max '+vv, value=20, key=1000+vvi)
-        with col2:
-            df_SigSel.loc[vv,"Max"] = st.number_input(' ', value=20, key=2000+vvi)
-        
-    if (vvi % 2)==0:
-        with col3:
-            df_SigSel.loc[vv,"Min"] = st.number_input('Min/Max '+vv, value=20, key=3000+vvi)
-        with col4:
-            df_SigSel.loc[vv,"Max"] = st.number_input(' ', value=20, key=4000+vvi)
- 
-st.write(df_SigSel) 
-    
-df_SigSel = st.experimental_data_editor(df_SigSel)
-
-vvi=0
-for vv in SigSelectionPts:
-    vvi = vvi + 1
-    
     
     if (vvi==1):
         idx200 = (df_FastLog[vv] >= df_SigSel.loc[vv,"Min"]) & (df_FastLog[vv] <= df_SigSel.loc[vv,"Max"])
@@ -555,14 +561,11 @@ for vv in SigSelectionPts:
         idx200 = idx200 & (df_FastLog[vv] >= df_SigSel.loc[vv,"Min"]) & (df_FastLog[vv] <= df_SigSel.loc[vv,"Max"])
 
 
+with col2:
+    sNbinsX = st.slider('Nbins en X', 50, 1000, 800)
+    sNbinsY = st.slider('Nbins en Y', 50, 1000, 500)
 
-
-
-
-sNbinsX = st.slider('Nbins en X', 50, 1000, 800)
-sNbinsY = st.slider('Nbins en Y', 50, 1000, 500)
-
-sSat = st.slider('Saturation couleur', 0.0001, 0.5, 0.2)
+    sSat = st.slider('Saturation couleur', 0.0001, 0.5, 0.2)
 
 
 fig200 = px.density_heatmap(df_FastLog[idx200], x=HeatMap_X, y=HeatMap_Y, nbinsx=sNbinsX, nbinsy=sNbinsY)
@@ -615,6 +618,7 @@ st.plotly_chart(fig200, use_container_width=True)
 #            & (df_FastLog.ACCELERATOR >= sACCELERATOR[0]) & (df_FastLog.ACCELERATOR <= sACCELERATOR[1]) \
 #            & (df_FastLog.SOC >= sSOC[0]) & (df_FastLog.SOC <= sSOC[1]) \
 #            & (df_FastLog.PuissanceElec_kW >= sPuissanceElec_kW[0]) & (df_FastLog.PuissanceElec_kW <= sPuissanceElec_kW[1]) \
+
 
 
 
