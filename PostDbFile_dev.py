@@ -542,7 +542,7 @@ df_SigSel = pd.DataFrame()
 # 
 #st.write(df_SigSel) 
 
-col1, col2 = st.columns(4)
+col1, col2 = st.columns(2)
 with col1:
     vvi=0
     for vv in SigSelectionPts:
@@ -618,7 +618,6 @@ st.plotly_chart(fig200, use_container_width=True)
 #            & (df_FastLog.ACCELERATOR >= sACCELERATOR[0]) & (df_FastLog.ACCELERATOR <= sACCELERATOR[1]) \
 #            & (df_FastLog.SOC >= sSOC[0]) & (df_FastLog.SOC <= sSOC[1]) \
 #            & (df_FastLog.PuissanceElec_kW >= sPuissanceElec_kW[0]) & (df_FastLog.PuissanceElec_kW <= sPuissanceElec_kW[1]) \
-
 
 
 
