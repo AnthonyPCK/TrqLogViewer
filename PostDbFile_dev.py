@@ -530,16 +530,16 @@ for vv in SigSelectionPts:
     vvi = vvi + 1
     with col1:
         if (vvi % 2)!=0:
-            df_SigSel.loc[vv,"Min"] = st.number_input('Min/Max '+vv, value=20)
+            df_SigSel.loc[vv,"Min"] = st.number_input('Min/Max '+vv, value=20, key=1000+vvi)
     with col2:
         if (vvi % 2)!=0:
-            df_SigSel.loc[vv,"Max"] = st.number_input(' ', value=20)
+            df_SigSel.loc[vv,"Max"] = st.number_input(' ', value=20, key=1000+vvi)
     with col3:
         if (vvi % 2)==0:
-            df_SigSel.loc[vv,"Min"] = st.number_input('Min/Max '+vv, value=20)
+            df_SigSel.loc[vv,"Min"] = st.number_input('Min/Max '+vv, value=20, key=1000+vvi)
     with col4:
         if (vvi % 2)==0:
-            df_SigSel.loc[vv,"Max"] = st.number_input(' ', value=20)
+            df_SigSel.loc[vv,"Max"] = st.number_input(' ', value=20, key=1000+vvi)
     
     st.write(vv)
 
