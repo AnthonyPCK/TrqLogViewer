@@ -22,6 +22,12 @@ from scipy.optimize import least_squares
 import psutil
 from streamlit_profiler import Profiler
 
+process = psutil.Process()
+pid = process.pid
+
+mem_info = process.memory_info()
+st.write(f"Memory used by Streamlit process: {mem_info.rss / 1024 / 1024:.2f} MB")
+
 with Profiler():
     st.title("My app")
 
