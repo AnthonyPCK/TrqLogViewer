@@ -2,3 +2,5 @@ scipy
 matplotlib
 plotly
 yfinance
+streamlit_profiler
+streamlit-profiler
